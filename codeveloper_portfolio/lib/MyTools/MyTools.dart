@@ -62,6 +62,63 @@ class _CMakerState extends State<CMaker> {
   }
 }
 
+class ACMaker extends StatefulWidget {
+  ACMaker(
+      {super.key,
+      this.child,
+      this.height,
+      this.width,
+      this.boxShadow,
+      this.border,
+      this.BackGroundimage,
+      this.margin,
+      this.padding,
+      this.alignment,
+      this.color,
+      this.gradient,
+      this.circularRadius,
+      this.duration});
+  Color? color;
+  Duration? duration;
+  double? height;
+  double? width;
+  AlignmentGeometry? alignment;
+  EdgeInsetsGeometry? padding;
+  EdgeInsetsGeometry? margin;
+  DecorationImage? BackGroundimage;
+  List<BoxShadow>? boxShadow;
+  Gradient? gradient;
+  BoxBorder? border;
+  double? circularRadius;
+  Widget? child;
+  @override
+  State<ACMaker> createState() => _ACMakerState();
+}
+
+class _ACMakerState extends State<ACMaker> {
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: widget.duration ?? Duration(milliseconds: 300),
+      alignment: widget.alignment,
+      padding: widget.padding,
+      margin: widget.margin,
+      decoration: BoxDecoration(
+          gradient: widget.gradient,
+          image: widget.BackGroundimage,
+          border: widget.border,
+          color: widget.color,
+          boxShadow: widget.boxShadow,
+          borderRadius: BorderRadius.circular(
+            widget.circularRadius ?? 0,
+          )),
+      height: widget.height,
+      width: widget.width,
+      child: widget.child,
+    );
+  }
+}
+
 //----------------------------------------------------------
 
 //===========================================
@@ -1303,33 +1360,72 @@ class _SplashViewPageState extends State<SplashViewPage>
 //----------------------------------------------------------
 
 class NavBar extends StatefulWidget {
-  NavBar(
-      {super.key,
-      required this.pages,
-      required this.iconsList,
-      this.orientation,
-      required this.height,
-      required this.width,
-      this.barColor,
-      this.selectedBackgeoundIconColor,
-      this.pageBackgroundColor,
-      this.unselectedBackgeoundIconColor,
-      this.iconFrameHeight,
-      this.iconFrameWidth,
-      this.iconFramePadding,
-      this.BackgroundImage,
-      this.BarShadow});
+  NavBar({
+    super.key,
+    required this.pages,
+    required this.iconsList,
+    this.orientation,
+    required this.height,
+    required this.width,
+    this.barColor,
+    this.selectedContainerColor,
+    this.pageBackgroundColor,
+    this.unselectedContainerColor,
+    this.SelectionContainerHeight,
+    this.unSelectionContainerHeight,
+    this.SelectionContainerWidth,
+    this.unSelectionContainerWidth,
+    this.SelectionContainerPadding,
+    this.unSelectionContainerPadding,
+    this.BackgroundImage,
+    this.BarShadow,
+    this.BarBorder,
+    this.BarCircularRadius,
+    this.BarGradient,
+    this.SelectedContainerBorder,
+    this.unSelectedContainerBorder,
+    this.SelectionContainerCircularRadius,
+    this.unSelectionContainerCircularRadius,
+    this.SelectionContainerGradient,
+    this.unSelectionContainerGradient,
+    this.onPageChange,
+    this.ScrollDuration,
+    this.SelectionContainerAnimationDuration,
+    this.NavBarPositionBottom,
+    this.NavBarPositionLeft,
+    this.NavBarPositionRight,
+    this.NavBarPositionTop,
+  });
   List<Widget> pages;
   List<Widget> iconsList;
   String? orientation;
+  Function(int index)? onPageChange;
   double height;
   double width;
-  double? iconFrameHeight;
-  double? iconFrameWidth;
-  double? iconFramePadding;
+  double? NavBarPositionTop;
+  double? NavBarPositionBottom;
+  double? NavBarPositionLeft;
+  double? NavBarPositionRight;
+  double? SelectionContainerHeight;
+  double? unSelectionContainerHeight;
+  Duration? SelectionContainerAnimationDuration;
+  double? SelectionContainerWidth;
+  double? unSelectionContainerWidth;
+  double? SelectionContainerPadding;
+  double? unSelectionContainerPadding;
+  double? SelectionContainerCircularRadius;
+  double? unSelectionContainerCircularRadius;
+  double? BarCircularRadius;
+  BoxBorder? SelectedContainerBorder;
+  BoxBorder? unSelectedContainerBorder;
+  Gradient? SelectionContainerGradient;
+  Gradient? unSelectionContainerGradient;
+  BoxBorder? BarBorder;
+  Gradient? BarGradient;
+  Duration? ScrollDuration;
   Color? barColor;
-  Color? selectedBackgeoundIconColor;
-  Color? unselectedBackgeoundIconColor;
+  Color? selectedContainerColor;
+  Color? unselectedContainerColor;
   Color? pageBackgroundColor;
   Widget? BackgroundImage;
   List<BoxShadow>? BarShadow;
@@ -1339,10 +1435,22 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int PageIndex = 0;
+  PageController? _pageController;
   @override
-  PageController _pageController = PageController(
-    initialPage: 0,
-  );
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: 0,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController!.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     late Widget BarBody;
     if (widget.orientation == "H") {
@@ -1350,7 +1458,7 @@ class _NavBarState extends State<NavBar> {
         children: [
           CMaker(
               height: double.infinity,
-              color: widget.pageBackgroundColor ?? Colors.white,
+              color: widget.pageBackgroundColor ?? Colors.transparent,
               width: double.infinity,
               child: Stack(
                 children: [
@@ -1362,6 +1470,7 @@ class _NavBarState extends State<NavBar> {
                       : Container(),
                   PageView(
                     onPageChanged: (value) {
+                      widget.onPageChange!(value);
                       setState(() {
                         PageIndex = value;
                       });
@@ -1372,70 +1481,96 @@ class _NavBarState extends State<NavBar> {
                 ],
               )),
           Positioned(
-            top: (PageHeight(context) - widget.height) / 2,
-            left: 20,
+            top: widget.NavBarPositionTop,
+            left: widget.NavBarPositionLeft,
+            bottom: widget.NavBarPositionBottom,
+            right: widget.NavBarPositionRight,
             child: CMaker(
-              circularRadius: 20,
+              boxShadow: widget.BarShadow,
+              circularRadius: widget.BarCircularRadius ?? 20,
+              border: widget.BarBorder,
+              alignment: Alignment.center,
+              gradient: widget.BarGradient,
               color: widget.barColor ?? Colors.white,
               height: widget.height,
               width: widget.width,
-              child: Column(
-                children: [
-                  Container(
-                    height: (widget.height -
-                            (widget.iconsList.length *
-                                (widget.iconFrameHeight ?? 60))) /
-                        (widget.iconsList.length + 1),
-                  ),
-                  CMaker(
-                    boxShadow: widget.BarShadow,
-                    height: widget.height -
-                        (widget.height -
-                                (widget.iconsList.length *
-                                    (widget.iconFrameHeight ?? 60))) /
-                            (widget.iconsList.length + 1),
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: false,
-                      itemCount: widget.iconsList.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                _pageController.animateToPage(index,
-                                    curve: Curves.linear,
-                                    duration: Duration(milliseconds: 200));
-                              },
-                              child: CMaker(
-                                  alignment: Alignment.center,
-                                  child: CMaker(
-                                      padding: EdgeInsets.all(
-                                          widget.iconFramePadding ?? 0),
-                                      alignment: Alignment.center,
-                                      height: widget.iconFrameHeight ?? 60,
-                                      width: widget.iconFrameWidth ?? 60,
-                                      circularRadius: 15,
-                                      color: (PageIndex == index)
-                                          ? widget.selectedBackgeoundIconColor ??
-                                              Color.fromARGB(255, 0, 0, 0)
-                                          : widget.unselectedBackgeoundIconColor ??
-                                              Colors.transparent,
-                                      child: widget.iconsList[index])),
-                            ),
-                            Container(
-                              height: (widget.height -
-                                      (widget.iconsList.length *
-                                          (widget.iconFrameHeight ?? 60))) /
-                                  (widget.iconsList.length + 1),
-                            )
-                          ],
-                        );
-                      },
+              child: Container(
+                width: widget.SelectionContainerWidth,
+                child: Column(
+                  children: [
+                    Container(
+                      height: (widget.height -
+                              (widget.iconsList.length *
+                                  (widget.SelectionContainerHeight ?? 60))) /
+                          (widget.iconsList.length + 1),
                     ),
-                  ),
-                ],
+                    CMaker(
+                      boxShadow: widget.BarShadow,
+                      height: widget.height -
+                          (widget.height -
+                                  (widget.iconsList.length *
+                                      (widget.SelectionContainerHeight ??
+                                          60))) /
+                              (widget.iconsList.length + 1),
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: false,
+                        itemCount: widget.iconsList.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  _pageController!.animateToPage(index,
+                                      curve: Curves.linear,
+                                      duration: widget.ScrollDuration ??
+                                          Duration(milliseconds: 200));
+                                },
+                                child: CMaker(
+                                    alignment: Alignment.center,
+                                    child: ACMaker(
+                                        duration: widget
+                                            .SelectionContainerAnimationDuration,
+                                        padding: EdgeInsets.all(
+                                            widget.SelectionContainerPadding ??
+                                                0),
+                                        alignment: Alignment.center,
+                                        height: widget.SelectionContainerHeight ??
+                                            60,
+                                        width: widget.SelectionContainerWidth ??
+                                            60,
+                                        circularRadius:
+                                            widget.SelectionContainerCircularRadius ??
+                                                15,
+                                        border: (PageIndex == index)
+                                            ? widget.SelectedContainerBorder ??
+                                                null
+                                            : widget.unSelectedContainerBorder ??
+                                                null,
+                                        gradient:
+                                            widget.SelectionContainerGradient,
+                                        color: (PageIndex == index)
+                                            ? widget.selectedContainerColor ??
+                                                Color.fromARGB(255, 0, 0, 0)
+                                            : widget.unselectedContainerColor ??
+                                                Colors.transparent,
+                                        child: widget.iconsList[index])),
+                              ),
+                              Container(
+                                height: (widget.height -
+                                        (widget.iconsList.length *
+                                            (widget.SelectionContainerHeight ??
+                                                60))) /
+                                    (widget.iconsList.length + 1),
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -1446,7 +1581,7 @@ class _NavBarState extends State<NavBar> {
         children: [
           CMaker(
               height: double.infinity,
-              color: widget.pageBackgroundColor ?? Colors.white,
+              color: widget.pageBackgroundColor ?? Colors.transparent,
               width: double.infinity,
               child: Stack(
                 children: [
@@ -1458,6 +1593,7 @@ class _NavBarState extends State<NavBar> {
                       : Container(),
                   PageView(
                     onPageChanged: (value) {
+                      widget.onPageChange!(value);
                       setState(() {
                         PageIndex = value;
                       });
@@ -1468,78 +1604,101 @@ class _NavBarState extends State<NavBar> {
                 ],
               )),
           Positioned(
-            left: (PageWidth(context) - widget.width) / 2,
-            bottom: 20,
-            child: CMaker(
-              boxShadow: widget.BarShadow,
-              circularRadius: 20,
-              color: widget.barColor ?? Colors.white,
-              height: widget.height,
-              width: widget.width,
-              child: Row(
-                children: [
-                  Container(
-                    width: (widget.width -
-                            (widget.iconsList.length *
-                                (widget.iconFrameWidth ?? 60))) /
-                        (widget.iconsList.length + 1),
-                  ),
-                  CMaker(
-                    width: widget.width -
-                        (widget.width -
+              top: widget.NavBarPositionTop,
+              left: widget.NavBarPositionLeft,
+              bottom: widget.NavBarPositionBottom,
+              right: widget.NavBarPositionRight,
+              child: CMaker(
+                boxShadow: widget.BarShadow,
+                circularRadius: widget.BarCircularRadius ?? 20,
+                border: widget.BarBorder,
+                alignment: Alignment.center,
+                gradient: widget.BarGradient,
+                color: widget.barColor ?? Colors.white,
+                height: widget.height,
+                width: widget.width,
+                child: Container(
+                  height: widget.SelectionContainerHeight,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: (widget.width -
                                 (widget.iconsList.length *
-                                    (widget.iconFrameWidth ?? 60))) /
+                                    (widget.SelectionContainerWidth ?? 60))) /
                             (widget.iconsList.length + 1),
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: false,
-                      itemCount: widget.iconsList.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                PageIndex = index;
-                                _pageController.animateToPage(index,
-                                    curve: Curves.linear,
-                                    duration: Duration(milliseconds: 200));
-                              },
-                              child: CMaker(
-                                  alignment: Alignment.center,
+                      ),
+                      CMaker(
+                        width: widget.width -
+                            (widget.width -
+                                    (widget.iconsList.length *
+                                        (widget.SelectionContainerWidth ??
+                                            60))) /
+                                (widget.iconsList.length + 1),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: false,
+                          itemCount: widget.iconsList.length,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    PageIndex = index;
+                                    _pageController!.animateToPage(index,
+                                        curve: Curves.linear,
+                                        duration: Duration(milliseconds: 200));
+                                  },
                                   child: CMaker(
-                                      padding: EdgeInsets.all(
-                                          widget.iconFramePadding ?? 0),
                                       alignment: Alignment.center,
-                                      height: widget.iconFrameHeight ?? 60,
-                                      width: widget.iconFrameWidth ?? 60,
-                                      circularRadius: 15,
-                                      color: (PageIndex == index)
-                                          ? widget.selectedBackgeoundIconColor ??
-                                              Color.fromARGB(255, 0, 0, 0)
-                                          : widget.unselectedBackgeoundIconColor ??
-                                              Colors.transparent,
-                                      child: widget.iconsList[index])),
-                            ),
-                            Container(
-                              width: (widget.width -
-                                      (widget.iconsList.length *
-                                          (widget.iconFrameWidth ?? 60))) /
-                                  (widget.iconsList.length + 1),
-                            )
-                          ],
-                        );
-                      },
-                    ),
+                                      child: ACMaker(
+                                          duration: widget
+                                              .SelectionContainerAnimationDuration,
+                                          padding: EdgeInsets.all(
+                                              widget.SelectionContainerPadding ??
+                                                  0),
+                                          alignment: Alignment.center,
+                                          height:
+                                              widget.SelectionContainerHeight ??
+                                                  60,
+                                          width: widget.SelectionContainerWidth ??
+                                              60,
+                                          circularRadius: widget.SelectionContainerCircularRadius ??
+                                              15,
+                                          border: (PageIndex == index)
+                                              ? widget.SelectedContainerBorder ??
+                                                  null
+                                              : widget.unSelectedContainerBorder ??
+                                                  null,
+                                          gradient:
+                                              widget.SelectionContainerGradient,
+                                          color: (PageIndex == index)
+                                              ? widget.selectedContainerColor ??
+                                                  Color.fromARGB(255, 0, 0, 0)
+                                              : widget.unselectedContainerColor ??
+                                                  Colors.transparent,
+                                          child: widget.iconsList[index])),
+                                ),
+                                Container(
+                                  width: (widget.width -
+                                          (widget.iconsList.length *
+                                              (widget.SelectionContainerWidth ??
+                                                  60))) /
+                                      (widget.iconsList.length + 1),
+                                )
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          ),
+                ),
+              )),
         ],
       );
     }
-    return Scaffold(body: BarBody);
+    return BarBody;
   }
 }
 
