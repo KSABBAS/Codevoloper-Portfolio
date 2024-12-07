@@ -1,4 +1,5 @@
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
+import 'package:codeveloper_portfolio/View/Pages/PageOne/Contents/FrontLayer.dart';
 import 'package:codeveloper_portfolio/View/Pages/PageOne/Contents/WhiteBorderContainerLayer.dart';
 import 'package:codeveloper_portfolio/View/Pages/PageOne/Contents/YellowhalfBorderContainerLayer.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,8 @@ class _PageOneState extends State<PageOne> {
       child: Stack(
         children: [
           YellowHalfBorderContainerLayer(),
-          WhiteBorderContainerLayer()
+          WhiteBorderContainerLayer(),
+          FrontLayer()
         ],
       ),
     );

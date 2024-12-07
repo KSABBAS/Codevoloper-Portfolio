@@ -1,3 +1,4 @@
+import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:flutter/material.dart';
 class YellowHalfBorderContainerLayer extends StatelessWidget {
@@ -17,23 +18,23 @@ class YellowHalfBorderContainerLayer extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    const Color.fromARGB(255, 210, 191, 35),
-                    const Color.fromARGB(255, 210, 191, 35),
-                    const Color.fromARGB(255, 29, 29, 32),
-                    const Color.fromARGB(255, 29, 29, 32),
-                    const Color.fromARGB(255, 29, 29, 32),
-                    const Color.fromARGB(255, 29, 29, 32),
+                    UsedColors.yellow,
+                    UsedColors.yellow,
+                    UsedColors.background,
+                    UsedColors.background,
+                    UsedColors.background,
+                    UsedColors.background,
                   ]),
               alignment: Alignment.center,
               border: Border(
                   bottom: BorderSide(
-                      color: const Color.fromARGB(255, 29, 29, 32), width: 7),
+                      color: UsedColors.background, width: 7),
                   right: BorderSide(
-                      color: const Color.fromARGB(255, 29, 29, 32), width: 7)),
+                      color: UsedColors.background, width: 7)),
               child: CMaker(
                 height: 410,
                 width: 410,
-                color: const Color.fromARGB(255, 29, 29, 32),
+                color: UsedColors.background,
               ),
             ),
           );

@@ -1,3 +1,4 @@
+import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:codeveloper_portfolio/View/Pages/ContactUs/ContactUs.dart';
 import 'package:codeveloper_portfolio/View/Pages/MembersPage/MembersPage.dart';
@@ -24,19 +25,18 @@ class _HomeState extends State<Home> {
           height: double.infinity,
           width: double.infinity,
           alignment: (currentPageIndex==0)?Alignment.centerRight:Alignment.centerLeft,
-          color: const Color.fromARGB(255, 29, 29, 32),
+          color: UsedColors.background,
           child: CMaker(
-            color:const Color.fromARGB(255, 210, 191, 35),
+            color: UsedColors.yellow,
             height: double.infinity,
-            width: 300,
+            width: 438,
           ),
         ),
         NavBar(
               NavBarPositionTop: 20,
-              NavBarPositionRight: 40,
+              NavBarPositionRight: 84,
               SelectionContainerAnimationDuration: Duration(milliseconds: 200),
               ScrollDuration: Duration(seconds: 20),
-              pageBackgroundColor: Colors.transparent,
               BarCircularRadius: 30,
               SelectionContainerHeight: 30,
               SelectionContainerWidth: 30,
@@ -46,17 +46,17 @@ class _HomeState extends State<Home> {
               pages: [PageOne(), MembersPage(), ProjectsPage(), ContactUsPage()],
               onPageChange: (index) {
                 currentPageIndex = index;
-                setState(() {
-                });
+                setState(() {});
               },
-              barColor: const Color.fromARGB(255, 77, 77, 77),
+              barColor: UsedColors.Gray,
               iconsList: [
                 Icon(Icons.home),
                 Icon(Icons.people),
                 Icon(Icons.person),
+                Icon(Icons.person),
               ],
               height: 40,
-              width: 200),
+              width: 270),
       ],
     );
   }
