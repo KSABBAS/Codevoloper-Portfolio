@@ -1,3 +1,4 @@
+import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:flutter/material.dart';
 class WhiteBorderContainerLayer extends StatelessWidget {
@@ -7,12 +8,12 @@ class WhiteBorderContainerLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CMaker(
             alignment: Alignment.topLeft,
-            padding: EdgeInsets.only(top: 300,left: 120),
+            padding: EdgeInsets.only(top:ResponsiveHeight(context, 300),left:ResponsiveHeight(context, 120)),
             height: double.infinity,
             width: double.infinity,
             child: CMaker(
-              height: 350,
-              width: 450,
+              height:ResponsiveHeight(context,350),
+              width: ResponsiveWidth(context,450),
               border: Border.all(color: Colors.white,width: 4),
           ));
   }

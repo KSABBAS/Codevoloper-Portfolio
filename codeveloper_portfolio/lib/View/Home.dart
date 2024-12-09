@@ -1,4 +1,5 @@
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
+import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:codeveloper_portfolio/View/Pages/ContactUs/ContactUs.dart';
 import 'package:codeveloper_portfolio/View/Pages/MembersPage/MembersPage.dart';
@@ -29,7 +30,7 @@ class _HomeState extends State<Home> {
           child: CMaker(
             color: UsedColors.yellow,
             height: double.infinity,
-            width: 438,
+            width:ResponsiveWidth(context,438),
           ),
         ),
         NavBar(
@@ -55,8 +56,8 @@ class _HomeState extends State<Home> {
                 Icon(Icons.person),
                 Icon(Icons.person),
               ],
-              height: 40,
-              width: 270),
+              height:ResponsiveHeight(context, 40),
+              width:ResponsiveWidth(context,  270)),
       ],
     );
   }
