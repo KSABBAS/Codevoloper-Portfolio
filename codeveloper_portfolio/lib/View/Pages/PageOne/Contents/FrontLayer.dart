@@ -20,35 +20,33 @@ class FrontLayer extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.only(
-                      top:ResponsiveHeight(context, 80) ,
+                      top:ResponsiveHeight(context, 100) ,
                       right:ResponsiveWidth(context, 160),
                     ),
                     child: Text(
                       textAlign: TextAlign.center,
                       "Welcome to ",
                       style: TextStyle(
-                          fontSize: ResponsiveFontSizeByWidth(context,60),
+                          fontSize: ResponsiveFontSizeByHeight(context,50),
                           fontWeight: FontWeight.w100,
                           color: Colors.white),
                     ),
-                    height:ResponsiveHeight(context,ResponsiveHeight(context, 65)),
                   ),
                   Container(
-                    height:ResponsiveHeight(context, 69),
                     child: Container(
                       margin: EdgeInsets.only(right:ResponsiveWidth(context,117)),
                       child: Text(
                         textAlign: TextAlign.start,
                         "codeveloper ",
                         style: TextStyle(
-                            fontSize: ResponsiveFontSizeByWidth(context,60),
+                            fontSize: ResponsiveFontSizeByHeight(context,50),
                             fontWeight: FontWeight.w300,
                             color: Colors.yellow),
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top:ResponsiveHeight(context, 40), left:ResponsiveWidth(context,60)),
+                    margin: EdgeInsets.only(top:ResponsiveHeight(context, 70), left:ResponsiveWidth(context,60)),
                     width:ResponsiveWidth(context, 450),
                     height:ResponsiveHeight(context, 350),
                     color: const Color(0xFF333333),
@@ -66,7 +64,7 @@ class FrontLayer extends StatelessWidget {
                                 ],
                                 stops: [0.1, 0.6, 1.0],
                               ),),
-                          margin: EdgeInsets.only(left:ResponsiveWidth(context,30),top:ResponsiveHeight(context,20)),
+                          margin: EdgeInsets.only(left:ResponsiveWidth(context,30),top:ResponsiveHeight(context,35),bottom:ResponsiveHeight(context,35) ),
                           width:ResponsiveWidth(context, 7),
                           height:ResponsiveHeight(context, 280),
                       ),
@@ -74,13 +72,14 @@ class FrontLayer extends StatelessWidget {
                         Container(
                             child: Column(
                           children: [
+                            Spacer(),
                             Container(
                               margin: EdgeInsets.only(
-                                  top:ResponsiveHeight(context,50), bottom:ResponsiveHeight(context, 20), right:ResponsiveWidth(context,50)),
+                                  top:ResponsiveHeight(context,10), bottom:ResponsiveHeight(context, 20), right:ResponsiveWidth(context,50)),
                               child: Text(
                                 "Mobile Application",
                                 style: TextStyle(
-                                    fontSize:ResponsiveFontSizeByWidth(context,30), color: Colors.white),
+                                    fontSize:ResponsiveFontSizeByHeight(context,30), color: Colors.white),
                               ),
                             ),
                             Container(
@@ -90,7 +89,7 @@ class FrontLayer extends StatelessWidget {
                               child: Text(
                                 "Desktop Application",
                                 style: TextStyle(
-                                    fontSize:ResponsiveFontSizeByWidth(context, 30), color: Colors.white),
+                                    fontSize:ResponsiveFontSizeByHeight(context, 30), color: Colors.white),
                               ),
                             ),
                             Container(
@@ -99,7 +98,7 @@ class FrontLayer extends StatelessWidget {
                               child: Text(
                                 "Website Development",
                                 style: TextStyle(
-                                    fontSize:ResponsiveFontSizeByWidth(context,30), color: Colors.white),
+                                    fontSize:ResponsiveFontSizeByHeight(context,30), color: Colors.white),
                               ),
                             ),
                             Container(
@@ -107,9 +106,10 @@ class FrontLayer extends StatelessWidget {
                               child: Text(
                                 "Database Maintenance",
                                 style: TextStyle(
-                                    fontSize:ResponsiveFontSizeByWidth(context,30), color: Colors.white),
+                                    fontSize:ResponsiveFontSizeByHeight(context,30), color: Colors.white),
                               ),
                             ),
+                            Spacer(),
                           ],
                         ))
                       ],
@@ -118,14 +118,14 @@ class FrontLayer extends StatelessWidget {
                 ],
               ),
             ),
-            PMaker(horizontal: 90,),
+            PMaker(horizontal:ResponsiveWidth(context,90),),
             Expanded(
               child: Container(
                 height:ResponsiveHeight(context, 800),
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 270,right: 240),
+                      margin: EdgeInsets.only(top:ResponsiveHeight(context,270),right:ResponsiveWidth(context,240)),
                       child: Text(
                         "CODE",
                         style: TextStyle(
@@ -158,36 +158,21 @@ class FrontLayer extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(left:ResponsiveWidth(context, 400),top:ResponsiveHeight(context,170)),
                       width:ResponsiveWidth(context, 400),
-                      height:ResponsiveHeight(context, 100),
+                      height:ResponsiveHeight(context, 110),
                         child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                            height:ResponsiveHeight(context, 90),
-                          width:ResponsiveWidth(context, 90),
-                            padding: EdgeInsets.all(20),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
+                            height:ResponsiveHeight(context, 60),
                               child: Image.asset("images/tiktok.png"),
-                            ),
                           ),
                           Container(
-                            height:ResponsiveHeight(context, 90),
-                          width:ResponsiveWidth(context, 90),
-                            padding: EdgeInsets.all(20),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
+                            height:ResponsiveHeight(context, 60),
                               child: Image.asset("images/instagram.png"),
-                            ),
                           ),
                           Container(
-                            height:ResponsiveHeight(context, 90),
-                          width:ResponsiveWidth(context, 90),
-                            padding: EdgeInsets.all(20),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
+                            height:ResponsiveHeight(context, 60),
                               child: Image.asset("images/facebook-circular-logo.png"),
-                            ),
                           ),
                         ],
                       ),

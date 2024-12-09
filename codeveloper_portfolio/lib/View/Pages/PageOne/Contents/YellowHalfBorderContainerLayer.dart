@@ -9,7 +9,7 @@ class YellowHalfBorderContainerLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CMaker(
             alignment: Alignment.topLeft,
-            padding: EdgeInsets.only(top: 50,left: 50),
+            padding: EdgeInsets.only(top:ResponsiveHeight(context,50),left:ResponsiveWidth(context,50)),
             height: double.infinity,
             width: double.infinity,
             child: CMaker(

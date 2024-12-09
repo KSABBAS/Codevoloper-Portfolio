@@ -8,7 +8,7 @@ class WhiteBorderContainerLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CMaker(
             alignment: Alignment.topLeft,
-            padding: EdgeInsets.only(top:ResponsiveHeight(context, 300),left:ResponsiveHeight(context, 120)),
+            padding: EdgeInsets.only(top:ResponsiveHeight(context, 350),left:ResponsiveWidth(context, 120)),
             height: double.infinity,
             width: double.infinity,
             child: CMaker(
