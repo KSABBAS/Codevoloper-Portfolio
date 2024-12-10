@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class ProjectsPage extends StatefulWidget {
   const ProjectsPage({super.key});
 
@@ -9,6 +10,17 @@ class ProjectsPage extends StatefulWidget {
 class _ProjectsPageState extends State<ProjectsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+      
   }
 }
