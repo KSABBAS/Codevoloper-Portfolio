@@ -1,7 +1,6 @@
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
-import 'package:codeveloper_portfolio/View/Pages/ContactUs/ContactUs.dart';
 import 'package:codeveloper_portfolio/View/Pages/MembersPage/MembersPage.dart';
 import 'package:codeveloper_portfolio/View/Pages/PageOne/PageOne.dart';
 import 'package:codeveloper_portfolio/View/Pages/ProjectsPage/ProjectsPage.dart';
@@ -44,7 +43,7 @@ class _HomeState extends State<Home> {
               selectedContainerColor: Colors.transparent,
               SelectedContainerBorder: Border.all(color: Colors.white),
               SelectionContainerCircularRadius: 50,
-              pages: [PageOne(), MembersPage(), ProjectsPage(), ContactUsPage()],
+              pages: [PageOne(), MembersPage(), ProjectsPage()],
               onPageChange: (index) {
                 currentPageIndex = index;
                 setState(() {});
@@ -53,7 +52,6 @@ class _HomeState extends State<Home> {
               iconsList: [
                 Icon(Icons.home,size: ResponsiveHeight(context, 25),),
                 Icon(Icons.people,size: ResponsiveHeight(context, 25),),
-                Icon(Icons.person,size: ResponsiveHeight(context, 25),),
                 Icon(Icons.person,size: ResponsiveHeight(context, 25),),
               ],
               height:ResponsiveHeight(context, 40),
