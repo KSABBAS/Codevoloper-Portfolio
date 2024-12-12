@@ -10,7 +10,7 @@ void main() async {
   MemberClass.setMembers([
     [
       'https://i5.walmartimages.com/seo/Eversweet-Everbearing-Strawberry-25-Bare-Root-Plants-Super-Sweet_fc6dadf1-3f9d-45c0-bcde-e736b3cbc2fc_1.1600be416b58c7d60fad696446dec0c5.jpeg',
-      'Mohammed Hosni',
+      'Mohammed Hosny',
       'Database'
     ],
     [
@@ -35,7 +35,7 @@ void main() async {
     ],
     [
       'https://i5.walmartimages.com/seo/Eversweet-Everbearing-Strawberry-25-Bare-Root-Plants-Super-Sweet_fc6dadf1-3f9d-45c0-bcde-e736b3cbc2fc_1.1600be416b58c7d60fad696446dec0c5.jpeg',
-      '3ahd',
+      'Ahd Alsaeed',
       'Ui'
     ],
     [
@@ -50,7 +50,7 @@ void main() async {
     ],
     [
       'https://i5.walmartimages.com/seo/Eversweet-Everbearing-Strawberry-25-Bare-Root-Plants-Super-Sweet_fc6dadf1-3f9d-45c0-bcde-e736b3cbc2fc_1.1600be416b58c7d60fad696446dec0c5.jpeg',
-      'Sama 3amr',
+      'Sama Amr',
       'Ui'
     ]
   ]);
@@ -92,9 +92,9 @@ void main() async {
   ]);
   ContactClass.setContacts(
     {
-      'WatsApp': '+201065866283',
-      'Linkedin':'+https://www.linkedin.com/in/%D9%83%D9%8A%D9%85%D9%88-kemo-828034191/',
-      'Facebook': 'https://www.facebook.com',
+      'watsApp': '+201065866283',
+      'linkedin':'+https://www.linkedin.com/in/%D9%83%D9%8A%D9%85%D9%88-kemo-828034191/',
+      'facebook': 'https://www.facebook.com',
       'instagram': 'https://www.instagram.com',
       'tiktok': 'https://www.tiktok.com',
     }

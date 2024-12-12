@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/Data/membersData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
@@ -10,6 +12,9 @@ class MembersPage extends StatefulWidget {
   @override
   State<MembersPage> createState() => _MembersPageState();
 }
+
+bool isHovered = false;
+int? selectedToHover = null;
 
 class _MembersPageState extends State<MembersPage> {
   @override
@@ -106,7 +111,6 @@ class _MembersPageState extends State<MembersPage> {
             ),
           ),
           CMaker(
-            color: UsedColors.background,
             height: PageHeight(context),
             width: ResponsiveWidth(context, 1098),
             child: Column(
@@ -170,35 +174,91 @@ class _MembersPageState extends State<MembersPage> {
                       children: [
                         Padding(
                             padding: EdgeInsets.only(
-                                top: ResponsiveHeight(context, 20,
-                                   ))),
+                                top: ResponsiveHeight(
+                          context,
+                          20,
+                        ))),
                         Container(
-                          width: ResponsiveWidth(context, 1036,
-                             ),
-                          height: ResponsiveHeight(context, 300,
-                             ),
+                          width: ResponsiveWidth(
+                            context,
+                            1036,
+                          ),
+                          height: ResponsiveHeight(
+                            context,
+                            300,
+                          ),
                           color: const Color.fromARGB(115, 46, 46, 46),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: MemberClass.getMemberList().length,
                             itemBuilder: (context, index) {
-                              return  InkWell(
-                                onTap: () {
-                                  print("name : ${MemberClass.getMemberList()[index][1]}");
-                                  print("name : ${MemberClass.getMemberList()[index][2]}");
+                              return InkWell(
+                                onTap: () {},
+                                onHover: (value) {
+                                  selectedToHover = index;
+                                    setState(() {
+                                    });
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only( left:(index==0)?20:10 ,right: (index==19)?20:10 ),
-                                  child:ClipRRect(
-                                borderRadius: BorderRadius.circular(20.0),
-                                child:Image.network(
-                                      MemberClass.getMemberList()[index][0],
-                                      fit: BoxFit.cover,
-                                    ),) ,
-                                  height: ResponsiveHeight(context, 300,
-                                     ),
-                                  width: ResponsiveWidth(context, 200,
-                                     ),
+                                  margin: EdgeInsets.only(
+                                    left: (index == 0) ? 20 : 10,
+                                    right: (index == 19) ? 20 : 10,
+                                  ),
+                                  height: ResponsiveHeight(context, 300),
+                                  width: ResponsiveWidth(context, 250),
+                                  child: Stack(
+                                    children: [
+                                      CMaker(
+                                        circularRadius: 20,
+                                        height: ResponsiveHeight(context, 300),
+                                        width: ResponsiveWidth(context, 250),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          child: Image.network(
+                                            MemberClass.getMemberList()[index]
+                                                [0],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      if (index == selectedToHover)
+                                        CMaker(
+                                          padding: EdgeInsets.symmetric(vertical: ResponsiveHeight(context, 20), horizontal: ResponsiveWidth(context, 20)),
+                                          height:
+                                              ResponsiveHeight(context, 300),
+                                          width: ResponsiveWidth(context, 250),
+                                          circularRadius: 20,
+                                          color: UsedColors.HoverColor,
+                                          child: Column(
+                                            children: [
+                                              const Spacer(),
+                                              const Spacer(),
+                                              TMaker(
+                                                text: MemberClass
+                                                    .getMemberList()[index][1],
+                                                fontSize:
+                                                    ResponsiveFontSizeByWidth(
+                                                        context, 30),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                              const Spacer(),
+                                              TMaker(
+                                                text: MemberClass
+                                                    .getMemberList()[index][2],
+                                                fontSize:
+                                                    ResponsiveFontSizeByWidth(
+                                                        context, 20),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                              const Spacer(),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },
@@ -206,18 +266,20 @@ class _MembersPageState extends State<MembersPage> {
                         ),
                         Padding(
                             padding: EdgeInsets.only(
-                                top: ResponsiveHeight(context, 40,
-                                   ))),
+                                top: ResponsiveHeight(
+                          context,
+                          40,
+                        ))),
                         CMaker(
                           width: ResponsiveWidth(
-                          context,
-                          1036,
-                        ),
+                            context,
+                            1036,
+                          ),
                           child: Row(
                             children: [
                               Spacer(),
                               CMaker(
-                                width:ResponsiveWidth(context,300),
+                                width: ResponsiveWidth(context, 300),
                                 child: Column(
                                   children: [
                                     CMaker(
@@ -228,35 +290,55 @@ class _MembersPageState extends State<MembersPage> {
                                                 255, 255, 255, 255),
                                             fontSize: ResponsiveWidth(
                                               context,
-                                            ResponsiveFontSizeByHeight(context,40),
+                                              ResponsiveFontSizeByHeight(
+                                                  context, 40),
                                             ),
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 2,
                                           )),
                                     ),
                                     Padding(
-                                  padding: EdgeInsets.only(
-                                      top: ResponsiveHeight(context, 20,
-                                         ))),
-                                    CMaker(child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Container(
-                                        height: ResponsiveHeight(context, 60,
-                                           ),
-                                        width: ResponsiveWidth(context, 60,
-                                           ),
-                                        child: Image.asset("images/whatsapp.png")),
-                                    Container(
-                                        height: ResponsiveHeight(context, 60,
-                                            designScreenHeight: 1536),
-                                        width: ResponsiveWidth(context, 60,
-                                            designScreenWidth: 729),
-                                        child: Image.asset("images/linkedin.png")),
-                                  ],),)
+                                        padding: EdgeInsets.only(
+                                            top: ResponsiveHeight(
+                                      context,
+                                      20,
+                                    ))),
+                                    CMaker(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Container(
+                                              height: ResponsiveHeight(
+                                                context,
+                                                60,
+                                              ),
+                                              width: ResponsiveWidth(
+                                                context,
+                                                60,
+                                              ),
+                                              child: Image.asset(
+                                                  "images/whatsapp.png")),
+                                          Container(
+                                              height: ResponsiveHeight(
+                                                  context, 60,
+                                                  designScreenHeight: 1536),
+                                              width: ResponsiveWidth(
+                                                  context, 60,
+                                                  designScreenWidth: 729),
+                                              child: Image.asset(
+                                                  "images/linkedin.png")),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
-                              Spacer(flex: 4,),
+                              Spacer(
+                                flex: 4,
+                              ),
                               CMaker(
-                                width:ResponsiveWidth(context,300),
+                                width: ResponsiveWidth(context, 300),
                                 child: Column(
                                   children: [
                                     CMaker(
@@ -267,35 +349,56 @@ class _MembersPageState extends State<MembersPage> {
                                                 255, 255, 255, 255),
                                             fontSize: ResponsiveWidth(
                                               context,
-                                            ResponsiveFontSizeByHeight(context,40),
+                                              ResponsiveFontSizeByHeight(
+                                                  context, 40),
                                             ),
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 2,
                                           )),
                                     ),
                                     Padding(
-                                  padding: EdgeInsets.only(
-                                      top: ResponsiveHeight(context, 20,
-                                         ))),
-                                    CMaker(child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Container(
-                                        height: ResponsiveHeight(context, 60,
-                                           ),
-                                        width: ResponsiveWidth(context, 60,
-                                           ),
-                                        child: Image.asset("images/whatsapp.png")),
-                                    Container(
-                                        height: ResponsiveHeight(context, 60,
-                                            designScreenHeight: 1536),
-                                        width: ResponsiveWidth(context, 60,
-                                            designScreenWidth: 729),
-                                        child: Image.asset("images/linkedin.png")),
-                                    Container(
-                                        height: ResponsiveHeight(context, 60,
-                                            designScreenHeight: 1536),
-                                        width: ResponsiveWidth(context, 60,
-                                            designScreenWidth: 729),
-                                        child: Image.asset("images/linkedin.png")),
-                                  ],),)
+                                        padding: EdgeInsets.only(
+                                            top: ResponsiveHeight(
+                                      context,
+                                      20,
+                                    ))),
+                                    CMaker(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Container(
+                                              height: ResponsiveHeight(
+                                                context,
+                                                60,
+                                              ),
+                                              width: ResponsiveWidth(
+                                                context,
+                                                60,
+                                              ),
+                                              child: Image.asset(
+                                                  "images/whatsapp.png")),
+                                          Container(
+                                              height: ResponsiveHeight(
+                                                  context, 60,
+                                                  designScreenHeight: 1536),
+                                              width: ResponsiveWidth(
+                                                  context, 60,
+                                                  designScreenWidth: 729),
+                                              child: Image.asset(
+                                                  "images/linkedin.png")),
+                                          Container(
+                                              height: ResponsiveHeight(
+                                                  context, 60,
+                                                  designScreenHeight: 1536),
+                                              width: ResponsiveWidth(
+                                                  context, 60,
+                                                  designScreenWidth: 729),
+                                              child: Image.asset(
+                                                  "images/linkedin.png")),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -304,8 +407,7 @@ class _MembersPageState extends State<MembersPage> {
                           ),
                         ),
                       ],
-                    )
-                    ),
+                    )),
               ],
             ),
           )

@@ -317,7 +317,7 @@ class MyResponsive {
 // add : flutter pub add url_launcher
 Future<void> LaunchURL({required String url}) async {
     try {
-      if (!await launchUrl(Uri.parse(url))) {
+      if (!await launchUrl(Uri.parse(url), browserConfiguration: BrowserConfiguration(),mode: LaunchMode.platformDefault)) {
         throw 'Could not launch $url';
       }
     } catch (e) {

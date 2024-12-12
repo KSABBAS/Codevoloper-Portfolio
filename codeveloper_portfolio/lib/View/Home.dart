@@ -32,12 +32,12 @@ class _HomeState extends State<Home> {
             width:ResponsiveWidth(context,438),
           ),
         ),
-        NavBar(
+        PopAndVanishNavBar(
               NavBarPositionTop:ResponsiveHeight(context,20),
               NavBarPositionRight:ResponsiveWidth(context,84),
-              SelectionContainerAnimationDuration: Duration(milliseconds: 200),
-              ScrollDuration: Duration(seconds: 20),
+              SelectionContainerAnimationDuration: Duration(milliseconds: 300),
               BarCircularRadius: 30,
+              vanishDuration: Duration(milliseconds: 200),
               SelectionContainerHeight:ResponsiveHeight(context,30),
               SelectionContainerWidth:ResponsiveWidth(context,30),
               selectedContainerColor: Colors.transparent,

@@ -98,7 +98,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
             ),
           ),
           CMaker(
-            color: UsedColors.background,
             height: PageHeight(context),
             width: ResponsiveWidth(context, 1098),
             child: Column(

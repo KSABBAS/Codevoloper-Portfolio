@@ -196,10 +196,8 @@ class FrontLayer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
-                          onTap: () async{
-                            print("tiktok");
-                            print(ContactClass.getContactLink("tiktok"));
-                            await LaunchURL(
+                          onTap: () {
+                            LaunchURL(
                                 url:ContactClass.getContactLink("tiktok")
                                 );
                           },
@@ -209,14 +207,20 @@ class FrontLayer extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              LaunchURL(
+                                url:ContactClass.getContactLink("instagram")
+                                );
+                            },
                             child: Container(
                               height: ResponsiveHeight(context, 60),
                               child: Image.asset("images/instagram.png"),
                             )),
                         InkWell(
                             onTap: () {
-                              print("facebook");
+                              LaunchURL(
+                                url:ContactClass.getContactLink("facebook")
+                                );
                             },
                             child: Container(
                               height: ResponsiveHeight(context, 60),
