@@ -1,4 +1,5 @@
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
+import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:codeveloper_portfolio/View/Pages/ProjectsPage/ProjectIsOpened.dart';
@@ -166,13 +167,13 @@ class _ProjectsPageState extends State<ProjectsPage> {
                                 child: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
                               child:Image.network(
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdQLwDqDwd2JfzifvfBTFT8I7iKFFevcedYg&s",
+                                    ProjectClass.getProjectsData()[Index][0],
                                     fit: BoxFit.cover,
                                   ),
                               ),
                             ),
                             Spacer(),
-                            TMaker(text: "Name", fontSize: ResponsiveWidth(context,40), fontWeight: FontWeight.w700, color: Colors.white),
+                            TMaker(text: "${ProjectClass.getProjectsData()[Index][1]}", fontSize: ResponsiveWidth(context,40), fontWeight: FontWeight.w700, color: Colors.white),
                             Spacer(),
                           ],
                         ),
@@ -181,7 +182,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
                     onSelected: (SelectedIndex) {
                       Get.to(() => ProjectIsOpened());
                     },
-                    itemCount: 24,
+                    itemCount: ProjectClass.getProjectsData().length,
                     rowSpaces: ResponsiveHeight(context, 30),
                     columnSpaces: ResponsiveWidth(context, 18),
                     crossAxisCount: 3,

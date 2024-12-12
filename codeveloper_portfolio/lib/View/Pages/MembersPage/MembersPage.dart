@@ -1,4 +1,5 @@
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
+import 'package:codeveloper_portfolio/Data/membersData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:flutter/material.dart';
@@ -179,20 +180,26 @@ class _MembersPageState extends State<MembersPage> {
                           color: const Color.fromARGB(115, 46, 46, 46),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 20,
+                            itemCount: MemberClass.getMemberList().length,
                             itemBuilder: (context, index) {
-                              return  Container(
-                                margin: EdgeInsets.only( left:(index==0)?20:10 ,right: (index==19)?20:10 ),
-                                child:ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child:Image.network(
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdQLwDqDwd2JfzifvfBTFT8I7iKFFevcedYg&s",
-                                    fit: BoxFit.cover,
-                                  ),) ,
-                                height: ResponsiveHeight(context, 300,
-                                   ),
-                                width: ResponsiveWidth(context, 200,
-                                   ),
+                              return  InkWell(
+                                onTap: () {
+                                  print("name : ${MemberClass.getMemberList()[index][1]}");
+                                  print("name : ${MemberClass.getMemberList()[index][2]}");
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only( left:(index==0)?20:10 ,right: (index==19)?20:10 ),
+                                  child:ClipRRect(
+                                borderRadius: BorderRadius.circular(20.0),
+                                child:Image.network(
+                                      MemberClass.getMemberList()[index][0],
+                                      fit: BoxFit.cover,
+                                    ),) ,
+                                  height: ResponsiveHeight(context, 300,
+                                     ),
+                                  width: ResponsiveWidth(context, 200,
+                                     ),
+                                ),
                               );
                             },
                           ),
