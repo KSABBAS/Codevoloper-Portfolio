@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
+import 'package:codeveloper_portfolio/Data/ContactsData.dart';
 import 'package:codeveloper_portfolio/Data/membersData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
@@ -72,7 +73,15 @@ class _MembersPageState extends State<MembersPage> {
                 Padding(
                     padding:
                         EdgeInsets.only(top: ResponsiveHeight(context, 160))),
-                Container(
+                InkWell(
+                                              onTap: () {
+                                                LaunchURL(
+                                                    url: ContactClass
+                                                        .getContactLink(
+                                                            "whatsApp"));
+                                              },
+                                              child: Container(
+                                                width: ResponsiveWidth(context,250),
                   //alignment: Alignment.center,
                   child: Row(
                     children: [
@@ -106,7 +115,7 @@ class _MembersPageState extends State<MembersPage> {
                       Spacer(),
                     ],
                   ),
-                )
+                ))
               ],
             ),
           ),
@@ -195,11 +204,15 @@ class _MembersPageState extends State<MembersPage> {
                               return InkWell(
                                 onTap: () {},
                                 onHover: (value) {
-                                  selectedToHover = index;
-                                    setState(() {
-                                    });
+                                  if (value) {
+                                    selectedToHover = index;
+                                    setState(() {});
+                                  } else {
+                                    selectedToHover = null;
+                                    setState(() {});
+                                  }
                                 },
-                                child: Container(
+                                child: CMaker(
                                   margin: EdgeInsets.only(
                                     left: (index == 0) ? 20 : 10,
                                     right: (index == 19) ? 20 : 10,
@@ -222,9 +235,16 @@ class _MembersPageState extends State<MembersPage> {
                                           ),
                                         ),
                                       ),
-                                      if (index == selectedToHover)
-                                        CMaker(
-                                          padding: EdgeInsets.symmetric(vertical: ResponsiveHeight(context, 20), horizontal: ResponsiveWidth(context, 20)),
+                                      AnimatedOpacity(
+                                        opacity:
+                                            (index == selectedToHover) ? 1 : 0,
+                                        duration: Duration(milliseconds: 400),
+                                        child: CMaker(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  ResponsiveHeight(context, 20),
+                                              horizontal:
+                                                  ResponsiveWidth(context, 20)),
                                           height:
                                               ResponsiveHeight(context, 300),
                                           width: ResponsiveWidth(context, 250),
@@ -257,6 +277,7 @@ class _MembersPageState extends State<MembersPage> {
                                             ],
                                           ),
                                         ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -308,18 +329,32 @@ class _MembersPageState extends State<MembersPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Container(
-                                              height: ResponsiveHeight(
-                                                context,
-                                                60,
-                                              ),
-                                              width: ResponsiveWidth(
-                                                context,
-                                                60,
-                                              ),
-                                              child: Image.asset(
-                                                  "images/whatsapp.png")),
-                                          Container(
+                                          InkWell(
+                                              onTap: () {
+                                                LaunchURL(
+                                                    url: ContactClass
+                                                        .getContactLink(
+                                                            "whatsApp"));
+                                              },
+                                              child: Container(
+                                                  height: ResponsiveHeight(
+                                                    context,
+                                                    60,
+                                                  ),
+                                                  width: ResponsiveWidth(
+                                                    context,
+                                                    60,
+                                                  ),
+                                                  child: Image.asset(
+                                                      "images/ColoredWhatsApp.png"))),
+                                          InkWell(
+                                              onTap: () {
+                                                LaunchURL(
+                                                    url: ContactClass
+                                                        .getContactLink(
+                                                            "linkedin"));
+                                              },
+                                              child: Container(
                                               height: ResponsiveHeight(
                                                   context, 60,
                                                   designScreenHeight: 1536),
@@ -327,7 +362,7 @@ class _MembersPageState extends State<MembersPage> {
                                                   context, 60,
                                                   designScreenWidth: 729),
                                               child: Image.asset(
-                                                  "images/linkedin.png")),
+                                                  "images/linkedin.png"))),
                                         ],
                                       ),
                                     )
@@ -367,35 +402,56 @@ class _MembersPageState extends State<MembersPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Container(
-                                              height: ResponsiveHeight(
-                                                context,
-                                                60,
-                                              ),
-                                              width: ResponsiveWidth(
-                                                context,
-                                                60,
-                                              ),
-                                              child: Image.asset(
-                                                  "images/whatsapp.png")),
-                                          Container(
-                                              height: ResponsiveHeight(
-                                                  context, 60,
-                                                  designScreenHeight: 1536),
-                                              width: ResponsiveWidth(
-                                                  context, 60,
-                                                  designScreenWidth: 729),
-                                              child: Image.asset(
-                                                  "images/linkedin.png")),
-                                          Container(
-                                              height: ResponsiveHeight(
-                                                  context, 60,
-                                                  designScreenHeight: 1536),
-                                              width: ResponsiveWidth(
-                                                  context, 60,
-                                                  designScreenWidth: 729),
-                                              child: Image.asset(
-                                                  "images/linkedin.png")),
+                                          InkWell(
+                                              onTap: () {
+                                                LaunchURL(
+                                                    url: ContactClass
+                                                        .getContactLink(
+                                                            "facebook"));
+                                              },
+                                              child: Container(
+                                                  height: ResponsiveHeight(
+                                                    context,
+                                                    60,
+                                                  ),
+                                                  width: ResponsiveWidth(
+                                                    context,
+                                                    60,
+                                                  ),
+                                                  child: Image.asset(
+                                                      "images/ColoredFaceBook.png"))),
+                                          InkWell(
+                                              onTap: () {
+                                                LaunchURL(
+                                                    url: ContactClass
+                                                        .getContactLink(
+                                                            "instagram"));
+                                              },
+                                              child: Container(
+                                                  height: ResponsiveHeight(
+                                                      context, 60,
+                                                      designScreenHeight: 1536),
+                                                  width: ResponsiveWidth(
+                                                      context, 60,
+                                                      designScreenWidth: 729),
+                                                  child: Image.asset(
+                                                      "images/ColoredInstagram.png"))),
+                                          InkWell(
+                                              onTap: () {
+                                                LaunchURL(
+                                                    url: ContactClass
+                                                        .getContactLink(
+                                                            "tiktok"));
+                                              },
+                                              child: Container(
+                                                  height: ResponsiveHeight(
+                                                      context, 60,
+                                                      designScreenHeight: 1536),
+                                                  width: ResponsiveWidth(
+                                                      context, 60,
+                                                      designScreenWidth: 729),
+                                                  child: Image.asset(
+                                                      "images/ColoredTikTok.png"))),
                                         ],
                                       ),
                                     )

@@ -1,4 +1,5 @@
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
+import 'package:codeveloper_portfolio/Data/ContactsData.dart';
 import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
@@ -67,7 +68,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 Padding(
                     padding:
                         EdgeInsets.only(top: ResponsiveHeight(context, 160))),
-                Container(
+                InkWell(
+                                              onTap: () {
+                                                LaunchURL(
+                                                    url: ContactClass
+                                                        .getContactLink(
+                                                            "whatsApp"));
+                                              },
+                                              child: Container(
+                                                width: ResponsiveWidth(context,250),
                 //alignment: Alignment.center,
                 child: Row(
                   children: [
@@ -93,7 +102,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
                     Spacer(),
                   ],
                 ),
-              )
+              ))
               ],
             ),
           ),
@@ -161,8 +170,8 @@ class _ProjectsPageState extends State<ProjectsPage> {
                         child: Column(
                           children: [
                             CMaker(
-                                height: 200,
-                                width: 200,
+                                height:ResponsiveHeight(context,200),
+                                width:ResponsiveWidth(context, 200),
                                 child: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
                               child:Image.network(

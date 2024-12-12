@@ -92,8 +92,8 @@ void main() async {
   ]);
   ContactClass.setContacts(
     {
-      'watsApp': '+201065866283',
-      'linkedin':'+https://www.linkedin.com/in/%D9%83%D9%8A%D9%85%D9%88-kemo-828034191/',
+      'whatsApp': 'https://www.whatsapp.com',
+      'linkedin':'https://www.linkedin.com',
       'facebook': 'https://www.facebook.com',
       'instagram': 'https://www.instagram.com',
       'tiktok': 'https://www.tiktok.com',
