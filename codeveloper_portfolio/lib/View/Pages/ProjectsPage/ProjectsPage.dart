@@ -1,6 +1,7 @@
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/Data/ContactsData.dart';
 import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
+import 'package:codeveloper_portfolio/Data/membersData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:codeveloper_portfolio/View/Pages/ProjectsPage/ProjectIsOpened.dart';
@@ -13,6 +14,8 @@ class ProjectsPage extends StatefulWidget {
   @override
   State<ProjectsPage> createState() => _ProjectsPageState();
 }
+bool isHovered = false;
+int? selectedToHover = null;
 
 class _ProjectsPageState extends State<ProjectsPage> {
   @override
@@ -69,40 +72,46 @@ class _ProjectsPageState extends State<ProjectsPage> {
                     padding:
                         EdgeInsets.only(top: ResponsiveHeight(context, 160))),
                 InkWell(
-                                              onTap: () {
-                                                LaunchURL(
-                                                    url: ContactClass
-                                                        .getContactLink(
-                                                            "whatsApp"));
-                                              },
-                                              child: Container(
-                                                width: ResponsiveWidth(context,250),
-                //alignment: Alignment.center,
-                child: Row(
-                  children: [
-                    Spacer(),
-                    Container(
-                        //margin: EdgeInsets.symmetric(horizontal: 200),
-                        height: ResponsiveHeight(context, 50,
+                    onTap: () {
+                      LaunchURL(url: ContactClass.getContactLink("whatsApp"));
+                    },
+                    child: Container(
+                      width: ResponsiveWidth(context, 250),
+                      //alignment: Alignment.center,
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          Container(
+                              //margin: EdgeInsets.symmetric(horizontal: 200),
+                              height: ResponsiveHeight(
+                                context,
+                                50,
+                              ),
+                              width: ResponsiveWidth(
+                                context,
+                                50,
+                              ),
+                              child: Image.asset("images/Cs.png")),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  left: ResponsiveWidth(context, 20))),
+                          Text(
+                            "Contact us",
+                            style: TextStyle(
+                              decorationColor:
+                                  const Color.fromARGB(255, 0, 0, 0),
+                              fontSize: ResponsiveHeight(
+                                context,
+                                20,
+                              ),
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 2,
                             ),
-                        width: ResponsiveWidth(context, 50,
-                            ),
-                        child: Image.asset("images/Cs.png")),
-                        Padding(padding:EdgeInsets.only(left: ResponsiveWidth(context, 20))),
-                    Text(
-                      "Contact us",
-                      style: TextStyle(
-                        decorationColor: const Color.fromARGB(255, 0, 0, 0),
-                        fontSize: ResponsiveHeight(context, 20,
-                            ),
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 2,
+                          ),
+                          Spacer(),
+                        ],
                       ),
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ))
+                    ))
               ],
             ),
           ),
@@ -112,17 +121,21 @@ class _ProjectsPageState extends State<ProjectsPage> {
             child: Column(
               children: [
                 Container(
-                  height:
-                      ResponsiveHeight(context, 200,),
-                  width:
-                      ResponsiveWidth(context, 1036,),
+                  height: ResponsiveHeight(
+                    context,
+                    200,
+                  ),
+                  width: ResponsiveWidth(
+                    context,
+                    1036,
+                  ),
                   //color: const Color.fromARGB(255, 91, 73, 72),
                   child: Row(
                     children: [
                       Container(
                         // margin: EdgeInsets.only(left: 50),
-                        height:ResponsiveHeight(context,150),
-                        width:ResponsiveWidth(context, 5),
+                        height: ResponsiveHeight(context, 150),
+                        width: ResponsiveWidth(context, 5),
                         color: Colors.white,
                       ),
                       //   Padding(padding: EdgeInsets.only(left: 50, top: 80)),
@@ -132,13 +145,18 @@ class _ProjectsPageState extends State<ProjectsPage> {
                         children: [
                           Text(
                             "See Our",
-                            style: TextStyle(fontSize:ResponsiveFontSizeByHeight(context,50), color: Colors.black),
+                            style: TextStyle(
+                                fontSize:
+                                    ResponsiveFontSizeByHeight(context, 50),
+                                color: Colors.black),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left:ResponsiveWidth(context, 150)),
+                            padding: EdgeInsets.only(
+                                left: ResponsiveWidth(context, 150)),
                             child: Text("Projects",
                                 style: TextStyle(
-                                    fontSize:ResponsiveFontSizeByHeight(context,50),
+                                    fontSize:
+                                        ResponsiveFontSizeByHeight(context, 50),
                                     color: const Color.fromARGB(
                                         255, 249, 227, 27))),
                           ),
@@ -164,27 +182,72 @@ class _ProjectsPageState extends State<ProjectsPage> {
                   child: WGridBuilder(
                     childColor: Colors.transparent,
                     builder: (Index) {
-                      return Container(
+                      return CMaker(
+                        circularRadius: 20,
                         height: ResponsiveHeight(context, 400),
                         width: ResponsiveWidth(context, 320),
-                        child: Column(
-                          children: [
-                            CMaker(
-                                height:ResponsiveHeight(context,200),
-                                width:ResponsiveWidth(context, 200),
-                                child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child:Image.network(
-                                    ProjectClass.getProjectsData()[Index][0],
-                                    fit: BoxFit.cover,
+                        child: InkWell(
+                                onTap: () {},
+                                onHover: (value) {
+                                  if (value) {
+                                    selectedToHover = Index;
+                                    setState(() {});
+                                  } else {
+                                    selectedToHover = null;
+                                    setState(() {});
+                                  }
+                                },
+                                child: CMaker(
+                                  margin: EdgeInsets.only(
+                                    left: (Index == 0) ? 20 : 10,
+                                    right: (Index == 19) ? 20 : 10,
                                   ),
-                              ),
-                            ),
-                            Spacer(),
-                            TMaker(text: "${ProjectClass.getProjectsData()[Index][1]}", fontSize: ResponsiveWidth(context,40), fontWeight: FontWeight.w700, color: Colors.white),
-                            Spacer(),
-                          ],
-                        ),
+                                  height: ResponsiveHeight(context, 300),
+                                  width: ResponsiveWidth(context, 320),
+                                  child: Stack(
+                                    children: [
+                                      CMaker(
+                                        border: Border.all(color: Colors.white),
+                                        circularRadius: 20,
+                                        height: ResponsiveHeight(context, 400),
+                                        width: ResponsiveWidth(context, 320),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          child: Image.network(
+                                            ProjectClass.getProjectsData()[Index]
+                                                [0],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      AnimatedOpacity(
+                                        opacity:
+                                            (Index == selectedToHover) ? 1 : 0,
+                                        duration: Duration(milliseconds: 400),
+                                        child: CMaker(
+                                          padding: EdgeInsets.only(bottom: 50),
+                                          height:
+                                              ResponsiveHeight(context, 400),
+                                          width: ResponsiveWidth(context, 320),
+                                          circularRadius: 20,
+                                          color: UsedColors.HoverColor,
+                                          alignment: Alignment.bottomCenter,
+                                          
+                                          child: TMaker(
+                                                text: ProjectClass.getProjectsData()[Index][1],
+                                                fontSize:
+                                                    ResponsiveFontSizeByWidth(
+                                                        context, 30),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
                       );
                     },
                     onSelected: (SelectedIndex) {

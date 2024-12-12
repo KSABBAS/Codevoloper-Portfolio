@@ -1731,7 +1731,6 @@ class PopAndVanishNavBar extends StatefulWidget {
       this.SelectionContainerGradient,
       this.unSelectionContainerGradient,
       this.onPageChange,
-      this.SelectionContainerAnimationDuration,
       this.NavBarPositionBottom,
       this.NavBarPositionLeft,
       this.NavBarPositionRight,
@@ -1749,7 +1748,6 @@ class PopAndVanishNavBar extends StatefulWidget {
   double? NavBarPositionRight;
   double? SelectionContainerHeight;
   double? unSelectionContainerHeight;
-  Duration? SelectionContainerAnimationDuration;
   double? SelectionContainerWidth;
   double? unSelectionContainerWidth;
   double? SelectionContainerPadding;
@@ -1844,49 +1842,44 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                           return Column(
                             children: [
                               InkWell(
-                                onTap: () async {
-                                  if (index != PageIndex) {
-                                    setState(() => VanishIsOn = true);
-                                    await Future.delayed(
-                                        widget.vanishDuration ??
-                                            const Duration(milliseconds: 200));
-                                    setState(() {
-                                      PageIndex = index;
-                                      VanishIsOn = false;
-                                    });
-                                  }
-                                  widget.onPageChange?.call(PageIndex);
-                                },
-                                child: CMaker(
-                                    alignment: Alignment.center,
-                                    child: ACMaker(
-                                        duration: widget
-                                            .SelectionContainerAnimationDuration,
-                                        padding: EdgeInsets.all(
-                                            widget.SelectionContainerPadding ??
-                                                0),
-                                        alignment: Alignment.center,
-                                        height: widget.SelectionContainerHeight ??
-                                            60,
-                                        width: widget.SelectionContainerWidth ??
-                                            60,
-                                        circularRadius:
-                                            widget.SelectionContainerCircularRadius ??
-                                                15,
-                                        border: (PageIndex == index)
-                                            ? widget.SelectedContainerBorder ??
-                                                null
-                                            : widget.unSelectedContainerBorder ??
-                                                null,
-                                        gradient:
-                                            widget.SelectionContainerGradient,
-                                        color: (PageIndex == index)
-                                            ? widget.selectedContainerColor ??
-                                                Color.fromARGB(255, 0, 0, 0)
-                                            : widget.unselectedContainerColor ??
-                                                Colors.transparent,
-                                        child: widget.iconsList[index])),
-                              ),
+                                  onTap: () async {
+                                    if (index != PageIndex) {
+                                      setState(() => VanishIsOn = true);
+                                      await Future.delayed(widget
+                                              .vanishDuration ??
+                                          const Duration(milliseconds: 200));
+                                      setState(() {
+                                        PageIndex = index;
+                                        widget.onPageChange?.call(PageIndex);
+                                        VanishIsOn = false;
+                                      });
+                                    }
+                                  },
+                                  child: CMaker(
+                                      padding: EdgeInsets.all(
+                                          widget.SelectionContainerPadding ??
+                                              0),
+                                      alignment: Alignment.center,
+                                      height:
+                                          widget.SelectionContainerHeight ?? 60,
+                                      width:
+                                          widget.SelectionContainerWidth ?? 60,
+                                      circularRadius: widget
+                                              .SelectionContainerCircularRadius ??
+                                          15,
+                                      border: (PageIndex == index)
+                                          ? widget.SelectedContainerBorder ??
+                                              null
+                                          : widget.unSelectedContainerBorder ??
+                                              null,
+                                      gradient:
+                                          widget.SelectionContainerGradient,
+                                      color: (PageIndex == index)
+                                          ? widget.selectedContainerColor ??
+                                              Color.fromARGB(255, 0, 0, 0)
+                                          : widget.unselectedContainerColor ??
+                                              Colors.transparent,
+                                      child: widget.iconsList[index])),
                               Container(
                                 height: (widget.height -
                                         (widget.iconsList.length *
@@ -1977,16 +1970,14 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                                           const Duration(milliseconds: 200));
                                       setState(() {
                                         PageIndex = index;
+                                        widget.onPageChange?.call(PageIndex);
                                         VanishIsOn = false;
                                       });
                                     }
-                                    widget.onPageChange?.call(PageIndex);
                                   },
                                   child: CMaker(
                                       alignment: Alignment.center,
-                                      child: ACMaker(
-                                          duration: widget
-                                              .SelectionContainerAnimationDuration,
+                                      child: CMaker(
                                           padding: EdgeInsets.all(
                                               widget.SelectionContainerPadding ??
                                                   0),
@@ -1996,8 +1987,9 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                                                   60,
                                           width: widget.SelectionContainerWidth ??
                                               60,
-                                          circularRadius: widget.SelectionContainerCircularRadius ??
-                                              15,
+                                          circularRadius:
+                                              widget.SelectionContainerCircularRadius ??
+                                                  15,
                                           border: (PageIndex == index)
                                               ? widget.SelectedContainerBorder ??
                                                   null

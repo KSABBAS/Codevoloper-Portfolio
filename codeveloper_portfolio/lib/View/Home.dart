@@ -35,7 +35,6 @@ class _HomeState extends State<Home> {
         PopAndVanishNavBar(
               NavBarPositionTop:ResponsiveHeight(context,20),
               NavBarPositionRight:ResponsiveWidth(context,84),
-              SelectionContainerAnimationDuration: Duration(milliseconds: 300),
               BarCircularRadius: 30,
               vanishDuration: Duration(milliseconds: 200),
               SelectionContainerHeight:ResponsiveHeight(context,30),
