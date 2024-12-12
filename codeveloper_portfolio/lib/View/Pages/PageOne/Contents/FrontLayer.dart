@@ -92,7 +92,7 @@ class FrontLayer extends StatelessWidget {
                               "Mobile Application",
                               style: TextStyle(
                                   fontSize:
-                                      ResponsiveFontSizeByHeight(context, 30),
+                                      ResponsiveFontSizeByWidth(context, 30),
                                   color: Colors.white),
                             ),
                           ),
@@ -106,7 +106,7 @@ class FrontLayer extends StatelessWidget {
                               "Desktop Application",
                               style: TextStyle(
                                   fontSize:
-                                      ResponsiveFontSizeByHeight(context, 30),
+                                      ResponsiveFontSizeByWidth(context, 30),
                                   color: Colors.white),
                             ),
                           ),
@@ -119,7 +119,7 @@ class FrontLayer extends StatelessWidget {
                               "Website Development",
                               style: TextStyle(
                                   fontSize:
-                                      ResponsiveFontSizeByHeight(context, 30),
+                                      ResponsiveFontSizeByWidth(context, 30),
                                   color: Colors.white),
                             ),
                           ),
@@ -131,7 +131,7 @@ class FrontLayer extends StatelessWidget {
                               "Database Maintenance",
                               style: TextStyle(
                                   fontSize:
-                                      ResponsiveFontSizeByHeight(context, 30),
+                                      ResponsiveFontSizeByWidth(context, 30),
                                   color: Colors.white),
                             ),
                           ),

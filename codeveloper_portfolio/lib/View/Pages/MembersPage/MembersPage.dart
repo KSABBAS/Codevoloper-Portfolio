@@ -133,37 +133,33 @@ class _MembersPageState extends State<MembersPage> {
                     context,
                     1036,
                   ),
-                  //color: const Color.fromARGB(255, 91, 73, 72),
                   child: Row(
                     children: [
                       Container(
-                        // margin: EdgeInsets.only(left: 50),
                         height: ResponsiveHeight(context, 150),
                         width: ResponsiveWidth(context, 5),
                         color: Colors.white,
                       ),
-                      //   Padding(padding: EdgeInsets.only(left: 50, top: 80)),
                       Container(
-                          //color: Colors.blue,
                           child: Column(
                         children: [
-                          Text(
+                          Padding(
+                            padding: EdgeInsets.only(left:ResponsiveWidth(context,20),top: ResponsiveHeight(context, 20),
+                                right: ResponsiveWidth(context, 100)),
+                            child: Text(
                             "See Our",
                             style: TextStyle(
                                 fontSize:
                                     ResponsiveFontSizeByHeight(context, 50),
                                 color: Colors.black),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: ResponsiveWidth(context, 150)),
-                            child: Text("Team",
+                          )),
+                          Text("Team",
                                 style: TextStyle(
+                                  fontWeight: FontWeight.w400,
                                     fontSize:
-                                        ResponsiveFontSizeByHeight(context, 50),
+                                        ResponsiveFontSizeByHeight(context, 70),
                                     color: const Color.fromARGB(
                                         255, 249, 227, 27))),
-                          ),
                         ],
                       ))
                     ],
