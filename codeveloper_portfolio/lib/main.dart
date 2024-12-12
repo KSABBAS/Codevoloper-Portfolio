@@ -1,7 +1,4 @@
-import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:codeveloper_portfolio/View/Home.dart';
-import 'package:codeveloper_portfolio/View/Pages/MembersPage/MembersPage.dart';
-import 'package:codeveloper_portfolio/View/Pages/ProjectsPage/ProjectIsOpened.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +15,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
 
 class _MyAppState extends State<MyApp> {
   @override
