@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   url_launcher: ^6.3.0
+  insta_image_viewer: ^1.0.4
+  chewie: ^1.7.5
+  video_player: ^2.9.1
 
 dev_dependencies:
   flutter_test:

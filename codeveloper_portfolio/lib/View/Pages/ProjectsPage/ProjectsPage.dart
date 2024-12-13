@@ -187,7 +187,9 @@ class _ProjectsPageState extends State<ProjectsPage> {
                         height: ResponsiveHeight(context, 400),
                         width: ResponsiveWidth(context, 320),
                         child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.to(() => ProjectIsOpened(ProjectIndex: Index,));
+                                },
                                 onHover: (value) {
                                   if (value) {
                                     selectedToHover = Index;
@@ -249,9 +251,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
                                 ),
                               )
                       );
-                    },
-                    onSelected: (SelectedIndex) {
-                      Get.to(() => ProjectIsOpened());
                     },
                     itemCount: ProjectClass.getProjectsData().length,
                     rowSpaces: ResponsiveHeight(context, 30),

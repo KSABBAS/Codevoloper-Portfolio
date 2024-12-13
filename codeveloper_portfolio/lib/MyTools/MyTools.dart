@@ -1,10 +1,15 @@
 // import 'package:chewie/chewie.dart';
 import 'dart:async';
-
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:chewie/chewie.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
+import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:insta_image_viewer/insta_image_viewer.dart';
-// import 'package:video_player/video_player.dart';
+import 'package:video_player/video_player.dart';
+import 'package:video_player/video_player.dart';
 // import 'package:beautiful_soup_dart/beautiful_soup.dart';
 
 class CMaker extends StatefulWidget {
@@ -965,16 +970,9 @@ class WGridBuilder extends StatefulWidget {
 }
 
 class _WGridBuilderState extends State<WGridBuilder> {
-  var selected = "";
   @override
   Widget build(BuildContext context) {
-    List<Widget> list = () {
-      List<Widget>? list = [];
-      for (int i = 0; i < widget.itemCount; i++) {
-        list.add(widget.builder(i));
-      }
-      return list;
-    }();
+    int adjustedItemCount = (widget.itemCount + widget.crossAxisCount - 1) ~/ widget.crossAxisCount * widget.crossAxisCount;
     return Container(
       height: (widget.itemCount.isEven)
           ? ((widget.childHeight * widget.itemCount) / 2) +
@@ -989,7 +987,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
         physics:
             (widget.Scroll == false) ? NeverScrollableScrollPhysics() : null,
         shrinkWrap: widget.Scroll ?? true,
-        itemCount: (widget.itemCount / widget.crossAxisCount).round(),
+        itemCount: (adjustedItemCount / widget.crossAxisCount).round(),
         itemBuilder: (context, RowIndex) {
           return CMaker(
             margin: EdgeInsets.only(
@@ -997,7 +995,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
                     ? widget.rowSpaces ?? 0
                     : (((widget.rowSpaces) ?? 0) / 2),
                 bottom: ((RowIndex + 1) ==
-                        (widget.itemCount / widget.crossAxisCount).round())
+                        (adjustedItemCount / widget.crossAxisCount).round())
                     ? (widget.rowSpaces ?? 0)
                     : (((widget.rowSpaces) ?? 0) / 2)),
             height: widget.childHeight ?? 150,
@@ -1006,13 +1004,9 @@ class _WGridBuilderState extends State<WGridBuilder> {
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.crossAxisCount,
                 itemBuilder: (context, ColumnIndex) {
-                  return ((widget.itemCount % widget.crossAxisCount) != 0 &&
-                          widget.itemCount ==
-                              ((widget.crossAxisCount * RowIndex +
-                                  ColumnIndex)))
-                      ? Container(
-                          width: widget.childWidth ?? 150,
-                        )
+                  int currentIndex = (widget.crossAxisCount * RowIndex) + ColumnIndex;
+                  return (currentIndex >= widget.itemCount)
+                      ? SizedBox.shrink() // Placeholder for empty slot
                       : CMaker(
                           margin: EdgeInsets.only(
                               left: (ColumnIndex == 0)
@@ -1025,9 +1019,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
                           child: InkWell(
                             onTap: (widget.onSelected != null)
                                 ? () {
-                                    widget.onSelected!(
-                                        (widget.crossAxisCount * RowIndex +
-                                            ColumnIndex));
+                                    widget.onSelected!(currentIndex);
                                   }
                                 : null,
                             child: CMaker(
@@ -1042,12 +1034,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
                                     widget.childCircularRadius ?? 20,
                                 color: widget.childColor ??
                                     Color.fromARGB(96, 216, 216, 216),
-                                child: (list != [])
-                                    ? list[(widget.crossAxisCount * RowIndex +
-                                        ColumnIndex)]
-                                    : Container(
-                                        width: widget.childWidth ?? 150,
-                                      )),
+                                child: widget.builder(currentIndex)),
                           ),
                         );
                 }),
@@ -1057,6 +1044,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
     );
   }
 }
+
 
 //----------------------------------------------------------
 
@@ -1087,75 +1075,75 @@ class _WGridBuilderState extends State<WGridBuilder> {
 // ==
 // works on : Android
 // link type : direct mp4 link
-// class ChewieVideoPlayer extends StatefulWidget {
-//   ChewieVideoPlayer(
-//       {super.key, this.url, this.height, this.width, this.path, this.file});
+class ChewieVideoPlayer extends StatefulWidget {
+  ChewieVideoPlayer(
+      {super.key, this.url, this.height, this.width, this.path, this.file});
 
-//   final double? height;
-//   final double? width;
-//   final String? url;
-//   final String? path;
-//   final File? file;
+  final double? height;
+  final double? width;
+  final String? url;
+  final String? path;
+  final File? file;
 
-//   @override
-//   State<ChewieVideoPlayer> createState() => _ChewieVideoPlayerState();
-// }
+  @override
+  State<ChewieVideoPlayer> createState() => _ChewieVideoPlayerState();
+}
 
-// class _ChewieVideoPlayerState extends State<ChewieVideoPlayer> {
-//   VideoPlayerController? _videoPlayerController;
-//   ChewieController? _chewieController;
+class _ChewieVideoPlayerState extends State<ChewieVideoPlayer> {
+  VideoPlayerController? _videoPlayerController;
+  ChewieController? _chewieController;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _initializeVideoPlayer();
-//   }
+  @override
+  void initState() {
+    super.initState();
+    _initializeVideoPlayer();
+  }
 
-//   Future<void> _initializeVideoPlayer() async {
-//     _videoPlayerController = (widget.path != null)
-//         ? VideoPlayerController.asset(widget.path!,)
-//         : (widget.file != null)
-//             ? VideoPlayerController.file(widget.file!)
-//             : VideoPlayerController.networkUrl(
-//                 Uri.parse(widget.url ??
-//                     "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"),
-//               );
+  Future<void> _initializeVideoPlayer() async {
+    _videoPlayerController = (widget.path != null)
+        ? VideoPlayerController.asset(widget.path!,)
+        : (widget.file != null)
+            ? VideoPlayerController.file(widget.file!)
+            : VideoPlayerController.networkUrl(
+                Uri.parse(widget.url ??
+                    "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"),
+              );
 
-//     await _videoPlayerController!.initialize();
+    await _videoPlayerController!.initialize();
 
-//     setState(() {
-//       _chewieController = ChewieController(
-//         videoPlayerController: _videoPlayerController!,
-//         autoPlay: false,
-//         looping: false,
-//       );
-//     });
-//   }
+    setState(() {
+      _chewieController = ChewieController(
+        videoPlayerController: _videoPlayerController!,
+        autoPlay: false,
+        looping: false,
+      );
+    });
+  }
 
-//   @override
-//   void dispose() {
-//     _chewieController?.dispose();
-//     _videoPlayerController?.dispose();
-//     super.dispose();
-//   }
+  @override
+  void dispose() {
+    _chewieController?.dispose();
+    _videoPlayerController?.dispose();
+    super.dispose();
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     if (_chewieController == null) {
-//       return SizedBox(
-//         height: widget.height ?? 235,
-//         width: widget.width ?? double.infinity,
-//         child: const Center(child: CircularProgressIndicator()),
-//       );
-//     }
+  @override
+  Widget build(BuildContext context) {
+    if (_chewieController == null) {
+      return SizedBox(
+        height: widget.height ?? 235,
+        width: widget.width ?? double.infinity,
+        child: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
-//     return SizedBox(
-//       height: widget.height ?? 235,
-//       width: widget.width ?? double.infinity,
-//       child: Chewie(controller: _chewieController!),
-//     );
-//   }
-// }
+    return SizedBox(
+      height: widget.height ?? 235,
+      width: widget.width ?? double.infinity,
+      child: Chewie(controller: _chewieController!),
+    );
+  }
+}
 
 //===========================================
 
@@ -1165,71 +1153,71 @@ class _WGridBuilderState extends State<WGridBuilder> {
 // import 'package:insta_image_viewer/insta_image_viewer.dart';
 // package: insta_image_viewer 1.0.4
 // add : flutter pub add insta_image_viewer
-// class ViewImage extends StatelessWidget {
-//   const ViewImage(
-//       {super.key,
-//       this.ImageLink,
-//       this.ImagePath,
-//       this.file,
-//       this.bytes,
-//       this.Height,
-//       this.Width});
-//   final String? ImageLink;
-//   final String? ImagePath;
-//   final File? file;
-//   final Uint8List? bytes;
-//   final double? Height;
-//   final double? Width;
-//   @override
-//   Widget build(BuildContext context) {
-//     if (ImagePath != null &&
-//         ImageLink == null &&
-//         file == null &&
-//         bytes == null) {
-//       return SizedBox(
-//         width: Width ?? 100,
-//         height: Height ?? 100,
-//         child: InstaImageViewer(
-//           child: Image(
-//             image: Image.asset(ImagePath!).image,
-//           ),
-//         ),
-//       );
-//     } else if (ImageLink == null && file != null && bytes == null) {
-//       return SizedBox(
-//         width: Width ?? double.infinity,
-//         height: Height ?? double.infinity,
-//         child: InstaImageViewer(
-//           child: Image(
-//             image: Image.file(file!).image,
-//           ),
-//         ),
-//       );
-//     } else if (ImageLink == null && bytes != null) {
-//       return SizedBox(
-//         width: Width ?? double.infinity,
-//         height: Height ?? double.infinity,
-//         child: InstaImageViewer(
-//           child: Image(
-//             image: Image.memory(bytes!).image,
-//           ),
-//         ),
-//       );
-//     } else {
-//       return SizedBox(
-//         width: Width ?? double.infinity,
-//         height: Height ?? double.infinity,
-//         child: InstaImageViewer(
-//           child: Image(
-//             image:
-//                 Image.network(ImageLink ?? "https://picsum.photos/id/507/1000")
-//                     .image,
-//           ),
-//         ),
-//       );
-//     }
-//   }
-// }
+class ViewImage extends StatelessWidget {
+  const ViewImage(
+      {super.key,
+      this.ImageLink,
+      this.ImagePath,
+      this.file,
+      this.bytes,
+      this.Height,
+      this.Width});
+  final String? ImageLink;
+  final String? ImagePath;
+  final File? file;
+  final Uint8List? bytes;
+  final double? Height;
+  final double? Width;
+  @override
+  Widget build(BuildContext context) {
+    if (ImagePath != null &&
+        ImageLink == null &&
+        file == null &&
+        bytes == null) {
+      return SizedBox(
+        width: Width ?? 100,
+        height: Height ?? 100,
+        child: InstaImageViewer(
+          child: Image(
+            image: Image.asset(ImagePath!).image,
+          ),
+        ),
+      );
+    } else if (ImageLink == null && file != null && bytes == null) {
+      return SizedBox(
+        width: Width ?? double.infinity,
+        height: Height ?? double.infinity,
+        child: InstaImageViewer(
+          child: Image(
+            image: Image.file(file!).image,
+          ),
+        ),
+      );
+    } else if (ImageLink == null && bytes != null) {
+      return SizedBox(
+        width: Width ?? double.infinity,
+        height: Height ?? double.infinity,
+        child: InstaImageViewer(
+          child: Image(
+            image: Image.memory(bytes!).image,
+          ),
+        ),
+      );
+    } else {
+      return SizedBox(
+        width: Width ?? double.infinity,
+        height: Height ?? double.infinity,
+        child: InstaImageViewer(
+          child: Image(
+            image:
+                Image.network(ImageLink ?? "https://picsum.photos/id/507/1000")
+                    .image,
+          ),
+        ),
+      );
+    }
+  }
+}
 
 //===========================================
 
@@ -2294,6 +2282,28 @@ class PMaker extends StatelessWidget {
         padding: EdgeInsets.only(
       top: vertical ?? 0,
       left: horizontal ?? 0,
+    ));
+  }
+}
+class ResponsivePMaker extends StatelessWidget {
+  ResponsivePMaker({
+    super.key,
+    this.horizontal,
+    this.vertical,
+    this.designScreenHeight,
+    this.designScreenWidth
+  });
+  double? horizontal;
+  double? vertical;
+  double? designScreenHeight;
+  double? designScreenWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(
+      top:ResponsiveHeight(context,vertical ?? 0,designScreenHeight: designScreenHeight),
+      left:ResponsiveWidth(context,horizontal ?? 0,designScreenWidth: designScreenWidth),
     ));
   }
 }
