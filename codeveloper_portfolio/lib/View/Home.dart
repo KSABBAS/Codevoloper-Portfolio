@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     return Stack(
       children: [
         AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           height: double.infinity,
           width: double.infinity,
           alignment: (currentPageIndex==0)?Alignment.centerRight:Alignment.centerLeft,
@@ -36,13 +36,13 @@ class _HomeState extends State<Home> {
               NavBarPositionTop:ResponsiveHeight(context,20),
               NavBarPositionRight:ResponsiveWidth(context,84),
               BarCircularRadius: 30,
-              vanishDuration: Duration(milliseconds: 200),
+              vanishDuration: const Duration(milliseconds: 200),
               SelectionContainerHeight:ResponsiveHeight(context,30),
               SelectionContainerWidth:ResponsiveWidth(context,30),
               selectedContainerColor: Colors.transparent,
               SelectedContainerBorder: Border.all(color: Colors.white),
               SelectionContainerCircularRadius: 50,
-              pages: [PageOne(), MembersPage(), ProjectsPage()],
+              pages: const [PageOne(), MembersPage(), ProjectsPage()],
               onPageChange: (index) {
                 currentPageIndex = index;
                 setState(() {});

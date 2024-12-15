@@ -15,12 +15,12 @@ class ProjectsPage extends StatefulWidget {
   State<ProjectsPage> createState() => _ProjectsPageState();
 }
 bool isHovered = false;
-int? selectedToHover = null;
+int? selectedToHover;
 
 class _ProjectsPageState extends State<ProjectsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
       width: double.infinity,
       child: Row(
@@ -75,13 +75,13 @@ class _ProjectsPageState extends State<ProjectsPage> {
                     onTap: () {
                       LaunchURL(url: ContactClass.getContactLink("whatsApp"));
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: ResponsiveWidth(context, 250),
                       //alignment: Alignment.center,
                       child: Row(
                         children: [
-                          Spacer(),
-                          Container(
+                          const Spacer(),
+                          SizedBox(
                               //margin: EdgeInsets.symmetric(horizontal: 200),
                               height: ResponsiveHeight(
                                 context,
@@ -108,7 +108,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
                               letterSpacing: 2,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ),
                     ))
@@ -120,7 +120,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
             width: ResponsiveWidth(context, 1098),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: ResponsiveHeight(
                     context,
                     200,
@@ -226,9 +226,9 @@ class _ProjectsPageState extends State<ProjectsPage> {
                                       AnimatedOpacity(
                                         opacity:
                                             (Index == selectedToHover) ? 1 : 0,
-                                        duration: Duration(milliseconds: 400),
+                                        duration: const Duration(milliseconds: 400),
                                         child: CMaker(
-                                          padding: EdgeInsets.only(bottom: 50),
+                                          padding: const EdgeInsets.only(bottom: 50),
                                           height:
                                               ResponsiveHeight(context, 400),
                                           width: ResponsiveWidth(context, 320),

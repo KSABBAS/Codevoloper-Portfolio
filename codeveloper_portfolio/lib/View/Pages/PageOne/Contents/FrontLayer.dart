@@ -9,7 +9,7 @@ class FrontLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Row(
@@ -66,7 +66,7 @@ class FrontLayer extends StatelessWidget {
                               UsedColors.yellow,
                               UsedColors.Gray,
                             ],
-                            stops: [0.1, 0.6, 1.0],
+                            stops: const [0.1, 0.6, 1.0],
                           ),
                         ),
                         margin: EdgeInsets.only(
@@ -82,7 +82,7 @@ class FrontLayer extends StatelessWidget {
                       Container(
                           child: Column(
                         children: [
-                          Spacer(),
+                          const Spacer(),
                           Container(
                             margin: EdgeInsets.only(
                                 top: ResponsiveHeight(context, 10),
@@ -135,7 +135,7 @@ class FrontLayer extends StatelessWidget {
                                   color: Colors.white),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ))
                     ],
@@ -148,7 +148,7 @@ class FrontLayer extends StatelessWidget {
             horizontal: ResponsiveWidth(context, 90),
           ),
           Expanded(
-            child: Container(
+            child: SizedBox(
               height: ResponsiveHeight(context, 800),
               child: Column(
                 children: [
@@ -201,7 +201,7 @@ class FrontLayer extends StatelessWidget {
                                 url:ContactClass.getContactLink("tiktok")
                                 );
                           },
-                          child: Container(
+                          child: SizedBox(
                             height: ResponsiveHeight(context, 60),
                             child: Image.asset("images/tiktok.png"),
                           ),
@@ -212,7 +212,7 @@ class FrontLayer extends StatelessWidget {
                                 url:ContactClass.getContactLink("instagram")
                                 );
                             },
-                            child: Container(
+                            child: SizedBox(
                               height: ResponsiveHeight(context, 60),
                               child: Image.asset("images/instagram.png"),
                             )),
@@ -222,7 +222,7 @@ class FrontLayer extends StatelessWidget {
                                 url:ContactClass.getContactLink("facebook")
                                 );
                             },
-                            child: Container(
+                            child: SizedBox(
                               height: ResponsiveHeight(context, 60),
                               child: Image.asset(
                                   "images/facebook-circular-logo.png"),

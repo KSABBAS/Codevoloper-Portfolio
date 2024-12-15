@@ -27,7 +27,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
             right: ResponsiveWidth(context, 40)),
         child: ListView(
           children: [
-            Container(
+            SizedBox(
               width: PageWidth(context),
               height: ResponsiveHeight(
                 context,
@@ -64,7 +64,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
                       ),
                       fontWeight: FontWeight.w200),
                 ),
-                Spacer(),
+                const Spacer(),
                 InkWell(
                     onTap: () {
                       Get.back();
@@ -143,7 +143,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
                       width: ResponsiveWidth(context, (415.0*ProjectClass.getProjectsData()[widget.ProjectIndex][4].length)),
                       child: ListView.builder(
                         shrinkWrap: false,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemCount:
                             ProjectClass.getProjectsData()[widget.ProjectIndex]
@@ -235,7 +235,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
                               circularRadius: 15,
                               height: ResponsiveHeight(context, 145),
                                 child: Column(children: [
-                              Container(
+                              SizedBox(
                                   height: ResponsiveHeight(
                                     context,
                                     60,
@@ -275,7 +275,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
                               padding: EdgeInsets.symmetric(vertical: ResponsiveHeight(context,20),horizontal: ResponsiveWidth(context,20)),
                               circularRadius: 15,
                                 child: Column(children: [
-                              Container(
+                              SizedBox(
                                   height: ResponsiveHeight(
                                     context,
                                     60,

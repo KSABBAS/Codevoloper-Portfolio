@@ -244,7 +244,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.height);
     print(MediaQuery.of(context).size.width);
-    return Scaffold(
+    return const Scaffold(
       body: Home(),
     );
   }
