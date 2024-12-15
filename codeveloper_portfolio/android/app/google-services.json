@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "310824118190",
+    "project_id": "codeveloper-portfolio",
+    "storage_bucket": "codeveloper-portfolio.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310824118190:android:e70add75b63f0539348a3f",
+        "android_client_info": {
+          "package_name": "com.example.codeveloper_portfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHxqUqITmmbEJYjxXKVJ0k7OH2K9bU2rE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
