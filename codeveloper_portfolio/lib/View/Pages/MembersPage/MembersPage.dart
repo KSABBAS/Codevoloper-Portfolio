@@ -2,6 +2,8 @@ import 'dart:html';
 
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/Data/ContactsData.dart';
+import 'package:codeveloper_portfolio/Data/Databse_Service.dart';
+import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
 import 'package:codeveloper_portfolio/Data/membersData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
@@ -18,6 +20,17 @@ bool isHovered = false;
 int? selectedToHover;
 
 class _MembersPageState extends State<MembersPage> {
+  Future<void> uploadInitialData() async {
+    final db = DatabaseService();
+    await db.uploadInitialData();
+    // Refresh the data after upload
+    await Future.wait([
+      MemberClass.fetchMembers(),
+      ProjectClass.fetchProjects(),
+      ContactClass.fetchContacts(),
+    ]);
+  }
+  
   @override
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.height);
@@ -74,48 +87,47 @@ class _MembersPageState extends State<MembersPage> {
                     padding:
                         EdgeInsets.only(top: ResponsiveHeight(context, 160))),
                 InkWell(
-                                              onTap: () {
-                                                LaunchURL(
-                                                    url: ContactClass
-                                                        .getContactLink(
-                                                            "whatsApp"));
-                                              },
-                                              child: SizedBox(
-                                                width: ResponsiveWidth(context,250),
-                  //alignment: Alignment.center,
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      SizedBox(
-                          //margin: EdgeInsets.symmetric(horizontal: 200),
-                          height: ResponsiveHeight(
-                            context,
-                            50,
+                  onTap: () {
+                    LaunchURL(
+                        url: ContactClass
+                            .getContactLink(
+                                "whatsApp")!);
+                  },
+                  child: SizedBox(
+                    width: ResponsiveWidth(context,250),
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        SizedBox(
+                            height: ResponsiveHeight(
+                              context,
+                              50,
+                            ),
+                            width: ResponsiveWidth(
+                              context,
+                              50,
+                            ),
+                            child: Image.asset("images/Cs.png")),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                left: ResponsiveWidth(context, 20))),
+                        Text(
+                          "Contact us",
+                          style: TextStyle(
+                            decorationColor: const Color.fromARGB(255, 0, 0, 0),
+                            fontSize: ResponsiveHeight(
+                              context,
+                              20,
+                            ),
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 2,
                           ),
-                          width: ResponsiveWidth(
-                            context,
-                            50,
-                          ),
-                          child: Image.asset("images/Cs.png")),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: ResponsiveWidth(context, 20))),
-                      Text(
-                        "Contact us",
-                        style: TextStyle(
-                          decorationColor: const Color.fromARGB(255, 0, 0, 0),
-                          fontSize: ResponsiveHeight(
-                            context,
-                            20,
-                          ),
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 2,
                         ),
-                      ),
-                      const Spacer(),
-                    ],
+                        const Spacer(),
+                      ],
+                    ),
                   ),
-                ))
+                )
               ],
             ),
           ),
@@ -330,7 +342,7 @@ class _MembersPageState extends State<MembersPage> {
                                                 LaunchURL(
                                                     url: ContactClass
                                                         .getContactLink(
-                                                            "whatsApp"));
+                                                            "whatsApp")!);
                                               },
                                               child: SizedBox(
                                                   height: ResponsiveHeight(
@@ -348,7 +360,7 @@ class _MembersPageState extends State<MembersPage> {
                                                 LaunchURL(
                                                     url: ContactClass
                                                         .getContactLink(
-                                                            "linkedin"));
+                                                            "linkedin")!);
                                               },
                                               child: SizedBox(
                                               height: ResponsiveHeight(
@@ -403,7 +415,7 @@ class _MembersPageState extends State<MembersPage> {
                                                 LaunchURL(
                                                     url: ContactClass
                                                         .getContactLink(
-                                                            "facebook"));
+                                                            "facebook")!);
                                               },
                                               child: SizedBox(
                                                   height: ResponsiveHeight(
@@ -421,7 +433,7 @@ class _MembersPageState extends State<MembersPage> {
                                                 LaunchURL(
                                                     url: ContactClass
                                                         .getContactLink(
-                                                            "instagram"));
+                                                            "instagram")!);
                                               },
                                               child: SizedBox(
                                                   height: ResponsiveHeight(
@@ -437,7 +449,7 @@ class _MembersPageState extends State<MembersPage> {
                                                 LaunchURL(
                                                     url: ContactClass
                                                         .getContactLink(
-                                                            "tiktok"));
+                                                            "tiktok")!);
                                               },
                                               child: SizedBox(
                                                   height: ResponsiveHeight(

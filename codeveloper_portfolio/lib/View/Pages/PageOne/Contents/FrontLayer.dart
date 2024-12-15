@@ -197,9 +197,10 @@ class FrontLayer extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            LaunchURL(
-                                url:ContactClass.getContactLink("tiktok")
-                                );
+                            final url = ContactClass.getContactLink("tiktok");
+                            if (url != null) {
+                              LaunchURL(url: url);
+                            }
                           },
                           child: SizedBox(
                             height: ResponsiveHeight(context, 60),
@@ -208,9 +209,10 @@ class FrontLayer extends StatelessWidget {
                         ),
                         InkWell(
                             onTap: () {
-                              LaunchURL(
-                                url:ContactClass.getContactLink("instagram")
-                                );
+                              final url = ContactClass.getContactLink("instagram");
+                              if (url != null) {
+                                LaunchURL(url: url);
+                              }
                             },
                             child: SizedBox(
                               height: ResponsiveHeight(context, 60),
@@ -218,9 +220,10 @@ class FrontLayer extends StatelessWidget {
                             )),
                         InkWell(
                             onTap: () {
-                              LaunchURL(
-                                url:ContactClass.getContactLink("facebook")
-                                );
+                              final url = ContactClass.getContactLink("facebook");
+                              if (url != null) {
+                                LaunchURL(url: url);
+                              }
                             },
                             child: SizedBox(
                               height: ResponsiveHeight(context, 60),

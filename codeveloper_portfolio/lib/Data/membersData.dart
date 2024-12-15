@@ -1,10 +1,12 @@
-class MemberClass {
-  static List _member = [];
+import 'package:codeveloper_portfolio/Data/Databse_Service.dart';
 
-  static  setMembers(List memberList) {
-    _member = memberList;
+class MemberClass {
+  static List<List<String>> _members = [];
+
+  static Future<void> fetchMembers() async {
+    final db = DatabaseService();
+    _members = await db.fetchMembers();
   }
-  static List getMemberList(){
-    return _member;
-  }
+
+  static List<List<String>> getMemberList() => _members;
 }

@@ -73,7 +73,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
                         EdgeInsets.only(top: ResponsiveHeight(context, 160))),
                 InkWell(
                     onTap: () {
-                      LaunchURL(url: ContactClass.getContactLink("whatsApp"));
+                      final url = ContactClass.getContactLink("whatsApp");
+                      if (url != null) {
+                        LaunchURL(url: url);
+                      }
                     },
                     child: SizedBox(
                       width: ResponsiveWidth(context, 250),
