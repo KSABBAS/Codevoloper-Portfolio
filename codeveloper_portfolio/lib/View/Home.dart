@@ -29,21 +29,33 @@ class _HomeState extends State<Home> {
             width: double.infinity,
             color: UsedColors.background,
           ),
-          AnimatedPositioned(
-            top:ResponsiveFontSizeByHeight(context,-700,designScreenHeight: 915),
-            left:ResponsiveWidth(context,-400,designScreenWidth: 412),
-            duration: Duration(milliseconds: 300),
-            child: Transform.rotate(
-              angle: 29 * 3.14 / 180,
-              child: CMaker(
-                color: UsedColors.yellow,
-                height: ResponsiveHeight(context, 2000, designScreenHeight: 915),
-                width: ResponsiveWidth(context, 550, designScreenWidth: 412),
+          PopAndVanishLAyerBetweenNavBar(
+              LayerBetween: AnimatedPositioned(
+                // top:ResponsiveFontSizeByHeight(context,(currentPageIndex==0)?-700:-1050,designScreenHeight: 915),
+                // left:ResponsiveWidth(context,(currentPageIndex==0)?-400:-500,designScreenWidth: 412),
+                top: ResponsiveFontSizeByHeight(
+                    context, (currentPageIndex == 0) ? -300 : -600,
+                    designScreenHeight: 915),
+                left: ResponsiveWidth(
+                    context, (currentPageIndex == 0) ? -100 : 600,
+                    designScreenWidth: 412),
+                duration: Duration(milliseconds: 600),
+                child: ACMaker(
+                  duration: Duration(milliseconds: 600),
+                  transform: Matrix4.identity()
+                    ..rotateZ((currentPageIndex == 0)
+                        ? (-1.9 * 3.14 * 180)
+                        : (-5.2 *
+                            3.14 *
+                            150)), //(currentPageIndex==0)? 29:65 * (3.14 / 180),),
+                  color: UsedColors.yellow,
+                  height:
+                      ResponsiveHeight(context, 2000, designScreenHeight: 915),
+                  width: ResponsiveWidth(context, 550, designScreenWidth: 412),
+                ),
               ),
-            ),
-          ),
-          PopAndVanishNavBar(
-            NavBarPositionTop: ResponsiveHeight(context, 15,designScreenHeight: 915),
+              NavBarPositionTop:
+                  ResponsiveHeight(context, 15, designScreenHeight: 915),
               barColor: Colors.transparent,
               vanishDuration: Duration(milliseconds: 300),
               pageBackgroundColor: Colors.transparent,
@@ -70,7 +82,9 @@ class _HomeState extends State<Home> {
                         text: "Home",
                         fontSize: ResponsiveFontSizeByWidth(context, 18,
                             designScreenWidth: 412),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: (currentPageIndex == 0)
+                            ? FontWeight.w800
+                            : FontWeight.w600,
                         color: UsedColors.background),
                     (currentPageIndex == 0) ? Spacer() : CMaker(),
                     (currentPageIndex == 0)
@@ -92,7 +106,9 @@ class _HomeState extends State<Home> {
                         text: "Members",
                         fontSize: ResponsiveFontSizeByWidth(context, 18,
                             designScreenWidth: 412),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: (currentPageIndex == 1)
+                            ? FontWeight.w800
+                            : FontWeight.w600,
                         color: UsedColors.background),
                     (currentPageIndex == 1) ? Spacer() : CMaker(),
                     (currentPageIndex == 1)
@@ -114,7 +130,9 @@ class _HomeState extends State<Home> {
                         text: "Projects",
                         fontSize: ResponsiveFontSizeByWidth(context, 18,
                             designScreenWidth: 412),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: (currentPageIndex == 2)
+                            ? FontWeight.w800
+                            : FontWeight.w600,
                         color: UsedColors.background),
                     (currentPageIndex == 2) ? Spacer() : CMaker(),
                     (currentPageIndex == 2)
@@ -132,6 +150,71 @@ class _HomeState extends State<Home> {
               ],
               height: ResponsiveHeight(context, 60, designScreenHeight: 915),
               width: ResponsiveWidth(context, 320, designScreenWidth: 412)),
+        Positioned(
+          top: ResponsiveHeight(context,142, designScreenHeight: 915),
+          child: AnimatedOpacity(
+              duration: Duration(milliseconds: 100),
+              opacity: (currentPageIndex==0)?1:0,
+              child: CMaker(
+                height:ResponsiveHeight(context,100,designScreenHeight: 915),
+                child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ResponsivePMaker(
+                            horizontal: 77,
+                          ),
+                          TMaker(
+                              text: "CODEVE",
+                              fontSize: ResponsiveFontSizeByWidth(context, 40,
+                                  designScreenWidth: 412),
+                              fontWeight: FontWeight.w700,
+                              color: UsedColors.background),
+                          ShaderMask(
+                            shaderCallback: (Rect bounds) {
+                              return LinearGradient(
+                                colors: [
+                                  UsedColors.background,
+                                  UsedColors.background,
+                                  UsedColors.background,
+                                  UsedColors.background,
+                                  UsedColors.background,
+                                  UsedColors.background,
+                                  UsedColors.background,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                  UsedColors.yellow,
+                                ],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.bottomRight,
+                              ).createShader(bounds);
+                            },
+                            blendMode: BlendMode.srcIn,
+                            child: TMaker(
+                                text: "L",
+                                fontSize: ResponsiveFontSizeByWidth(context, 40,
+                                    designScreenWidth: 412),
+                                fontWeight: FontWeight.w700,
+                                color: UsedColors.yellow),
+                          ),
+                          TMaker(
+                              text: "OPER",
+                              fontSize: ResponsiveFontSizeByWidth(context, 40,
+                                  designScreenWidth: 412),
+                              fontWeight: FontWeight.w700,
+                              color: UsedColors.yellow),
+                        ],
+                      ),
+                    ),
+                  
+            ),
+        ),
         ],
       );
     } else {
