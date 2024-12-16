@@ -150,71 +150,72 @@ class _HomeState extends State<Home> {
               ],
               height: ResponsiveHeight(context, 60, designScreenHeight: 915),
               width: ResponsiveWidth(context, 320, designScreenWidth: 412)),
-        Positioned(
-          top: ResponsiveHeight(context,142, designScreenHeight: 915),
-          child: AnimatedOpacity(
-              duration: Duration(milliseconds: 100),
-              opacity: (currentPageIndex==0)?1:0,
-              child: CMaker(
-                height:ResponsiveHeight(context,100,designScreenHeight: 915),
-                child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ResponsivePMaker(
-                            horizontal: 77,
-                          ),
-                          TMaker(
-                              text: "CODEVE",
-                              fontSize: ResponsiveFontSizeByWidth(context, 40,
-                                  designScreenWidth: 412),
-                              fontWeight: FontWeight.w700,
-                              color: UsedColors.background),
-                          ShaderMask(
-                            shaderCallback: (Rect bounds) {
-                              return LinearGradient(
-                                colors: [
-                                  UsedColors.background,
-                                  UsedColors.background,
-                                  UsedColors.background,
-                                  UsedColors.background,
-                                  UsedColors.background,
-                                  UsedColors.background,
-                                  UsedColors.background,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                  UsedColors.yellow,
-                                ],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.bottomRight,
-                              ).createShader(bounds);
-                            },
-                            blendMode: BlendMode.srcIn,
-                            child: TMaker(
-                                text: "L",
-                                fontSize: ResponsiveFontSizeByWidth(context, 40,
-                                    designScreenWidth: 412),
-                                fontWeight: FontWeight.w700,
-                                color: UsedColors.yellow),
-                          ),
-                          TMaker(
-                              text: "OPER",
+          (currentPageIndex == 0)
+              ? Positioned(
+                  top: ResponsiveHeight(context, 142, designScreenHeight: 915),
+                  child: CMaker(
+                    height:
+                        ResponsiveHeight(context, 100, designScreenHeight: 915),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ResponsivePMaker(
+                          horizontal: 77,
+                        ),
+                        TMaker(
+                            text: "CODEVE",
+                            fontSize: ResponsiveFontSizeByWidth(context, 40,
+                                designScreenWidth: 412),
+                            fontWeight: FontWeight.w700,
+                            color: UsedColors.background),
+                        ShaderMask(
+                          shaderCallback: (Rect bounds) {
+                            return LinearGradient(
+                              colors: [
+                                UsedColors.background,
+                                UsedColors.background,
+                                UsedColors.background,
+                                UsedColors.background,
+                                UsedColors.background,
+                                UsedColors.background,
+                                UsedColors.background,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                                UsedColors.yellow,
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.bottomRight,
+                            ).createShader(bounds);
+                          },
+                          blendMode: BlendMode.srcIn,
+                          child: TMaker(
+                              text: "L",
                               fontSize: ResponsiveFontSizeByWidth(context, 40,
                                   designScreenWidth: 412),
                               fontWeight: FontWeight.w700,
                               color: UsedColors.yellow),
-                        ],
-                      ),
+                        ),
+                        TMaker(
+                            text: "OPER",
+                            fontSize: ResponsiveFontSizeByWidth(context, 40,
+                                designScreenWidth: 412),
+                            fontWeight: FontWeight.w700,
+                            color: UsedColors.yellow),
+                      ],
                     ),
-                  
-            ),
-        ),
+                  ),
+                )
+              : CMaker(
+                  height: 0,
+                  width: 0,
+                ),
         ],
       );
     } else {
