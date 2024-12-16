@@ -4,7 +4,7 @@ import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
 import 'package:codeveloper_portfolio/Data/membersData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
-import 'package:codeveloper_portfolio/View/Pages/ProjectsPage/ProjectIsOpened.dart';
+import 'package:codeveloper_portfolio/View/Pages/windows/ProjectsPage/ProjectIsOpened.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
