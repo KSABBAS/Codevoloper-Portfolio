@@ -3,12 +3,12 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:chewie/chewie.dart';
-import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
+import 'package:flutter/services.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:video_player/video_player.dart';
 import 'package:video_player/video_player.dart';
 // import 'package:beautiful_soup_dart/beautiful_soup.dart';
 
@@ -1171,60 +1171,71 @@ class ViewImage extends StatelessWidget {
       this.file,
       this.bytes,
       this.Height,
-      this.Width});
+      this.Width,
+      this.borderRadius});
   final String? ImageLink;
   final String? ImagePath;
   final File? file;
   final Uint8List? bytes;
   final double? Height;
   final double? Width;
+  final BorderRadius? borderRadius;
   @override
   Widget build(BuildContext context) {
     if (ImagePath != null &&
         ImageLink == null &&
         file == null &&
         bytes == null) {
-      return SizedBox(
-        width: Width ?? 100,
-        height: Height ?? 100,
-        child: InstaImageViewer(
-          child: Image(
-            image: Image.asset(ImagePath!).image,
+      return ClipRRect(
+        borderRadius: borderRadius ?? BorderRadius.circular(20),
+        child: SizedBox(
+          width: Width ?? 100,
+          height: Height ?? 100,
+          child: InstaImageViewer(
+            child: Image(
+              image: Image.asset(ImagePath!).image,
+            ),
           ),
         ),
       );
     } else if (ImageLink == null && file != null && bytes == null) {
-      return SizedBox(
-        width: Width ?? double.infinity,
-        height: Height ?? double.infinity,
-        child: InstaImageViewer(
-          child: Image(
-            image: Image.file(file!).image,
-          ),
-        ),
-      );
+      return ClipRRect(
+          borderRadius: borderRadius ?? BorderRadius.circular(20),
+          child: SizedBox(
+            width: Width ?? double.infinity,
+            height: Height ?? double.infinity,
+            child: InstaImageViewer(
+              child: Image(
+                image: Image.file(file!).image,
+              ),
+            ),
+          ));
     } else if (ImageLink == null && bytes != null) {
-      return SizedBox(
-        width: Width ?? double.infinity,
-        height: Height ?? double.infinity,
-        child: InstaImageViewer(
-          child: Image(
-            image: Image.memory(bytes!).image,
-          ),
-        ),
-      );
+      return ClipRRect(
+          borderRadius: borderRadius ?? BorderRadius.circular(20),
+          child: SizedBox(
+            width: Width ?? double.infinity,
+            height: Height ?? double.infinity,
+            child: InstaImageViewer(
+              child: Image(
+                image: Image.memory(bytes!).image,
+              ),
+            ),
+          ));
     } else {
-      return SizedBox(
-        width: Width ?? double.infinity,
-        height: Height ?? double.infinity,
-        child: InstaImageViewer(
-          child: Image(
-            image:
-                Image.network(ImageLink ?? "https://picsum.photos/id/507/1000")
+      return ClipRRect(
+          borderRadius: borderRadius ?? BorderRadius.circular(20),
+          child: SizedBox(
+            width: Width ?? double.infinity,
+            height: Height ?? double.infinity,
+            child: InstaImageViewer(
+              child: Image(
+                image: Image.network(
+                        ImageLink ?? "https://picsum.photos/id/507/1000")
                     .image,
-          ),
-        ),
-      );
+              ),
+            ),
+          ));
     }
   }
 }
@@ -2060,8 +2071,7 @@ class PopAndVanishLAyerBetweenNavBar extends StatefulWidget {
       this.NavBarPositionRight,
       this.NavBarPositionTop,
       this.vanishDuration,
-      this.LayerBetween
-      });
+      this.LayerBetween});
   List<Widget> pages;
   List<Widget> iconsList;
   String? orientation;
@@ -2130,7 +2140,7 @@ class _PopAndVanishLAyerBetweenNavBarState
                   ),
                 ],
               )),
-          widget.LayerBetween??CMaker(),
+          widget.LayerBetween ?? CMaker(),
           Positioned(
             top: widget.NavBarPositionTop,
             left: widget.NavBarPositionLeft,
@@ -2252,7 +2262,7 @@ class _PopAndVanishLAyerBetweenNavBarState
                   ),
                 ],
               )),
-              widget.LayerBetween??CMaker(),
+          widget.LayerBetween ?? CMaker(),
           Positioned(
               top: widget.NavBarPositionTop,
               left: widget.NavBarPositionLeft,
@@ -2798,8 +2808,304 @@ class ResponsivePMaker extends StatelessWidget {
 //   }
 // }
 
+//----------------------------------------------------------
 
+//===========================================
+// import 'package:video_player/video_player.dart';
+// package : video_player: ^2.9.2;
+// add : flutter pub add video_player
+class MyVideoPlayer extends StatefulWidget {
+  MyVideoPlayer({
+    super.key,
+    this.url,
+    this.height,
+    this.width,
+    this.allowFullScreen,
+    this.allowSettrings,
+    this.asset,
+    this.uri,
+    this.file
+  });
+  String? url;
+  Uri? uri;
+  String? asset;
+  double? height;
+  double? width;
+  File? file;
+  bool? allowFullScreen;
+  bool? allowSettrings;
+  @override
+  State<MyVideoPlayer> createState() => _MyVideoPlayerState();
+}
 
-//=================================================
+class _MyVideoPlayerState extends State<MyVideoPlayer> {
+  VideoPlayerController? _controller;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.url != null) {
+      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url ??
+          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
+        ..initialize().then((_) {
+          setState(() {}); // Rebuild when the video is initialized
+        });
+    } else if (widget.asset != null) {
+      _controller = VideoPlayerController.asset(widget.asset!)
+        ..initialize().then((_) {
+          setState(() {}); // Rebuild when the video is initialized
+        });
+    } else if (widget.uri != null) {
+      _controller = VideoPlayerController.contentUri(widget.uri!)
+        ..initialize().then((_) {
+          setState(() {}); // Rebuild when the video is initialized
+        });
+    } else if (widget.file != null) {
+      _controller = VideoPlayerController.file(widget.file!)..initialize().then((_) {
+          setState(() {}); // Rebuild when the video is initialized
+        });
+    }
+  }
 
-//=================================================
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
+  }
+
+  // bool isFullScreen = false;
+  @override
+  Widget build(BuildContext context) {
+    return ACMaker(
+      duration: Duration(milliseconds: 300),
+      height: widget.height ?? 200,
+      width: widget.width ?? MediaQuery.of(context).size.width,
+      color: Colors.black,
+      child: Stack(
+        children: [
+          Center(child: _VideoPlayer(controller: _controller!)),
+          _Controls(
+            controller: _controller!,
+            onChange: (newController) {
+              _controller = newController;
+            },
+            allowSettrings: widget.allowSettrings ?? false,
+            allowFullScreen: widget.allowFullScreen ?? false,
+            onScreanModeChange: (fullScrean) {
+              if (fullScrean) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
+                    return Scaffold(
+                      body: Stack(
+                        children: [
+                          Center(
+                            child: _VideoPlayer(controller: _controller!),
+                          ),
+                          CMaker(
+                            height: PageHeight(context),
+                            width: PageWidth(context),
+                            child: _Controls(
+                              controller: _controller!,
+                              onChange: (newController) {
+                                _controller = newController;
+                              },
+                              allowFullScreen: widget.allowFullScreen ?? false,
+                              onScreanModeChange: (fullScrean) {
+                                Navigator.of(context).pop();
+                              },
+                              allowSettrings: widget.allowSettrings ?? false,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ));
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Controls extends StatefulWidget {
+  _Controls({
+    super.key,
+    required this.controller,
+    required this.onChange,
+    required this.allowFullScreen,
+    required this.onScreanModeChange,
+    required this.allowSettrings,
+  });
+  VideoPlayerController controller;
+  final Function(VideoPlayerController newController) onChange;
+  bool allowFullScreen;
+  Function(bool fullScrean) onScreanModeChange;
+  bool allowSettrings;
+  @override
+  State<_Controls> createState() => __ControlsState();
+}
+
+class __ControlsState extends State<_Controls> {
+  bool fullScreenIsOn = false;
+  @override
+  Widget build(BuildContext context) {
+    return (!widget.controller.value.isInitialized)
+        ? Center(
+            child: CircularProgressIndicator(
+            color: Colors.white,
+          ))
+        : AnimatedOpacity(
+            opacity: widget.controller.value.isPlaying ? 0 : 1,
+            duration: Duration(milliseconds: 300),
+            child: ACMaker(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              color: const Color.fromARGB(100, 52, 52, 52),
+              height: 200,
+              width: MediaQuery.of(context).size.width,
+              child: InkWell(
+                onTap: () {
+                  widget.controller.value.isPlaying
+                      ? widget.controller.pause()
+                      : widget.controller.play();
+                  widget.onChange(widget.controller);
+                  setState(() {});
+                },
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: CMaker(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            (widget.allowSettrings)
+                                ? CMaker(
+                                    width: 50,
+                                    height: 30,
+                                    child: IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.settings,
+                                          color: Colors.white,
+                                          size: 30,
+                                        )),
+                                  )
+                                : CMaker(),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Center(
+                        child: Icon(
+                          widget.controller.value.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          color: Colors.white,
+                          size: 60,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: CMaker(
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            (widget.allowFullScreen)
+                                ? IconButton(
+                                    onPressed: () {
+                                      (MediaQuery.of(context).orientation ==
+                                              Orientation.portrait)
+                                          ? SystemChrome
+                                              .setPreferredOrientations([
+                                              DeviceOrientation.landscapeLeft
+                                            ])
+                                          : SystemChrome
+                                              .setPreferredOrientations([
+                                              DeviceOrientation.portraitUp
+                                            ]);
+                                      widget
+                                          .onScreanModeChange(!fullScreenIsOn);
+                                    },
+                                    icon: Icon(
+                                      (MediaQuery.of(context).orientation ==
+                                              Orientation.portrait)
+                                          ? Icons.fullscreen
+                                          : Icons.fullscreen_exit,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                  )
+                                : CMaker(),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+}
+
+class _VideoPlayer extends StatelessWidget {
+  final VideoPlayerController controller;
+  _VideoPlayer({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: controller.value.aspectRatio,
+      child: VideoPlayer(controller),
+    );
+  }
+}
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+//===========================================
+
+//----------------------------------------------------------
