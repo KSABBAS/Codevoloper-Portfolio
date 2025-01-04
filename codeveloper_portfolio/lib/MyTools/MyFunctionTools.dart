@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:url_launcher/url_launcher.dart';
 // import 'package:geolocator/geolocator.dart';
@@ -143,7 +144,8 @@ double PageWidth(BuildContext context) {
 double? _referenceFontScreenWidth;
 
 // Responsive Font Size by Width
-double ResponsiveFontSizeByWidth(BuildContext context, double fontSize, { double? designScreenWidth=1536}) {
+double ResponsiveFontSizeByWidth(BuildContext context, double fontSize,
+    {double? designScreenWidth = 1536}) {
   final screenWidth = MediaQuery.of(context).size.width;
 
   // Set the reference screen width for font size scaling
@@ -158,7 +160,8 @@ double ResponsiveFontSizeByWidth(BuildContext context, double fontSize, { double
 
 double? _referenceFontScreenHeight;
 // Responsive Font Size by Height
-double ResponsiveFontSizeByHeight(BuildContext context, double fontSize, {double? designScreenHeight=792}) {
+double ResponsiveFontSizeByHeight(BuildContext context, double fontSize,
+    {double? designScreenHeight = 792}) {
   final screenHeight = MediaQuery.of(context).size.height;
 
   // Set the reference screen height for font size scaling
@@ -171,12 +174,11 @@ double ResponsiveFontSizeByHeight(BuildContext context, double fontSize, {double
   return fontSize * scaleFactor;
 }
 
-
-
 double? _referenceScreenWidth;
 
 // Responsive Width Function
-double ResponsiveWidth(BuildContext context, double containerWidth, {double? designScreenWidth=1536}) {
+double ResponsiveWidth(BuildContext context, double containerWidth,
+    {double? designScreenWidth = 1536}) {
   final screenWidth = MediaQuery.of(context).size.width;
 
   // Set the reference screen width once
@@ -191,7 +193,8 @@ double ResponsiveWidth(BuildContext context, double containerWidth, {double? des
 
 double? _referenceScreenHeight;
 // Responsive Height Function
-double ResponsiveHeight(BuildContext context, double containerHeight, {double? designScreenHeight=792}) {
+double ResponsiveHeight(BuildContext context, double containerHeight,
+    {double? designScreenHeight = 792}) {
   final screenHeight = MediaQuery.of(context).size.height;
 
   // Set the reference screen height once
@@ -204,12 +207,12 @@ double ResponsiveHeight(BuildContext context, double containerHeight, {double? d
   return containerHeight * scaleFactor;
 }
 
-
 class MyResponsive {
   final double _widthFactor;
   final double _heightFactor;
-  
-  MyResponsive(BuildContext context, {double designWidth = 1536, double designHeight = 792})
+
+  MyResponsive(BuildContext context,
+      {double designWidth = 1536, double designHeight = 792})
       : _widthFactor = MediaQuery.of(context).size.width / designWidth,
         _heightFactor = MediaQuery.of(context).size.height / designHeight;
 
@@ -218,8 +221,6 @@ class MyResponsive {
   double width(double value) => value * _widthFactor;
   double height(double value) => value * _heightFactor;
 }
-
-
 
 //===========================================
 
@@ -245,31 +246,66 @@ class MyResponsive {
 // package : image_picker: ^1.1.2
 // in terminal : flutter pub add image_picker
 // Future PickImageFromGalary() async {
-//   return await ImagePicker().pickImage(source: ImageSource.gallery);
+//   try {
+//     return ImagePicker().pickImage(source: ImageSource.gallery);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
 
 // Future PickImageFromCamera() async {
-//   return await ImagePicker().pickImage(source: ImageSource.camera);
+//   try {
+//     return ImagePicker().pickImage(source: ImageSource.camera);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
 
 // Future PickVideoFromCamera() async {
-//   return await ImagePicker().pickVideo(source: ImageSource.camera);
+//   try {
+//     return ImagePicker().pickVideo(source: ImageSource.camera);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
 
 // Future PickVideoFromGalary() async {
-//   return await ImagePicker().pickVideo(source: ImageSource.gallery);
+//   try {
+//     return ImagePicker().pickVideo(source: ImageSource.gallery);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
 
 // Future PickMultiImageFromGalary() async {
-//   return await ImagePicker().pickMultiImage();
+//   try {
+//     return ImagePicker().pickMultiImage();
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
 
 // Future PickMediaFromGalary() async {
-//   return await ImagePicker().pickMedia();
+//   try {
+//     return ImagePicker().pickMedia();
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
 
 // Future PickMultiMediaFromGalary() async {
-//   return await ImagePicker().pickMultipleMedia();
+//   try {
+//     return ImagePicker().pickMultipleMedia();
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
 
 //===========================================
@@ -280,24 +316,87 @@ class MyResponsive {
 // import 'package:file_picker/file_picker.dart';
 // Package : file_picker 8.1.4
 // add : flutter pub add file_picker
+// Future PickImageFile() async {
+//   try {
+//     return await FilePicker.platform.pickFiles(
+//       allowMultiple: false,
+//       type: FileType.image,
+//     );
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
+// }
+
 // Future PickAudioFile() async {
-//   return await FilePicker.platform.pickFiles(
-//     allowMultiple: false,
-//     type: FileType.audio
-//   );
+//   try {
+//     return await FilePicker.platform
+//         .pickFiles(allowMultiple: false, type: FileType.audio);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
+
+// Future PickMultiImageFiles() async {
+//   try {
+//     return await FilePicker.platform
+//         .pickFiles(allowMultiple: true, type: FileType.image);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
+// }
+
+// Future PickVideoFile() async {
+//   try {
+//     return await FilePicker.platform
+//         .pickFiles(allowMultiple: false, type: FileType.video);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
+// }
+
+// Future PickMultiVideoFiles() async {
+//   try {
+//     return await FilePicker.platform
+//         .pickFiles(allowMultiple: true, type: FileType.video);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
+// }
+
 // Future PickMultiAudioFiles() async {
-//   return await FilePicker.platform.pickFiles(
-//     allowMultiple: true,
-//     type: FileType.audio,
-//   );
+//   try {
+//     return await FilePicker.platform.pickFiles(
+//       allowMultiple: true,
+//       type: FileType.audio,
+//     );
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
+
 // Future PickMultiTypeFiles() async {
-//   return await FilePicker.platform.pickFiles(
-//     allowMultiple: true,
-//     type: FileType.any
-//   );
+//   try {
+//     return await FilePicker.platform
+//         .pickFiles(allowMultiple: true, type: FileType.any);
+//   } catch (e) {
+//     print("Error picking image: $e");
+//     return null;
+//   }
 // }
+
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
 
 
 //===========================================
@@ -318,13 +417,49 @@ class MyResponsive {
 // add : flutter pub add url_launcher
 Future<void> LaunchURL({required String url}) async {
     try {
-      if (!await launchUrl(Uri.parse(url), browserConfiguration: BrowserConfiguration(),mode: LaunchMode.platformDefault)) {
+      if (!await launchUrl(Uri.parse(url), browserConfiguration: const BrowserConfiguration(),mode: LaunchMode.platformDefault)) {
         throw 'Could not launch $url';
       }
     } catch (e) {
       //mj
     }
   }
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+// import 'package:mobile_scanner/mobile_scanner.dart';
+// package : mobile_scanner: ^2.0.0
+// add : flutter pub add mobile_scanner
+
+// Universal QR Code Scanner
+// Future<String?> scanQRCode(BuildContext context) async {
+//   String? result; // Variable to store the scanned result
+
+//   // Open a dialog to scan the QR code
+//   await showDialog(
+//     context: context,
+//     builder: (context) => Scaffold(
+//       appBar: AppBar(
+//         title: const Text("Scan QR Code"),
+//         backgroundColor: Colors.black,
+//       ),
+//       body: MobileScanner(
+//         onDetect:(barcode) {
+//           if (barcode.raw != null) {
+//             result = barcode.raw; // Store the scanned result
+//             Navigator.of(context).pop(); // Close the scanner
+//           }
+//         },
+//       ),
+//     ),
+//   );
+
+//   return result; // Return the scanned result
+// }
+
 
 //===========================================
 

@@ -1,16 +1,15 @@
 // import 'package:chewie/chewie.dart';
+// import 'package:chewie/chewie.dart';
+// import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:chewie/chewie.dart';
+
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:flutter/material.dart';
-
-// import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:video_player/video_player.dart';
-// import 'package:beautiful_soup_dart/beautiful_soup.dart';
 
 class CMaker extends StatefulWidget {
   CMaker(
@@ -109,7 +108,7 @@ class _ACMakerState extends State<ACMaker> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       transform: widget.transform,
-      duration: widget.duration ?? Duration(milliseconds: 300),
+      duration: widget.duration ?? const Duration(milliseconds: 300),
       alignment: widget.alignment,
       padding: widget.padding,
       margin: widget.margin,
@@ -148,17 +147,27 @@ class TMaker extends StatelessWidget {
       required this.fontWeight,
       required this.color,
       this.textAlign,
-      this.fontFamily});
+      this.fontFamily,
+      this.maxLines,
+      this.overflow,
+      this.textDirection
+      });
   String text;
   double fontSize;
   FontWeight fontWeight;
   Color color;
+  int? maxLines;
+  TextOverflow? overflow;
   TextAlign? textAlign;
+  TextDirection? textDirection;
   String? fontFamily;
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines:maxLines?? 1,
+      overflow: overflow ?? TextOverflow.ellipsis,
+      textDirection:textDirection?? TextDirection.rtl,
       textAlign: textAlign ?? TextAlign.center,
       style: TextStyle(
           fontFamily: fontFamily,
@@ -169,202 +178,203 @@ class TMaker extends StatelessWidget {
   }
 }
 
-// class TFMaker extends StatefulWidget {
-//   TFMaker(
-//       {super.key,
-//       this.prefix,
-//       this.enabledBorderwidth,
-//       this.focusedBorderwidth,
-//       this.enabledBorderColor,
-//       this.focusedBorderColor,
-//       this.suffix,
-//       this.focusedCircularRadius,
-//       this.enabledCircularRadius,
-//       this.hintText,
-//       this.hintStyle,
-//       this.label,
-//       this.disabledBorderColor,
-//       this.disabledBorderwidth,
-//       this.disabledCircularRadius,
-//       this.onChanged,
-//       this.onSubmitted,
-//       this.lines});
-//   Widget? prefix;
-//   Widget? suffix;
-//   String? hintText;
-//   Widget? label;
-//   TextStyle? hintStyle;
-//   double? enabledCircularRadius;
-//   double? disabledCircularRadius;
-//   double? focusedCircularRadius;
-//   double? enabledBorderwidth;
-//   double? disabledBorderwidth;
-//   double? focusedBorderwidth;
-//   int? lines;
-//   Color? enabledBorderColor;
-//   Color? disabledBorderColor;
-//   Color? focusedBorderColor;
-//   Function(String value)? onChanged;
-//   Function(String value)? onSubmitted;
-//   @override
-//   State<TFMaker> createState() => _TFMakerState();
-// }
+class TFMaker extends StatefulWidget {
+  TFMaker(
+      {super.key,
+      this.prefix,
+      this.enabledBorderwidth,
+      this.focusedBorderwidth,
+      this.enabledBorderColor,
+      this.focusedBorderColor,
+      this.suffix,
+      this.focusedCircularRadius,
+      this.enabledCircularRadius,
+      this.hintText,
+      this.hintStyle,
+      this.label,
+      this.disabledBorderColor,
+      this.disabledBorderwidth,
+      this.disabledCircularRadius,
+      this.onChanged,
+      this.onSubmitted,
+      this.lines});
+  Widget? prefix;
+  Widget? suffix;
+  String? hintText;
+  Widget? label;
+  TextStyle? hintStyle;
+  double? enabledCircularRadius;
+  double? disabledCircularRadius;
+  double? focusedCircularRadius;
+  double? enabledBorderwidth;
+  double? disabledBorderwidth;
+  double? focusedBorderwidth;
+  int? lines;
+  Color? enabledBorderColor;
+  Color? disabledBorderColor;
+  Color? focusedBorderColor;
+  Function(String value)? onChanged;
+  Function(String value)? onSubmitted;
+  @override
+  State<TFMaker> createState() => _TFMakerState();
+}
 
-// class _TFMakerState extends State<TFMaker> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextField(
-//       minLines: widget.lines ?? 1,
-//       maxLines: widget.lines ?? 1,
-//       onChanged: (value) {
-//         if (widget.onChanged != null) {
-//           widget.onChanged!(value);
-//         }
-//       },
-//       onSubmitted: (value) {
-//         if (widget.onSubmitted != null) {
-//           widget.onSubmitted!(value);
-//         }
-//       },
-//       decoration: InputDecoration(
-//           prefix: widget.prefix,
-//           suffix: widget.suffix,
-//           hintText: widget.hintText,
-//           hintStyle: widget.hintStyle,
-//           label: widget.label,
-//           enabledBorder: OutlineInputBorder(
-//             borderSide: BorderSide(
-//                 color: widget.enabledBorderColor ?? Colors.black,
-//                 width: widget.enabledBorderwidth ?? 0),
-//             borderRadius:
-//                 BorderRadius.circular(widget.enabledCircularRadius ?? 20),
-//           ),
-//           focusedBorder: OutlineInputBorder(
-//             borderSide: BorderSide(
-//                 color: widget.focusedBorderColor ?? Colors.black,
-//                 width: widget.focusedBorderwidth ?? 1),
-//             borderRadius:
-//                 BorderRadius.circular(widget.focusedCircularRadius ?? 10),
-//           )),
-//     );
-//   }
-// }
+class _TFMakerState extends State<TFMaker> {
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      minLines: widget.lines ?? 1,
+      maxLines: widget.lines ?? 1,
+      onChanged: (value) {
+        if (widget.onChanged != null) {
+          widget.onChanged!(value);
+        }
+      },
+      onSubmitted: (value) {
+        if (widget.onSubmitted != null) {
+          widget.onSubmitted!(value);
+        }
+      },
+      decoration: InputDecoration(
+          prefix: widget.prefix,
+          suffix: widget.suffix,
+          hintText: widget.hintText,
+          hintStyle: widget.hintStyle,
+          label: widget.label,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: widget.enabledBorderColor ?? Colors.black,
+                width: widget.enabledBorderwidth ?? 0),
+            borderRadius:
+                BorderRadius.circular(widget.enabledCircularRadius ?? 20),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: widget.focusedBorderColor ?? Colors.black,
+                width: widget.focusedBorderwidth ?? 1),
+            borderRadius:
+                BorderRadius.circular(widget.focusedCircularRadius ?? 10),
+          )),
+    );
+  }
+}
 
-// class TFFMaker extends StatefulWidget {
-//   TFFMaker(
-//       {super.key,
-//       this.FormKey,
-//       this.enabled,
-//       this.validator,
-//       this.prefix,
-//       this.enabledBorderwidth,
-//       this.errorBorderwidth,
-//       this.focusedBorderwidth,
-//       this.enabledBorderColor,
-//       this.errorBorderColor,
-//       this.focusedBorderColor,
-//       this.suffix,
-//       this.focusedCircularRadius,
-//       this.enabledCircularRadius,
-//       this.errorCircularRadius,
-//       this.hintText,
-//       this.hintStyle,
-//       this.label,
-//       this.disabledBorderColor,
-//       this.disabledBorderwidth,
-//       this.disabledCircularRadius,
-//       this.onChanged,
-//       this.onSaved,
-//       this.lines,
-//       this.initialValue});
-//   Widget? prefix;
-//   bool? enabled;
-//   Widget? suffix;
-//   String? hintText;
-//   Widget? label;
-//   TextStyle? hintStyle;
-//   String? initialValue;
-//   double? enabledCircularRadius;
-//   double? errorCircularRadius;
-//   double? disabledCircularRadius;
-//   double? focusedCircularRadius;
-//   double? enabledBorderwidth;
-//   double? errorBorderwidth;
-//   double? disabledBorderwidth;
-//   double? focusedBorderwidth;
-//   int? lines;
-//   Color? enabledBorderColor;
-//   Color? errorBorderColor;
-//   Color? disabledBorderColor;
-//   Color? focusedBorderColor;
-//   GlobalKey<FormState>? FormKey;
-//   Function(String value)? onChanged;
-//   Function(String? value)? onSaved;
-//   String? Function(String? value)? validator;
-//   @override
-//   State<TFFMaker> createState() => _TFFMakerState();
-// }
+class TFFMaker extends StatefulWidget {
+  TFFMaker(
+      {super.key,
+      this.FormKey,
+      this.enabled,
+      this.validator,
+      this.prefix,
+      this.enabledBorderwidth,
+      this.errorBorderwidth,
+      this.focusedBorderwidth,
+      this.enabledBorderColor,
+      this.errorBorderColor,
+      this.focusedBorderColor,
+      this.suffix,
+      this.focusedCircularRadius,
+      this.enabledCircularRadius,
+      this.errorCircularRadius,
+      this.hintText,
+      this.hintStyle,
+      this.label,
+      this.disabledBorderColor,
+      this.disabledBorderwidth,
+      this.disabledCircularRadius,
+      this.onChanged,
+      this.onSaved,
+      this.lines,
+      this.initialValue});
+  Widget? prefix;
+  bool? enabled;
+  Widget? suffix;
+  String? hintText;
+  Widget? label;
+  TextStyle? hintStyle;
+  String? initialValue;
+  double? enabledCircularRadius;
+  double? errorCircularRadius;
+  double? disabledCircularRadius;
+  double? focusedCircularRadius;
+  double? enabledBorderwidth;
+  double? errorBorderwidth;
+  double? disabledBorderwidth;
+  double? focusedBorderwidth;
+  int? lines;
+  Color? enabledBorderColor;
+  Color? errorBorderColor;
+  Color? disabledBorderColor;
+  Color? focusedBorderColor;
+  GlobalKey<FormState>? FormKey;
+  Function(String value)? onChanged;
+  Function(String? value)? onSaved;
+  String? Function(String? value)? validator;
+  @override
+  State<TFFMaker> createState() => _TFFMakerState();
+}
 
-// class _TFFMakerState extends State<TFFMaker> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextFormField(
-//       initialValue: widget.initialValue ?? "",
-//       minLines: widget.lines ?? 1,
-//       maxLines: widget.lines ?? 1,
-//       onChanged: (value) {
-//         if (widget.onChanged != null) {
-//           widget.onChanged!(value);
-//         }
-//       },
-//       onSaved: (newValue) {
-//         if (widget.onSaved != null) {
-//           widget.onSaved!(newValue);
-//         }
-//       },
-//       validator: (value) {
-//         if (widget.validator != null) {
-//           return widget.validator!(value);
-//         }
-//       },
-//       decoration: InputDecoration(
-//         prefix: widget.prefix,
-//         suffix: widget.suffix,
-//         hintText: widget.hintText,
-//         hintStyle: widget.hintStyle,
-//         enabled: widget.enabled ?? true,
-//         label: widget.label,
-//         enabledBorder: OutlineInputBorder(
-//           borderSide: BorderSide(
-//               color: widget.enabledBorderColor ?? Colors.black,
-//               width: widget.enabledBorderwidth ?? 0),
-//           borderRadius:
-//               BorderRadius.circular(widget.enabledCircularRadius ?? 20),
-//         ),
-//         focusedBorder: OutlineInputBorder(
-//           borderSide: BorderSide(
-//               color: widget.focusedBorderColor ?? Colors.black,
-//               width: widget.focusedBorderwidth ?? 1),
-//           borderRadius:
-//               BorderRadius.circular(widget.focusedCircularRadius ?? 10),
-//         ),
-//         errorBorder: OutlineInputBorder(
-//           borderSide: BorderSide(
-//               color: widget.errorBorderColor ?? Colors.red,
-//               width: widget.errorBorderwidth ?? 1),
-//           borderRadius: BorderRadius.circular(widget.errorCircularRadius ?? 20),
-//         ),
-//         disabledBorder: OutlineInputBorder(
-//           borderSide: BorderSide(
-//               color: widget.disabledBorderColor ?? Colors.red,
-//               width: widget.disabledBorderwidth ?? 1),
-//           borderRadius:
-//               BorderRadius.circular(widget.disabledCircularRadius ?? 20),
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _TFFMakerState extends State<TFFMaker> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      initialValue: widget.initialValue ?? "",
+      minLines: widget.lines ?? 1,
+      maxLines: widget.lines ?? 1,
+      onChanged: (value) {
+        if (widget.onChanged != null) {
+          widget.onChanged!(value);
+        }
+      },
+      onSaved: (newValue) {
+        if (widget.onSaved != null) {
+          widget.onSaved!(newValue);
+        }
+      },
+      validator: (value) {
+        if (widget.validator != null) {
+          return widget.validator!(value);
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        prefix: widget.prefix,
+        suffix: widget.suffix,
+        hintText: widget.hintText,
+        hintStyle: widget.hintStyle,
+        enabled: widget.enabled ?? true,
+        label: widget.label,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: widget.enabledBorderColor ?? Colors.black,
+              width: widget.enabledBorderwidth ?? 0),
+          borderRadius:
+              BorderRadius.circular(widget.enabledCircularRadius ?? 20),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: widget.focusedBorderColor ?? Colors.black,
+              width: widget.focusedBorderwidth ?? 1),
+          borderRadius:
+              BorderRadius.circular(widget.focusedCircularRadius ?? 10),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: widget.errorBorderColor ?? Colors.red,
+              width: widget.errorBorderwidth ?? 1),
+          borderRadius: BorderRadius.circular(widget.errorCircularRadius ?? 20),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: widget.disabledBorderColor ?? Colors.red,
+              width: widget.disabledBorderwidth ?? 1),
+          borderRadius:
+              BorderRadius.circular(widget.disabledCircularRadius ?? 20),
+        ),
+      ),
+    );
+  }
+}
 
 // class SplashViewPage extends StatefulWidget {
 //   SplashViewPage(
@@ -538,293 +548,329 @@ class TMaker extends StatelessWidget {
 //   }
 // }
 
-// class MultiRButton extends StatefulWidget {
-//   MultiRButton(
-//       {super.key,
-//       required this.list,
-//       required this.crossAxisCount,
-//       required this.onChanged,
-//       this.mainAxisSpacing,
-//       this.rowSpaces,
-//       this.columnSpaces,
-//       this.crossAxisSpacing,
-//       this.childAlignment,
-//       this.childBackGroundimage,
-//       this.childBorder,
-//       this.childBoxShadow,
-//       this.childCircularRadius,
-//       this.childColor,
-//       this.childGradient,
-//       this.childHeight,
-//       this.childPadding,
-//       this.childWidth,
-//       this.textAlign,
-//       this.textColor,
-//       this.textFontFamily,
-//       this.textFontSize,
-//       this.textFontWeight,
-//       this.activeColor,
-//       this.fillColor,
-//       this.hoverColor,
-//       this.overlayColor,
-//       this.tileColor});
-//   List list;
-//   int crossAxisCount;
-//   double? mainAxisSpacing;
-//   double? rowSpaces;
-//   double? columnSpaces;
-//   double? crossAxisSpacing;
-//   double? childWidth;
-//   double? childHeight;
-//   Color? childColor;
-//   AlignmentGeometry? childAlignment;
-//   EdgeInsetsGeometry? childPadding;
-//   DecorationImage? childBackGroundimage;
-//   List<BoxShadow>? childBoxShadow;
-//   Gradient? childGradient;
-//   BoxBorder? childBorder;
-//   double? childCircularRadius;
-//   double? textFontSize;
-//   FontWeight? textFontWeight;
-//   Color? textColor;
-//   TextAlign? textAlign;
-//   String? textFontFamily;
-//   WidgetStateProperty<Color?>? fillColor;
-//   Color? hoverColor;
-//   Color? tileColor;
-//   WidgetStateProperty<Color?>? overlayColor;
-//   Color? activeColor;
-//   Function(dynamic SelectedValue) onChanged;
-//   @override
-//   State<MultiRButton> createState() => _MultiRButtonState();
-// }
+class MultiRButton extends StatefulWidget {
+  MultiRButton(
+      {super.key,
+      required this.list,
+      required this.crossAxisCount,
+      required this.onChanged,
+      this.mainAxisSpacing,
+      this.rowSpaces,
+      this.columnSpaces,
+      this.crossAxisSpacing,
+      this.childAlignment,
+      this.childBackGroundimage,
+      this.childBorder,
+      this.childBoxShadow,
+      this.childCircularRadius,
+      this.childColor,
+      this.childGradient,
+      required this.childHeight,
+      this.childPadding,
+      this.childWidth,
+      this.textAlign,
+      this.textColor,
+      this.textFontFamily,
+      this.textFontSize,
+      this.textFontWeight,
+      this.activeColor,
+      this.hoverColor,
+      this.tileColor,
+      this.Scroll});
+  List list;
+  int crossAxisCount;
+  double? mainAxisSpacing;
+  double? rowSpaces;
+  double? columnSpaces;
+  double? crossAxisSpacing;
+  double? childWidth;
+  double childHeight;
+  Color? childColor;
+  AlignmentGeometry? childAlignment;
+  EdgeInsetsGeometry? childPadding;
+  DecorationImage? childBackGroundimage;
+  List<BoxShadow>? childBoxShadow;
+  Gradient? childGradient;
+  BoxBorder? childBorder;
+  double? childCircularRadius;
+  double? textFontSize;
+  FontWeight? textFontWeight;
+  Color? textColor;
+  TextAlign? textAlign;
+  String? textFontFamily;
+  Color? hoverColor;
+  Color? tileColor;
+  Color? activeColor;
+  bool? Scroll;
+  Function(dynamic SelectedValue) onChanged;
+  @override
+  State<MultiRButton> createState() => _MultiRButtonState();
+}
 
-// class _MultiRButtonState extends State<MultiRButton> {
-//   var selected = "";
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       itemCount: (widget.list.length / widget.crossAxisCount).round(),
-//       itemBuilder: (context, RowIndex) {
-//         return CMaker(
-//           margin: EdgeInsets.only(
-//               top: (RowIndex == 0)
-//                   ? widget.rowSpaces ?? 0
-//                   : (((widget.rowSpaces) ?? 0) / 2),
-//               bottom: ((RowIndex + 1) ==
-//                       (widget.list.length / widget.crossAxisCount).round())
-//                   ? (widget.rowSpaces ?? 0)
-//                   : (((widget.rowSpaces) ?? 0) / 2)),
-//           height: widget.childHeight ?? 60,
-//           width: widget.childWidth ?? 150.0 * widget.crossAxisCount,
-//           child: ListView.builder(
-//               scrollDirection: Axis.horizontal,
-//               itemCount: widget.crossAxisCount,
-//               itemBuilder: (context, ColumnIndex) {
-//                 return ((widget.list.length % widget.crossAxisCount) != 0 &&
-//                         widget.list.length ==
-//                             ((widget.crossAxisCount * RowIndex + ColumnIndex)))
-//                     ? CMaker(
-//                         height: widget.childHeight ?? 60,
-//                         width:
-//                             widget.childWidth ?? 150.0 * widget.crossAxisCount,
-//                       )
-//                     : CMaker(
-//                         margin: EdgeInsets.only(
-//                             left: (ColumnIndex == 0)
-//                                 ? widget.columnSpaces ?? 0
-//                                 : (((widget.columnSpaces) ?? 0) / 2),
-//                             right: ((ColumnIndex + 1) == widget.crossAxisCount)
-//                                 ? (widget.columnSpaces ?? 0)
-//                                 : (((widget.columnSpaces) ?? 0) / 2)),
-//                         padding: widget.childPadding,
-//                         boxShadow: widget.childBoxShadow,
-//                         BackGroundimage: widget.childBackGroundimage,
-//                         alignment: widget.childAlignment ?? Alignment.center,
-//                         border: widget.childBorder,
-//                         gradient: widget.childGradient,
-//                         width: widget.childWidth ?? 150,
-//                         circularRadius: widget.childCircularRadius ?? 20,
-//                         color: widget.childColor ??
-//                             Color.fromARGB(96, 216, 216, 216),
-//                         child: RadioListTile(
-//                             tileColor: widget.tileColor,
-//                             fillColor: widget.fillColor,
-//                             overlayColor: widget.overlayColor,
-//                             activeColor: widget.activeColor,
-//                             title: TMaker(
-//                               text: widget.list[
-//                                   widget.crossAxisCount * RowIndex +
-//                                       ColumnIndex],
-//                               color: widget.textColor ?? Colors.black,
-//                               fontSize: widget.textFontSize ?? 17,
-//                               fontWeight:
-//                                   widget.textFontWeight ?? FontWeight.w500,
-//                               fontFamily: widget.textFontFamily,
-//                               textAlign: widget.textAlign,
-//                             ),
-//                             value: widget.list[
-//                                 widget.crossAxisCount * RowIndex + ColumnIndex],
-//                             groupValue: selected,
-//                             onChanged: (val) {
-//                               setState(() {
-//                                 selected = val;
-//                                 widget.onChanged(val);
-//                               });
-//                             }),
-//                       );
-//               }),
-//         );
-//       },
-//     );
-//   }
-// }
+class _MultiRButtonState extends State<MultiRButton> {
+  var selected = "";
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: (widget.list.length.isEven)
+          ? ((widget.childHeight * widget.list.length) / 2) +
+              ((widget.rowSpaces ?? 0 * widget.list.length) +
+                  ((widget.rowSpaces ?? 0) * (widget.list.length / 2.0) + 0.0))
+          : (((widget.childHeight * widget.list.length) / 2) +
+                  widget.childHeight / 2) +
+              ((widget.rowSpaces ?? 0 * widget.list.length) +
+                  ((widget.rowSpaces ?? 0) *
+                          (widget.list.length / 2.0).round() +
+                      0.0)),
+      child: ListView.builder(
+        physics: (widget.Scroll == false)
+            ? const NeverScrollableScrollPhysics()
+            : null,
+        shrinkWrap: widget.Scroll ?? true,
+        itemCount: (widget.list.length / widget.crossAxisCount).round(),
+        itemBuilder: (context, RowIndex) {
+          return CMaker(
+            margin: EdgeInsets.only(
+                top: (RowIndex == 0)
+                    ? widget.rowSpaces ?? 0
+                    : (((widget.rowSpaces) ?? 0) / 2),
+                bottom: ((RowIndex + 1) ==
+                        (widget.list.length / widget.crossAxisCount).round())
+                    ? (widget.rowSpaces ?? 0)
+                    : (((widget.rowSpaces) ?? 0) / 2)),
+            height: widget.childHeight ?? 60,
+            width: widget.childWidth ?? 150.0 * widget.crossAxisCount,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.crossAxisCount,
+                itemBuilder: (context, ColumnIndex) {
+                  return ((widget.list.length % widget.crossAxisCount) != 0 &&
+                          widget.list.length ==
+                              ((widget.crossAxisCount * RowIndex +
+                                  ColumnIndex)))
+                      ? CMaker(
+                          height: widget.childHeight ?? 60,
+                          width: widget.childWidth ??
+                              150.0 * widget.crossAxisCount,
+                        )
+                      : CMaker(
+                          margin: EdgeInsets.only(
+                              left: (ColumnIndex == 0)
+                                  ? widget.columnSpaces ?? 0
+                                  : (((widget.columnSpaces) ?? 0) / 2),
+                              right:
+                                  ((ColumnIndex + 1) == widget.crossAxisCount)
+                                      ? (widget.columnSpaces ?? 0)
+                                      : (((widget.columnSpaces) ?? 0) / 2)),
+                          padding: widget.childPadding,
+                          boxShadow: widget.childBoxShadow,
+                          BackGroundimage: widget.childBackGroundimage,
+                          alignment: widget.childAlignment ?? Alignment.center,
+                          border: widget.childBorder,
+                          gradient: widget.childGradient,
+                          width: widget.childWidth ?? 150,
+                          circularRadius: widget.childCircularRadius ?? 20,
+                          color: widget.childColor ??
+                              const Color.fromARGB(96, 216, 216, 216),
+                          child: RadioListTile(
+                              tileColor: widget.tileColor,
+                              activeColor: widget.activeColor,
+                              title: TMaker(
+                                text: widget.list[
+                                    widget.crossAxisCount * RowIndex +
+                                        ColumnIndex],
+                                color: widget.textColor ?? Colors.black,
+                                fontSize: widget.textFontSize ?? 17,
+                                fontWeight:
+                                    widget.textFontWeight ?? FontWeight.w500,
+                                fontFamily: widget.textFontFamily,
+                                textAlign: widget.textAlign,
+                              ),
+                              value: widget.list[
+                                  widget.crossAxisCount * RowIndex +
+                                      ColumnIndex],
+                              groupValue: selected,
+                              onChanged: (val) {
+                                setState(() {
+                                  selected = val;
+                                  widget.onChanged(val);
+                                });
+                              }),
+                        );
+                }),
+          );
+        },
+      ),
+    );
+  }
+}
 
-// class MultiCBox extends StatefulWidget {
-//   MultiCBox({
-//     super.key,
-//     required this.list,
-//     required this.crossAxisCount,
-//     required this.onChanged,
-//     this.mainAxisSpacing,
-//     this.rowSpaces,
-//     this.columnSpaces,
-//     this.crossAxisSpacing,
-//     this.maxNumber,
-//     this.childAlignment,
-//     this.childBackGroundimage,
-//     this.childBorder,
-//     this.childBoxShadow,
-//     this.childCircularRadius,
-//     this.childColor,
-//     this.childGradient,
-//     this.childHeight,
-//     this.childWidth,
-//     this.childPadding,
-//     this.textAlign,
-//     this.textColor,
-//     this.textFontFamily,
-//     this.textFontSize,
-//     this.textFontWeight,
-//   });
-//   List list;
-//   int crossAxisCount;
-//   double? mainAxisSpacing;
-//   double? rowSpaces;
-//   double? columnSpaces;
-//   double? crossAxisSpacing;
-//   int? maxNumber;
-//   double? childWidth;
-//   double? childHeight;
-//   Color? childColor;
-//   AlignmentGeometry? childAlignment;
-//   EdgeInsetsGeometry? childPadding;
-//   DecorationImage? childBackGroundimage;
-//   List<BoxShadow>? childBoxShadow;
-//   Gradient? childGradient;
-//   BoxBorder? childBorder;
-//   double? childCircularRadius;
-//   double? textFontSize;
-//   FontWeight? textFontWeight;
-//   Color? textColor;
-//   TextAlign? textAlign;
-//   String? textFontFamily;
-//   Function(List SelectedValues) onChanged;
-//   @override
-//   State<MultiCBox> createState() => _MultiCBoxState();
-// }
+class MultiCBox extends StatefulWidget {
+  MultiCBox(
+      {super.key,
+      required this.list,
+      required this.crossAxisCount,
+      required this.onChanged,
+      this.mainAxisSpacing,
+      this.rowSpaces,
+      this.columnSpaces,
+      this.crossAxisSpacing,
+      this.maxNumber,
+      this.childAlignment,
+      this.childBackGroundimage,
+      this.childBorder,
+      this.childBoxShadow,
+      this.childCircularRadius,
+      this.childColor,
+      this.childGradient,
+      required this.childHeight,
+      this.childWidth,
+      this.childPadding,
+      this.textAlign,
+      this.textColor,
+      this.textFontFamily,
+      this.textFontSize,
+      this.textFontWeight,
+      this.Scroll});
+  List list;
+  int crossAxisCount;
+  double? mainAxisSpacing;
+  double? rowSpaces;
+  double? columnSpaces;
+  double? crossAxisSpacing;
+  int? maxNumber;
+  double? childWidth;
+  double childHeight;
+  Color? childColor;
+  AlignmentGeometry? childAlignment;
+  EdgeInsetsGeometry? childPadding;
+  DecorationImage? childBackGroundimage;
+  List<BoxShadow>? childBoxShadow;
+  Gradient? childGradient;
+  BoxBorder? childBorder;
+  double? childCircularRadius;
+  double? textFontSize;
+  FontWeight? textFontWeight;
+  Color? textColor;
+  TextAlign? textAlign;
+  String? textFontFamily;
+  bool? Scroll;
+  Function(List SelectedValues) onChanged;
+  @override
+  State<MultiCBox> createState() => _MultiCBoxState();
+}
 
-// class _MultiCBoxState extends State<MultiCBox> {
-//   List selectedItems = [];
-//   var selected = "";
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       itemCount: (widget.list.length / widget.crossAxisCount).round(),
-//       itemBuilder: (context, RowIndex) {
-//         return CMaker(
-//           margin: EdgeInsets.only(
-//               top: (RowIndex == 0)
-//                   ? widget.rowSpaces ?? 0
-//                   : (((widget.rowSpaces) ?? 0) / 2),
-//               bottom: ((RowIndex + 1) ==
-//                       (widget.list.length / widget.crossAxisCount).round())
-//                   ? (widget.rowSpaces ?? 0)
-//                   : (((widget.rowSpaces) ?? 0) / 2)),
-//           height: widget.childHeight ?? 60,
-//           width: widget.childWidth ?? 150.0 * widget.crossAxisCount,
-//           child: ListView.builder(
-//               scrollDirection: Axis.horizontal,
-//               itemCount: widget.crossAxisCount,
-//               itemBuilder: (context, ColumnIndex) {
-//                 return ((widget.list.length % widget.crossAxisCount) != 0 &&
-//                         widget.list.length ==
-//                             ((widget.crossAxisCount * RowIndex + ColumnIndex)))
-//                     ? Container(
-//                         width: widget.childWidth ?? 150,
-//                       )
-//                     : CMaker(
-//                         margin: EdgeInsets.only(
-//                             left: (ColumnIndex == 0)
-//                                 ? widget.columnSpaces ?? 0
-//                                 : (((widget.columnSpaces) ?? 0) / 2),
-//                             right: ((ColumnIndex + 1) == widget.crossAxisCount)
-//                                 ? (widget.columnSpaces ?? 0)
-//                                 : (((widget.columnSpaces) ?? 0) / 2)),
-//                         child: CMaker(
-//                           padding: widget.childPadding,
-//                           boxShadow: widget.childBoxShadow,
-//                           BackGroundimage: widget.childBackGroundimage,
-//                           alignment: widget.childAlignment,
-//                           border: widget.childBorder,
-//                           gradient: widget.childGradient,
-//                           width: widget.childWidth ?? 150,
-//                           circularRadius: widget.childCircularRadius ?? 20,
-//                           color: widget.childColor ??
-//                               Color.fromARGB(96, 216, 216, 216),
-//                           child: CheckboxListTile(
-//                             activeColor: Color.fromARGB(255, 74, 193, 241),
-//                             title: TMaker(
-//                               text: widget.list[
-//                                   widget.crossAxisCount * RowIndex +
-//                                       ColumnIndex],
-//                               color: widget.textColor ?? Colors.black,
-//                               fontSize: widget.textFontSize ?? 17,
-//                               fontWeight:
-//                                   widget.textFontWeight ?? FontWeight.w500,
-//                               fontFamily: widget.textFontFamily,
-//                               textAlign: widget.textAlign,
-//                             ),
-//                             value: (selectedItems.contains(widget.list[
-//                                     widget.crossAxisCount * RowIndex +
-//                                         ColumnIndex]))
-//                                 ? true
-//                                 : false,
-//                             onChanged: (value) {
-//                               if (value! &&
-//                                   ((widget.maxNumber != null)
-//                                       ? selectedItems.length < widget.maxNumber!
-//                                       : true)) {
-//                                 selectedItems.add(widget.list[
-//                                     widget.crossAxisCount * RowIndex +
-//                                         ColumnIndex]);
-//                               } else {
-//                                 selectedItems.remove(widget.list[
-//                                     widget.crossAxisCount * RowIndex +
-//                                         ColumnIndex]);
-//                               }
-//                               widget.onChanged(selectedItems);
-//                               setState(() {});
-//                             },
-//                           ),
-//                         ),
-//                       );
-//               }),
-//         );
-//       },
-//     );
-//   }
-// }
+class _MultiCBoxState extends State<MultiCBox> {
+  List selectedItems = [];
+  var selected = "";
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: (widget.list.length.isEven)
+          ? ((widget.childHeight * widget.list.length) / 2) +
+              ((widget.rowSpaces ?? 0 * widget.list.length) +
+                  ((widget.rowSpaces ?? 0) * (widget.list.length / 2.0) + 0.0))
+          : (((widget.childHeight * widget.list.length) / 2) +
+                  widget.childHeight / 2) +
+              ((widget.rowSpaces ?? 0 * widget.list.length) +
+                  ((widget.rowSpaces ?? 0) *
+                          (widget.list.length / 2.0).round() +
+                      0.0)),
+      child: ListView.builder(
+        physics: (widget.Scroll == false)
+            ? const NeverScrollableScrollPhysics()
+            : null,
+        shrinkWrap: widget.Scroll ?? true,
+        itemCount: (widget.list.length / widget.crossAxisCount).round(),
+        itemBuilder: (context, RowIndex) {
+          return CMaker(
+            margin: EdgeInsets.only(
+                top: (RowIndex == 0)
+                    ? widget.rowSpaces ?? 0
+                    : (((widget.rowSpaces) ?? 0) / 2),
+                bottom: ((RowIndex + 1) ==
+                        (widget.list.length / widget.crossAxisCount).round())
+                    ? (widget.rowSpaces ?? 0)
+                    : (((widget.rowSpaces) ?? 0) / 2)),
+            height: widget.childHeight ?? 60,
+            width: widget.childWidth ?? 150.0 * widget.crossAxisCount,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.crossAxisCount,
+                itemBuilder: (context, ColumnIndex) {
+                  return ((widget.list.length % widget.crossAxisCount) != 0 &&
+                          widget.list.length ==
+                              ((widget.crossAxisCount * RowIndex +
+                                  ColumnIndex)))
+                      ? Container(
+                          width: widget.childWidth ?? 150,
+                        )
+                      : CMaker(
+                          margin: EdgeInsets.only(
+                              left: (ColumnIndex == 0)
+                                  ? widget.columnSpaces ?? 0
+                                  : (((widget.columnSpaces) ?? 0) / 2),
+                              right:
+                                  ((ColumnIndex + 1) == widget.crossAxisCount)
+                                      ? (widget.columnSpaces ?? 0)
+                                      : (((widget.columnSpaces) ?? 0) / 2)),
+                          child: CMaker(
+                            padding: widget.childPadding,
+                            boxShadow: widget.childBoxShadow,
+                            BackGroundimage: widget.childBackGroundimage,
+                            alignment: widget.childAlignment,
+                            border: widget.childBorder,
+                            gradient: widget.childGradient,
+                            width: widget.childWidth ?? 150,
+                            circularRadius: widget.childCircularRadius ?? 20,
+                            color: widget.childColor ??
+                                const Color.fromARGB(96, 216, 216, 216),
+                            child: CheckboxListTile(
+                              activeColor:
+                                  const Color.fromARGB(255, 74, 193, 241),
+                              title: TMaker(
+                                text: widget.list[
+                                    widget.crossAxisCount * RowIndex +
+                                        ColumnIndex],
+                                color: widget.textColor ?? Colors.black,
+                                fontSize: widget.textFontSize ?? 17,
+                                fontWeight:
+                                    widget.textFontWeight ?? FontWeight.w500,
+                                fontFamily: widget.textFontFamily,
+                                textAlign: widget.textAlign,
+                              ),
+                              value: (selectedItems.contains(widget.list[
+                                      widget.crossAxisCount * RowIndex +
+                                          ColumnIndex]))
+                                  ? true
+                                  : false,
+                              onChanged: (value) {
+                                if (value! &&
+                                    ((widget.maxNumber != null)
+                                        ? selectedItems.length <
+                                            widget.maxNumber!
+                                        : true)) {
+                                  selectedItems.add(widget.list[
+                                      widget.crossAxisCount * RowIndex +
+                                          ColumnIndex]);
+                                } else {
+                                  selectedItems.remove(widget.list[
+                                      widget.crossAxisCount * RowIndex +
+                                          ColumnIndex]);
+                                }
+                                widget.onChanged(selectedItems);
+                                setState(() {});
+                              },
+                            ),
+                          ),
+                        );
+                }),
+          );
+        },
+      ),
+    );
+  }
+}
 
 // class WGrid extends StatefulWidget {
 //   WGrid(
@@ -981,7 +1027,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
     int adjustedItemCount = (widget.itemCount + widget.crossAxisCount - 1) ~/
         widget.crossAxisCount *
         widget.crossAxisCount;
-    return Container(
+    return SizedBox(
       height: (widget.itemCount.isEven)
           ? ((widget.childHeight * widget.itemCount) / 2) +
               ((widget.rowSpaces ?? 0 * widget.itemCount) +
@@ -992,8 +1038,9 @@ class _WGridBuilderState extends State<WGridBuilder> {
                   ((widget.rowSpaces ?? 0) * (widget.itemCount / 2.0).round() +
                       0.0)),
       child: ListView.builder(
-        physics:
-            (widget.Scroll == false) ? NeverScrollableScrollPhysics() : null,
+        physics: (widget.Scroll == false)
+            ? const NeverScrollableScrollPhysics()
+            : null,
         shrinkWrap: widget.Scroll ?? true,
         itemCount: (adjustedItemCount / widget.crossAxisCount).round(),
         itemBuilder: (context, RowIndex) {
@@ -1015,7 +1062,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
                   int currentIndex =
                       (widget.crossAxisCount * RowIndex) + ColumnIndex;
                   return (currentIndex >= widget.itemCount)
-                      ? SizedBox.shrink() // Placeholder for empty slot
+                      ? const SizedBox.shrink() // Placeholder for empty slot
                       : CMaker(
                           margin: EdgeInsets.only(
                               left: (ColumnIndex == 0)
@@ -1042,7 +1089,7 @@ class _WGridBuilderState extends State<WGridBuilder> {
                                 circularRadius:
                                     widget.childCircularRadius ?? 20,
                                 color: widget.childColor ??
-                                    Color.fromARGB(96, 216, 216, 216),
+                                    const Color.fromARGB(96, 216, 216, 216),
                                 child: widget.builder(currentIndex)),
                           ),
                         );
@@ -1083,77 +1130,77 @@ class _WGridBuilderState extends State<WGridBuilder> {
 // ==
 // works on : Android
 // link type : direct mp4 link
-class ChewieVideoPlayer extends StatefulWidget {
-  ChewieVideoPlayer(
-      {super.key, this.url, this.height, this.width, this.path, this.file});
+// class ChewieVideoPlayer extends StatefulWidget {
+//   ChewieVideoPlayer(
+//       {super.key, this.url, this.height, this.width, this.path, this.file});
 
-  final double? height;
-  final double? width;
-  final String? url;
-  final String? path;
-  final File? file;
+//   final double? height;
+//   final double? width;
+//   final String? url;
+//   final String? path;
+//   final File? file;
 
-  @override
-  State<ChewieVideoPlayer> createState() => _ChewieVideoPlayerState();
-}
+//   @override
+//   State<ChewieVideoPlayer> createState() => _ChewieVideoPlayerState();
+// }
 
-class _ChewieVideoPlayerState extends State<ChewieVideoPlayer> {
-  VideoPlayerController? _videoPlayerController;
-  ChewieController? _chewieController;
+// class _ChewieVideoPlayerState extends State<ChewieVideoPlayer> {
+//   VideoPlayerController? _videoPlayerController;
+//   ChewieController? _chewieController;
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeVideoPlayer();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _initializeVideoPlayer();
+//   }
 
-  Future<void> _initializeVideoPlayer() async {
-    _videoPlayerController = (widget.path != null)
-        ? VideoPlayerController.asset(
-            widget.path!,
-          )
-        : (widget.file != null)
-            ? VideoPlayerController.file(widget.file!)
-            : VideoPlayerController.networkUrl(
-                Uri.parse(widget.url ??
-                    "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"),
-              );
+//   Future<void> _initializeVideoPlayer() async {
+//     _videoPlayerController = (widget.path != null)
+//         ? VideoPlayerController.asset(
+//             widget.path!,
+//           )
+//         : (widget.file != null)
+//             ? VideoPlayerController.file(widget.file!)
+//             : VideoPlayerController.networkUrl(
+//                 Uri.parse(widget.url ??
+//                     "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"),
+//               );
 
-    await _videoPlayerController!.initialize();
+//     await _videoPlayerController!.initialize();
 
-    setState(() {
-      _chewieController = ChewieController(
-        videoPlayerController: _videoPlayerController!,
-        autoPlay: false,
-        looping: false,
-      );
-    });
-  }
+//     setState(() {
+//       _chewieController = ChewieController(
+//         videoPlayerController: _videoPlayerController!,
+//         autoPlay: false,
+//         looping: false,
+//       );
+//     });
+//   }
 
-  @override
-  void dispose() {
-    _chewieController?.dispose();
-    _videoPlayerController?.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     _chewieController?.dispose();
+//     _videoPlayerController?.dispose();
+//     super.dispose();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_chewieController == null) {
-      return SizedBox(
-        height: widget.height ?? 235,
-        width: widget.width ?? double.infinity,
-        child: const Center(child: CircularProgressIndicator()),
-      );
-    }
+//   @override
+//   Widget build(BuildContext context) {
+//     if (_chewieController == null) {
+//       return SizedBox(
+//         height: widget.height ?? 235,
+//         width: widget.width ?? double.infinity,
+//         child: const Center(child: CircularProgressIndicator()),
+//       );
+//     }
 
-    return SizedBox(
-      height: widget.height ?? 235,
-      width: widget.width ?? double.infinity,
-      child: Chewie(controller: _chewieController!),
-    );
-  }
-}
+//     return SizedBox(
+//       height: widget.height ?? 235,
+//       width: widget.width ?? double.infinity,
+//       child: Chewie(controller: _chewieController!),
+//     );
+//   }
+// }
 
 //===========================================
 
@@ -1368,46 +1415,46 @@ class ViewImage extends StatelessWidget {
 //----------------------------------------------------------
 
 // class NavBar extends StatefulWidget {
-//   NavBar({
-//     super.key,
-//     required this.pages,
-//     required this.iconsList,
-//     this.orientation,
-//     required this.height,
-//     required this.width,
-//     this.barColor,
-//     this.selectedContainerColor,
-//     this.pageBackgroundColor,
-//     this.unselectedContainerColor,
-//     this.SelectionContainerHeight,
-//     this.unSelectionContainerHeight,
-//     this.SelectionContainerWidth,
-//     this.unSelectionContainerWidth,
-//     this.SelectionContainerPadding,
-//     this.unSelectionContainerPadding,
-//     this.BackgroundImage,
-//     this.BarShadow,
-//     this.BarBorder,
-//     this.BarCircularRadius,
-//     this.BarGradient,
-//     this.SelectedContainerBorder,
-//     this.unSelectedContainerBorder,
-//     this.SelectionContainerCircularRadius,
-//     this.unSelectionContainerCircularRadius,
-//     this.SelectionContainerGradient,
-//     this.unSelectionContainerGradient,
-//     this.onPageChange,
-//     this.ScrollDuration,
-//     this.SelectionContainerAnimationDuration,
-//     this.NavBarPositionBottom,
-//     this.NavBarPositionLeft,
-//     this.NavBarPositionRight,
-//     this.NavBarPositionTop,
-//   });
+//   NavBar(
+//       {super.key,
+//       required this.pages,
+//       required this.iconsList,
+//       this.orientation,
+//       required this.height,
+//       required this.width,
+//       this.barColor,
+//       this.selectedContainerColor,
+//       this.pageBackgroundColor,
+//       this.unselectedContainerColor,
+//       this.SelectionContainerHeight,
+//       this.unSelectionContainerHeight,
+//       this.SelectionContainerWidth,
+//       this.unSelectionContainerWidth,
+//       this.SelectionContainerPadding,
+//       this.unSelectionContainerPadding,
+//       this.BackgroundImage,
+//       this.BarShadow,
+//       this.BarBorder,
+//       this.BarCircularRadius,
+//       this.BarGradient,
+//       this.SelectedContainerBorder,
+//       this.unSelectedContainerBorder,
+//       this.SelectionContainerCircularRadius,
+//       this.unSelectionContainerCircularRadius,
+//       this.SelectionContainerGradient,
+//       this.unSelectionContainerGradient,
+//       required this.onPageChange,
+//       this.ScrollDuration,
+//       this.SelectionContainerAnimationDuration,
+//       this.NavBarPositionBottom,
+//       this.NavBarPositionLeft,
+//       this.NavBarPositionRight,
+//       this.NavBarPositionTop,
+//       this.BetweenSpaces});
 //   List<Widget> pages;
 //   List<Widget> iconsList;
 //   String? orientation;
-//   Function(int index)? onPageChange;
+//   Function(int? index) onPageChange;
 //   double height;
 //   double width;
 //   double? NavBarPositionTop;
@@ -1437,6 +1484,7 @@ class ViewImage extends StatelessWidget {
 //   Color? pageBackgroundColor;
 //   Widget? BackgroundImage;
 //   List<BoxShadow>? BarShadow;
+//   double? BetweenSpaces;
 //   @override
 //   State<NavBar> createState() => _NavBarState();
 // }
@@ -1471,16 +1519,16 @@ class ViewImage extends StatelessWidget {
 //               child: Stack(
 //                 children: [
 //                   (widget.BackgroundImage != null)
-//                       ? Container(
+//                       ? SizedBox(
 //                           height: double.infinity,
 //                           width: double.infinity,
 //                           child: widget.BackgroundImage!)
 //                       : Container(),
 //                   PageView(
 //                     onPageChanged: (value) {
-//                       widget.onPageChange!(value);
 //                       setState(() {
 //                         PageIndex = value;
+//                         widget.onPageChange(value);
 //                       });
 //                     },
 //                     controller: _pageController,
@@ -1502,15 +1550,17 @@ class ViewImage extends StatelessWidget {
 //               color: widget.barColor ?? Colors.white,
 //               height: widget.height,
 //               width: widget.width,
-//               child: Container(
+//               child: SizedBox(
 //                 width: widget.SelectionContainerWidth,
 //                 child: Column(
 //                   children: [
 //                     Container(
-//                       height: (widget.height -
-//                               (widget.iconsList.length *
-//                                   (widget.SelectionContainerHeight ?? 60))) /
-//                           (widget.iconsList.length + 1),
+//                       height: widget.BetweenSpaces ??
+//                           (widget.height -
+//                                   (widget.iconsList.length *
+//                                       (widget.SelectionContainerHeight ??
+//                                           60))) /
+//                               (widget.iconsList.length + 1),
 //                     ),
 //                     CMaker(
 //                       boxShadow: widget.BarShadow,
@@ -1522,7 +1572,7 @@ class ViewImage extends StatelessWidget {
 //                               (widget.iconsList.length + 1),
 //                       child: ListView.builder(
 //                         scrollDirection: Axis.vertical,
-//                         physics: NeverScrollableScrollPhysics(),
+//                         physics: const NeverScrollableScrollPhysics(),
 //                         shrinkWrap: false,
 //                         itemCount: widget.iconsList.length,
 //                         itemBuilder: (context, index) {
@@ -1533,7 +1583,7 @@ class ViewImage extends StatelessWidget {
 //                                   _pageController!.animateToPage(index,
 //                                       curve: Curves.linear,
 //                                       duration: widget.ScrollDuration ??
-//                                           Duration(milliseconds: 200));
+//                                           const Duration(milliseconds: 200));
 //                                 },
 //                                 child: CMaker(
 //                                     alignment: Alignment.center,
@@ -1552,25 +1602,25 @@ class ViewImage extends StatelessWidget {
 //                                             widget.SelectionContainerCircularRadius ??
 //                                                 15,
 //                                         border: (PageIndex == index)
-//                                             ? widget.SelectedContainerBorder ??
-//                                                 null
-//                                             : widget.unSelectedContainerBorder ??
-//                                                 null,
+//                                             ? widget.SelectedContainerBorder
+//                                             : widget.unSelectedContainerBorder,
 //                                         gradient:
 //                                             widget.SelectionContainerGradient,
 //                                         color: (PageIndex == index)
 //                                             ? widget.selectedContainerColor ??
-//                                                 Color.fromARGB(255, 0, 0, 0)
+//                                                 const Color.fromARGB(
+//                                                     255, 0, 0, 0)
 //                                             : widget.unselectedContainerColor ??
 //                                                 Colors.transparent,
 //                                         child: widget.iconsList[index])),
 //                               ),
 //                               Container(
-//                                 height: (widget.height -
-//                                         (widget.iconsList.length *
-//                                             (widget.SelectionContainerHeight ??
-//                                                 60))) /
-//                                     (widget.iconsList.length + 1),
+//                                 height: widget.BetweenSpaces ??
+//                                     (widget.height -
+//                                             (widget.iconsList.length *
+//                                                 (widget.SelectionContainerHeight ??
+//                                                     60))) /
+//                                         (widget.iconsList.length + 1),
 //                               )
 //                             ],
 //                           );
@@ -1594,17 +1644,17 @@ class ViewImage extends StatelessWidget {
 //               child: Stack(
 //                 children: [
 //                   (widget.BackgroundImage != null)
-//                       ? Container(
+//                       ? SizedBox(
 //                           height: double.infinity,
 //                           width: double.infinity,
 //                           child: widget.BackgroundImage!)
 //                       : Container(),
 //                   PageView(
 //                     onPageChanged: (value) {
-//                       widget.onPageChange!(value);
 //                       setState(() {
 //                         PageIndex = value;
 //                       });
+//                       widget.onPageChange(value);
 //                     },
 //                     controller: _pageController,
 //                     children: widget.pages,
@@ -1625,15 +1675,17 @@ class ViewImage extends StatelessWidget {
 //                 color: widget.barColor ?? Colors.white,
 //                 height: widget.height,
 //                 width: widget.width,
-//                 child: Container(
+//                 child: SizedBox(
 //                   height: widget.SelectionContainerHeight,
 //                   child: Row(
 //                     children: [
 //                       Container(
-//                         width: (widget.width -
-//                                 (widget.iconsList.length *
-//                                     (widget.SelectionContainerWidth ?? 60))) /
-//                             (widget.iconsList.length + 1),
+//                         width: widget.BetweenSpaces ??
+//                             (widget.width -
+//                                     (widget.iconsList.length *
+//                                         (widget.SelectionContainerWidth ??
+//                                             60))) /
+//                                 (widget.iconsList.length + 1),
 //                       ),
 //                       CMaker(
 //                         width: widget.width -
@@ -1644,7 +1696,7 @@ class ViewImage extends StatelessWidget {
 //                                 (widget.iconsList.length + 1),
 //                         child: ListView.builder(
 //                           scrollDirection: Axis.horizontal,
-//                           physics: NeverScrollableScrollPhysics(),
+//                           physics: const NeverScrollableScrollPhysics(),
 //                           shrinkWrap: false,
 //                           itemCount: widget.iconsList.length,
 //                           itemBuilder: (context, index) {
@@ -1655,7 +1707,8 @@ class ViewImage extends StatelessWidget {
 //                                     PageIndex = index;
 //                                     _pageController!.animateToPage(index,
 //                                         curve: Curves.linear,
-//                                         duration: Duration(milliseconds: 200));
+//                                         duration:
+//                                             const Duration(milliseconds: 200));
 //                                   },
 //                                   child: CMaker(
 //                                       alignment: Alignment.center,
@@ -1669,30 +1722,31 @@ class ViewImage extends StatelessWidget {
 //                                           height:
 //                                               widget.SelectionContainerHeight ??
 //                                                   60,
-//                                           width: widget.SelectionContainerWidth ??
-//                                               60,
-//                                           circularRadius: widget.SelectionContainerCircularRadius ??
+//                                           width:
+//                                               widget.SelectionContainerWidth ??
+//                                                   60,
+//                                           circularRadius: widget
+//                                                   .SelectionContainerCircularRadius ??
 //                                               15,
 //                                           border: (PageIndex == index)
-//                                               ? widget.SelectedContainerBorder ??
-//                                                   null
-//                                               : widget.unSelectedContainerBorder ??
-//                                                   null,
+//                                               ? widget.SelectedContainerBorder
+//                                               : widget
+//                                                   .unSelectedContainerBorder,
 //                                           gradient:
 //                                               widget.SelectionContainerGradient,
 //                                           color: (PageIndex == index)
 //                                               ? widget.selectedContainerColor ??
-//                                                   Color.fromARGB(255, 0, 0, 0)
-//                                               : widget.unselectedContainerColor ??
-//                                                   Colors.transparent,
+//                                                   const Color.fromARGB(255, 0, 0, 0)
+//                                               : widget.unselectedContainerColor ?? Colors.transparent,
 //                                           child: widget.iconsList[index])),
 //                                 ),
 //                                 Container(
-//                                   width: (widget.width -
-//                                           (widget.iconsList.length *
-//                                               (widget.SelectionContainerWidth ??
-//                                                   60))) /
-//                                       (widget.iconsList.length + 1),
+//                                   width: widget.BetweenSpaces ??
+//                                       (widget.width -
+//                                               (widget.iconsList.length *
+//                                                   (widget.SelectionContainerWidth ??
+//                                                       60))) /
+//                                           (widget.iconsList.length + 1),
 //                                 )
 //                               ],
 //                             );
@@ -2550,76 +2604,76 @@ class _PopAndVanishLAyerBetweenNavBarState
 //   }
 // }
 
-// class MyButton extends StatefulWidget {
-//   MyButton(
-//       {super.key,
-//       required this.text,
-//       this.textFont,
-//       this.textFontWeight,
-//       this.textColor,
-//       this.buttonColor,
-//       this.buttonHeight,
-//       this.buttonWidth,
-//       this.buttonCircularRadius,
-//       this.addShadow,
-//       this.border,
-//       this.gradient,
-//       this.margin,
-//       this.padding,
-//       this.onTap,
-//       this.textFontFamily});
-//   String text;
-//   void Function()? onTap;
-//   double? textFont;
-//   double? buttonHeight;
-//   double? buttonWidth;
-//   double? buttonCircularRadius;
-//   FontWeight? textFontWeight;
-//   Color? textColor;
-//   Color? buttonColor;
-//   bool? addShadow;
-//   EdgeInsetsGeometry? padding;
-//   EdgeInsetsGeometry? margin;
-//   Gradient? gradient;
-//   BoxBorder? border;
-//   String? textFontFamily;
-//   @override
-//   State<MyButton> createState() => _MyButtonState();
-// }
+class MyButton extends StatefulWidget {
+  MyButton(
+      {super.key,
+      required this.text,
+      this.textFont,
+      this.textFontWeight,
+      this.textColor,
+      this.buttonColor,
+      this.buttonHeight,
+      this.buttonWidth,
+      this.buttonCircularRadius,
+      this.addShadow,
+      this.border,
+      this.gradient,
+      this.margin,
+      this.padding,
+      this.onTap,
+      this.textFontFamily});
+  String text;
+  void Function()? onTap;
+  double? textFont;
+  double? buttonHeight;
+  double? buttonWidth;
+  double? buttonCircularRadius;
+  FontWeight? textFontWeight;
+  Color? textColor;
+  Color? buttonColor;
+  bool? addShadow;
+  EdgeInsetsGeometry? padding;
+  EdgeInsetsGeometry? margin;
+  Gradient? gradient;
+  BoxBorder? border;
+  String? textFontFamily;
+  @override
+  State<MyButton> createState() => _MyButtonState();
+}
 
-// class _MyButtonState extends State<MyButton> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//         onTap: widget.onTap,
-//         child: CMaker(
-//           gradient: widget.gradient,
-//           border: widget.border,
-//           padding: widget.padding,
-//           margin: widget.margin,
-//           height: widget.buttonHeight ?? 50,
-//           width: widget.buttonWidth ?? 90,
-//           circularRadius: widget.buttonCircularRadius ?? 10,
-//           color: widget.buttonColor ?? Colors.amber,
-//           alignment: Alignment.center,
-//           boxShadow: (widget.addShadow ?? false)
-//               ? const [
-//                   BoxShadow(
-//                       color: Color.fromARGB(61, 0, 0, 0),
-//                       offset: Offset(2, 2),
-//                       blurRadius: 10,
-//                       spreadRadius: .06)
-//                 ]
-//               : null,
-//           child: TMaker(
-//               fontFamily: widget.textFontFamily,
-//               text: widget.text,
-//               fontSize: widget.textFont ?? 20,
-//               fontWeight: widget.textFontWeight ?? FontWeight.w500,
-//               color: widget.textColor ?? Colors.white),
-//         ));
-//   }
-// }
+class _MyButtonState extends State<MyButton> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: widget.onTap,
+        child: CMaker(
+          gradient: widget.gradient,
+          border: widget.border,
+          padding: widget.padding,
+          margin: widget.margin,
+          height: widget.buttonHeight ?? 50,
+          width: widget.buttonWidth ?? 90,
+          circularRadius: widget.buttonCircularRadius ?? 10,
+          color: widget.buttonColor ?? Colors.amber,
+          alignment: Alignment.center,
+          boxShadow: (widget.addShadow ?? false)
+              ? const [
+                  BoxShadow(
+                      color: Color.fromARGB(61, 0, 0, 0),
+                      offset: Offset(2, 2),
+                      blurRadius: 10,
+                      spreadRadius: .06)
+                ]
+              : null,
+          child: TMaker(
+              fontFamily: widget.textFontFamily,
+              text: widget.text,
+              fontSize: widget.textFont ?? 20,
+              fontWeight: widget.textFontWeight ?? FontWeight.w500,
+              color: widget.textColor ?? Colors.white),
+        ));
+  }
+}
 
 class PMaker extends StatelessWidget {
   PMaker({
@@ -2820,59 +2874,83 @@ class MyVideoPlayer extends StatefulWidget {
     this.url,
     this.height,
     this.width,
-    this.allowFullScreen,
-    this.allowSettrings,
+    this.allowFullScreen = true,
+    this.allowSettings = false,
     this.asset,
     this.uri,
-    this.file
+    this.file,
+    this.autoPlay = false,
+    this.showPlayPauseButton = true,
+    this.showProgressBar = true,
+    this.showVolumeControl = true,
+    this.isFullScreen = false, // New parameter
   });
-  String? url;
-  Uri? uri;
-  String? asset;
-  double? height;
-  double? width;
-  File? file;
-  bool? allowFullScreen;
-  bool? allowSettrings;
+
+  final String? url;
+  final Uri? uri;
+  final String? asset;
+  final double? height;
+  final double? width;
+  final File? file;
+  final bool allowFullScreen;
+  final bool allowSettings;
+  final bool autoPlay;
+  final bool showPlayPauseButton;
+  final bool showProgressBar;
+  final bool showVolumeControl;
+  final bool isFullScreen; // New property
+
   @override
   State<MyVideoPlayer> createState() => _MyVideoPlayerState();
 }
 
 class _MyVideoPlayerState extends State<MyVideoPlayer> {
   VideoPlayerController? _controller;
+
   @override
   void initState() {
     super.initState();
     if (widget.url != null) {
-      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url ??
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
+      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url!))
         ..initialize().then((_) {
-          setState(() {}); // Rebuild when the video is initialized
+          if (widget.autoPlay) {
+            _controller!.play();
+          }
+          setState(() {});
         });
     } else if (widget.asset != null) {
       _controller = VideoPlayerController.asset(widget.asset!)
         ..initialize().then((_) {
-          setState(() {}); // Rebuild when the video is initialized
+          if (widget.autoPlay) {
+            _controller!.play();
+          }
+          setState(() {});
         });
     } else if (widget.uri != null) {
       _controller = VideoPlayerController.contentUri(widget.uri!)
         ..initialize().then((_) {
-          setState(() {}); // Rebuild when the video is initialized
+          if (widget.autoPlay) {
+            _controller!.play();
+          }
+          setState(() {});
         });
     } else if (widget.file != null) {
-      _controller = VideoPlayerController.file(widget.file!)..initialize().then((_) {
-          setState(() {}); // Rebuild when the video is initialized
+      _controller = VideoPlayerController.file(widget.file!)
+        ..initialize().then((_) {
+          if (widget.autoPlay) {
+            _controller!.play();
+          }
+          setState(() {});
         });
     }
   }
 
   @override
   void dispose() {
-    _controller!.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
-  // bool isFullScreen = false;
   @override
   Widget build(BuildContext context) {
     return ACMaker(
@@ -2888,10 +2966,12 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
             onChange: (newController) {
               _controller = newController;
             },
-            allowSettrings: widget.allowSettrings ?? false,
-            allowFullScreen: widget.allowFullScreen ?? false,
-            onScreanModeChange: (fullScrean) {
-              if (fullScrean) {
+            allowSettings: widget.allowSettings,
+            allowFullScreen: widget.allowFullScreen,
+            showPlayPauseButton: widget.showPlayPauseButton,
+            showProgressBar: widget.showProgressBar,
+            onScreenModeChange: (fullScreen) {
+              if (fullScreen) {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) {
                     return Scaffold(
@@ -2908,11 +2988,15 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
                               onChange: (newController) {
                                 _controller = newController;
                               },
-                              allowFullScreen: widget.allowFullScreen ?? false,
-                              onScreanModeChange: (fullScrean) {
+                              allowFullScreen: widget.allowFullScreen,
+                              showPlayPauseButton: widget.showPlayPauseButton,
+                              showProgressBar: widget.showProgressBar,
+                              onScreenModeChange: (fullScreen) {
                                 Navigator.of(context).pop();
                               },
-                              allowSettrings: widget.allowSettrings ?? false,
+                              allowSettings: widget.allowSettings,
+                              showVolumeControl: widget.showVolumeControl,
+                              isFullScreen: widget.isFullScreen,
                             ),
                           )
                         ],
@@ -2922,6 +3006,8 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
                 ));
               }
             },
+            showVolumeControl: widget.showVolumeControl,
+            isFullScreen: widget.isFullScreen,
           ),
         ],
       ),
@@ -2930,27 +3016,40 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
 }
 
 class _Controls extends StatefulWidget {
-  _Controls({
-    super.key,
+  final VideoPlayerController controller;
+  final Function(VideoPlayerController) onChange;
+  final bool allowSettings;
+  final bool allowFullScreen;
+  final bool showPlayPauseButton;
+  final bool showProgressBar;
+  final bool showVolumeControl;
+  final Function(bool) onScreenModeChange;
+  final bool isFullScreen; // New parameter
+
+  const _Controls({
     required this.controller,
     required this.onChange,
+    required this.allowSettings,
     required this.allowFullScreen,
-    required this.onScreanModeChange,
-    required this.allowSettrings,
+    required this.showPlayPauseButton,
+    required this.showProgressBar,
+    required this.showVolumeControl,
+    required this.onScreenModeChange,
+    required this.isFullScreen, // New parameter
   });
-  VideoPlayerController controller;
-  final Function(VideoPlayerController newController) onChange;
-  bool allowFullScreen;
-  Function(bool fullScrean) onScreanModeChange;
-  bool allowSettrings;
+
   @override
-  State<_Controls> createState() => __ControlsState();
+  __ControlsState createState() => __ControlsState();
 }
 
 class __ControlsState extends State<_Controls> {
   bool fullScreenIsOn = false;
+  bool isMuted = false;
+
   @override
   Widget build(BuildContext context) {
+    bool isFullScreen = MediaQuery.of(context).orientation == Orientation.landscape;
+
     return (!widget.controller.value.isInitialized)
         ? Center(
             child: CircularProgressIndicator(
@@ -2959,95 +3058,145 @@ class __ControlsState extends State<_Controls> {
         : AnimatedOpacity(
             opacity: widget.controller.value.isPlaying ? 0 : 1,
             duration: Duration(milliseconds: 300),
-            child: ACMaker(
-              padding: EdgeInsets.symmetric(vertical: 10),
+            child: CMaker(
+              padding: EdgeInsets.symmetric(vertical: 5),
               color: const Color.fromARGB(100, 52, 52, 52),
               height: 200,
               width: MediaQuery.of(context).size.width,
-              child: InkWell(
-                onTap: () {
-                  widget.controller.value.isPlaying
-                      ? widget.controller.pause()
-                      : widget.controller.play();
-                  widget.onChange(widget.controller);
-                  setState(() {});
-                },
-                child: Column(
-                  children: [
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (isFullScreen && widget.allowSettings)
                     Expanded(
                       child: CMaker(
                         padding: EdgeInsets.all(10),
                         child: Row(
                           children: [
                             Spacer(),
-                            (widget.allowSettrings)
-                                ? CMaker(
-                                    width: 50,
-                                    height: 30,
-                                    child: IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.settings,
-                                          color: Colors.white,
-                                          size: 30,
-                                        )),
-                                  )
-                                : CMaker(),
+                            CMaker(
+                              width: 40,
+                              height: 40,
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.settings,
+                                    color: Colors.white,
+                                    size: 20,
+                                  )),
+                            ),
                           ],
                         ),
                       ),
                     ),
+                  if (widget.showPlayPauseButton)
                     Expanded(
                       flex: 4,
                       child: Center(
-                        child: Icon(
-                          widget.controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                          color: Colors.white,
-                          size: 60,
+                        child: IconButton(
+                          icon: Icon(
+                            widget.controller.value.isPlaying
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                          onPressed: () {
+                            widget.controller.value.isPlaying
+                                ? widget.controller.pause()
+                                : widget.controller.play();
+                            widget.onChange(widget.controller);
+                            setState(() {});
+                          },
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: CMaker(
-                        child: Row(
-                          children: [
-                            Spacer(),
-                            (widget.allowFullScreen)
-                                ? IconButton(
-                                    onPressed: () {
-                                      (MediaQuery.of(context).orientation ==
-                                              Orientation.portrait)
-                                          ? SystemChrome
-                                              .setPreferredOrientations([
-                                              DeviceOrientation.landscapeLeft
-                                            ])
-                                          : SystemChrome
-                                              .setPreferredOrientations([
-                                              DeviceOrientation.portraitUp
-                                            ]);
-                                      widget
-                                          .onScreanModeChange(!fullScreenIsOn);
-                                    },
-                                    icon: Icon(
-                                      (MediaQuery.of(context).orientation ==
-                                              Orientation.portrait)
-                                          ? Icons.fullscreen
-                                          : Icons.fullscreen_exit,
-                                      color: Colors.white,
-                                      size: 30,
-                                    ),
-                                  )
-                                : CMaker(),
-                          ],
-                        ),
+                  if (widget.showProgressBar)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TMaker(
+                            fontWeight: FontWeight.w400,
+                            text: '${_formatDuration(widget.controller.value.position)} / ${_formatDuration(widget.controller.value.duration)}',
+                            fontSize: 12,
+                            color: Colors.white,
+                          ),
+                          SizedBox(height: 2),
+                          VideoProgressIndicator(
+                            widget.controller,
+                            allowScrubbing: true,
+                            colors: VideoProgressColors(
+                              playedColor: Colors.red,
+                              bufferedColor: Colors.grey,
+                              backgroundColor: Colors.black,
+                            ),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (isFullScreen && widget.showVolumeControl) // Added isFullScreen condition
+                        CMaker(
+                          width: 40,
+                          height: 40,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isMuted = !isMuted;
+                                if (isMuted) {
+                                  widget.controller.setVolume(0);
+                                } else {
+                                  widget.controller.setVolume(1);
+                                }
+                              });
+                            },
+                            icon: Icon(
+                              isMuted ? Icons.volume_off : Icons.volume_up,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      if (widget.allowFullScreen)
+                        CMaker(
+                          width: 40,
+                          height: 40,
+                          child: IconButton(
+                            onPressed: () {
+                              (widget.isFullScreen == false)
+                                  ? SystemChrome.setPreferredOrientations([
+                                      DeviceOrientation.landscapeLeft
+                                    ])
+                                  : SystemChrome.setPreferredOrientations([
+                                      DeviceOrientation.portraitUp
+                                    ]);
+                              widget.onScreenModeChange(!widget.isFullScreen);
+                            },
+                            icon: Icon(
+                              (!widget.isFullScreen)
+                                  ? Icons.fullscreen
+                                  : Icons.fullscreen_exit,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
               ),
             ));
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
   }
 }
 
@@ -3069,6 +3218,74 @@ class _VideoPlayer extends StatelessWidget {
 //----------------------------------------------------------
 
 //===========================================
+// import 'package:media_kit/media_kit.dart';
+// import 'package:media_kit_video/media_kit_video.dart';
+// package : media_kit 1.1.11
+// ===============
+// [
+// package : media_kit_video: ^1.2.5
+// package : media_kit_libs_video: ^1.0.5
+//]
+// // add them manually to your dependencies
+// ===============
+// add : dart pub add media_kit
+// ==========================
+// you must add to the main :
+// WidgetsFlutterBinding.ensureInitialized();
+// MediaKit.ensureInitialized();
+// ==========================
+// class MyMediaKitVideo extends StatefulWidget {
+//   MyMediaKitVideo({
+//     super.key,
+//     // required this.source,
+//   });
+//   // String source;
+//   @override
+//   State<MyMediaKitVideo> createState() => _MyMediaKitVideoState();
+// }
+
+// class _MyMediaKitVideoState extends State<MyMediaKitVideo> {
+//   // Create a [Player] to control playback.
+//   late final player = Player();
+//   // Create a [VideoController] to handle video output from [Player].
+//   late final controller = VideoController(player);
+
+//   @override
+//   void initState() {
+//     super.initState();
+//       player.open(Media("file:///C:/Users/karee/Desktop/GitHub/My-Flutter-tools/my_tools_development/images/h.mp4"));
+//   }
+//   @override
+//   void dispose() {
+//     // Dispose of the player and controller
+//     player.dispose();
+//     super.dispose();
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Video(controller: controller);
+//   }
+// }
+
+//===========================================
+
+//----------------------------------------------------------
+
+//===========================================
+
+// import 'package:pretty_qr_code/pretty_qr_code.dart';
+// package : pretty_qr_code 3.3.0
+// add : flutter pub add pretty_qr_code
+
+// Widget generateQRCode(String data, {double size = 200}) {
+//   return PrettyQr(
+//     data: data,
+//     size: size,
+//     roundEdges: true, // Makes the QR code edges rounded
+//     elementColor: Colors.black, // Customize QR code color
+//     errorCorrectLevel: QrErrorCorrectLevel.M, // Adjust error correction
+//   );
+// }
 
 //===========================================
 
@@ -3105,7 +3322,105 @@ class _VideoPlayer extends StatelessWidget {
 //----------------------------------------------------------
 
 //===========================================
+// import 'package:mobile_scanner/mobile_scanner.dart';
+// package: mobile_scanner: ^6.0.2
+// add: flutter pub add mobile_scanner
+
+
+// Future<String> scanQR(BuildContext context) async {
+//   // Using Completer to handle the async flow properly
+//   final Completer<String> completer = Completer<String>();
+//   await Navigator.of(context).push(MaterialPageRoute(
+//     builder: (context) {
+//       return scanQRWidget(
+//         onScanned: (result) {
+//           completer.complete(result); // Complete only when we have a confirmed result
+//         },
+//       );
+//     },
+//   ));
+
+//   // Wait for the completer to complete before returning
+//   return await completer.future;
+// }
+
+// class scanQRWidget extends StatelessWidget {
+//   const scanQRWidget({super.key, required this.onScanned});
+//   final Function(String result) onScanned;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return WillPopScope( // Prevent accidental back navigation
+//       onWillPop: () async {
+//         // Show confirmation dialog before allowing back navigation
+//         final bool? shouldPop = await showDialog<bool>(
+//           context: context,
+//           builder: (context) => AlertDialog(
+//             title: Text('إلغاء المسح؟'),
+//             content: Text('هل أنت متأكد أنك تريد إلغاء عملية المسح؟'),
+//             actions: [
+//               TextButton(
+//                 onPressed: () {
+//                   onScanned("no result"); // Return no result if user confirms cancel
+//                   Navigator.pop(context, true); // Close dialog with true
+//                 },
+//                 child: Text('نعم'),
+//               ),
+//               TextButton(
+//                 onPressed: () => Navigator.pop(context, false), // Close dialog with false
+//                 child: Text('لا'),
+//               ),
+//             ],
+//           ),
+//         );
+//         return shouldPop ?? false;
+//       },
+//       child: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('مسح رمز QR'),
+//           leading: IconButton(
+//             icon: const Icon(Icons.arrow_back),
+//             onPressed: () async {
+//               // Show the same confirmation dialog when back button is pressed
+//               final bool? shouldPop = await showDialog<bool>(
+//                 context: context,
+//                 builder: (context) => AlertDialog(
+//                   title: Text('إلغاء المسح؟'),
+//                   content: Text('هل أنت متأكد أنك تريد إلغاء عملية المسح؟'),
+//                   actions: [
+//                     TextButton(
+//                       onPressed: () {
+//                         onScanned("no result");
+//                         Navigator.pop(context, true);
+//                       },
+//                       child: Text('نعم'),
+//                     ),
+//                     TextButton(
+//                       onPressed: () => Navigator.pop(context, false),
+//                       child: Text('لا'),
+//                     ),
+//                   ],
+//                 ),
+//               );
+//               if (shouldPop ?? false) {
+//                 Navigator.pop(context);
+//               }
+//             },
+//           ),
+//         ),
+//         body: MobileScanner(
+//           onDetect: (capture) {
+//             final List<Barcode> barcodes = capture.barcodes;
+//             if (barcodes.isNotEmpty && barcodes[0].rawValue != null) {
+//               String scannedValue = barcodes[0].rawValue.toString();
+//               onScanned(scannedValue); // Set the scan result
+//                               Navigator.pop(context); // Close dialog
+//             }
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 //===========================================
-
-//----------------------------------------------------------
