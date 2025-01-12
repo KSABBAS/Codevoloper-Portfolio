@@ -22,13 +22,9 @@ void main() async {
     // put your projects data here
       await getProjectData()
   );
-  ContactClass.setContacts({
-    'whatsApp': 'https://www.whatsapp.com',
-    'linkedin': 'https://www.linkedin.com',
-    'facebook': 'https://www.facebook.com',
-    'instagram': 'https://www.instagram.com',
-    'tiktok': 'https://www.tiktok.com',
-  });WidgetsFlutterBinding.ensureInitialized();
+  ContactClass.setContacts(
+    await getContactsData()
+  );WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const GetMaterialApp(
     debugShowCheckedModeBanner: false,

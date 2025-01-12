@@ -324,6 +324,23 @@ Future<void> addProject6Data() async {
   }
 }
 
+//add contact data to the firebase
+void addContactsData(){
+    final contact = <String, dynamic>{
+      'whatsApp': 'https://www.whatsapp.com',
+      'linkedin': 'https://www.linkedin.com',
+      'facebook': 'https://www.facebook.com',
+      'instagram': 'https://www.instagram.com',
+      'tiktok': 'https://www.tiktok.com',
+    };
+
+    try{
+      db.collection("Contacts").add(contact);
+    }catch(e){
+      print("there was something wrong");
+    }
+}
+
 
 
 
@@ -377,4 +394,10 @@ Future<List> getProjectData() async {
 
   }
   return projects;
+}
+
+Future<Map> getContactsData() async {
+     DocumentSnapshot doc = await db.collection("Contacts").doc("QeRd8VM4c2a1YGSz2YXt").get();
+     Map data = doc.data() as Map;
+     return data;
 }
