@@ -369,8 +369,6 @@ Future<List> getProjectData() async {
   List projects = [];
   for(QueryDocumentSnapshot doc in querySnapshot.docs){
     Map data= doc.data() as Map<String, dynamic>;
-    print('Document ID: ${doc.id}');
-    print('Data: $data');
     CommeingData.addAll(data);
     CommeingData["description"].add(CommeingData["images"]);
     CommeingData["description"].add(CommeingData["Links"]);
