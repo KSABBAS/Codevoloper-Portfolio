@@ -1,0 +1,37 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "codevolper-portfolio",
+          "appId": "1:266632485566:android:dd304dd0227598aa8c5cef",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "codevolper-portfolio",
+          "configurations": {
+            "android": "1:266632485566:android:dd304dd0227598aa8c5cef",
+            "web": "1:266632485566:web:fceb81dd877c98408c5cef",
+            "windows": "1:266632485566:web:9a36ed13aa2174238c5cef"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

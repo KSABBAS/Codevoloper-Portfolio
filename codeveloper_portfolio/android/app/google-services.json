@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "266632485566",
+    "project_id": "codevolper-portfolio",
+    "storage_bucket": "codevolper-portfolio.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266632485566:android:dd304dd0227598aa8c5cef",
+        "android_client_info": {
+          "package_name": "com.example.codeveloper_portfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJQYlPJhtnDDZ7ADPHWVN0YE-ENQAGfc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
