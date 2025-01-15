@@ -15,50 +15,50 @@ class MobilePageOne extends StatelessWidget {
         children: [
           ResponsivePMaker(vertical: 150,),
           Container(
-            margin: EdgeInsets.only(left: ResponsiveWidth(context,150 , designScreenWidth: 412), top:ResponsiveHeight(context, 200, designScreenHeight: 915)),
+            margin: EdgeInsets.only(left: 160 , top:200,),
             height:ResponsiveHeight(context, 50, designScreenHeight: 915),
             width:ResponsiveWidth(context,300 , designScreenWidth: 412),
             child: Text(
               "Mobile Applications",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize:ResponsiveFontSizeByWidth(context,20,designScreenWidth: 412),
+                  fontSize:20,
                   fontWeight: FontWeight.bold),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left:ResponsiveWidth(context,120 , designScreenWidth: 412),top: ResponsiveHeight(context, 10, designScreenHeight: 915)),
+            margin: EdgeInsets.only(left:125,top: 10,),
             height:ResponsiveHeight(context, 50, designScreenHeight: 915),
             width:ResponsiveWidth(context,300 , designScreenWidth: 412),
             child: Text(
               "Desktop Applications",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize:ResponsiveFontSizeByWidth(context,20,designScreenWidth: 412),
+                  fontSize:20,
                   fontWeight: FontWeight.bold),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left:ResponsiveWidth(context,65 , designScreenWidth: 412), top:ResponsiveHeight(context, 10, designScreenHeight: 915)),
+            margin: EdgeInsets.only(left : 65 , top: 10,),
             height:ResponsiveHeight(context, 50, designScreenHeight: 915),
             width:ResponsiveWidth(context,300 , designScreenWidth: 412),
             child: Text(
               "Websites Development",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize:ResponsiveFontSizeByWidth(context,20,designScreenWidth: 412),
+                  fontSize:20,
                   fontWeight: FontWeight.bold),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left:ResponsiveWidth(context,5 , designScreenWidth: 412), top:ResponsiveHeight(context, 10, designScreenHeight: 915) ),
+            margin: EdgeInsets.only(left : 5 , top:10, ),
             height:ResponsiveHeight(context, 50, designScreenHeight: 915) ,
             width:ResponsiveWidth(context,300 , designScreenWidth: 412) ,
             child: Text(
               "Database Maintenance",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize:ResponsiveFontSizeByWidth(context,20,designScreenWidth: 412),
+                  fontSize:20,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -88,7 +88,7 @@ class MobilePageOne extends StatelessWidget {
                   "Manage your project",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize:ResponsiveFontSizeByWidth(context,20,designScreenWidth: 412),
+                      fontSize:20,
                       fontWeight: FontWeight.bold),
                 ),
                 ResponsivePMaker(horizontal: 5,),
@@ -96,7 +96,7 @@ class MobilePageOne extends StatelessWidget {
                   "efficiently",
                   style: TextStyle(
                       color: UsedColors.yellow,
-                      fontSize: ResponsiveFontSizeByWidth(context,20,designScreenWidth: 412),
+                      fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
               ],

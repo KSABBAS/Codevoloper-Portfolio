@@ -33,15 +33,11 @@ class _HomeState extends State<Home> {
               LayerBetween: AnimatedPositioned(
                 // top:ResponsiveFontSizeByHeight(context,(currentPageIndex==0)?-700:-1050,designScreenHeight: 915),
                 // left:ResponsiveWidth(context,(currentPageIndex==0)?-400:-500,designScreenWidth: 412),
-                top: ResponsiveFontSizeByHeight(
-                    context, (currentPageIndex == 0) ? -300 : -600,
-                    designScreenHeight: 915),
-                left: ResponsiveWidth(
-                    context, (currentPageIndex == 0) ? -100 : 600,
-                    designScreenWidth: 412),
-                duration: Duration(milliseconds: 600),
+                top:(currentPageIndex == 0) ? -300 : -600,
+                left: (currentPageIndex == 0) ? -100 : 600,
+                duration:const Duration(milliseconds: 600),
                 child: ACMaker(
-                  duration: Duration(milliseconds: 600),
+                  duration:const Duration(milliseconds: 600),
                   transform: Matrix4.identity()
                     ..rotateZ((currentPageIndex == 0)
                         ? (-1.9 * 3.14 * 180)
@@ -49,9 +45,8 @@ class _HomeState extends State<Home> {
                             3.14 *
                             150)), //(currentPageIndex==0)? 29:65 * (3.14 / 180),),
                   color: UsedColors.yellow,
-                  height:
-                      ResponsiveHeight(context, 2000, designScreenHeight: 915),
-                  width: ResponsiveWidth(context, 550, designScreenWidth: 412),
+                  height:2000,
+                  width:550,
                 ),
               ),
               NavBarPositionTop:
@@ -60,10 +55,8 @@ class _HomeState extends State<Home> {
               vanishDuration: Duration(milliseconds: 300),
               pageBackgroundColor: Colors.transparent,
               SelectionContainerCircularRadius: 0,
-              SelectionContainerWidth:
-                  ResponsiveWidth(context, 90, designScreenWidth: 412),
-              unSelectionContainerWidth:
-                  ResponsiveWidth(context, 90, designScreenWidth: 412),
+              SelectionContainerWidth:90,
+              unSelectionContainerWidth:90,
               selectedContainerColor: Colors.transparent,
               pages: [
                 MobilePageOne(),
@@ -80,8 +73,7 @@ class _HomeState extends State<Home> {
                     Spacer(),
                     TMaker(
                         text: "Home",
-                        fontSize: ResponsiveFontSizeByWidth(context, 18,
-                            designScreenWidth: 412),
+                        fontSize:18,
                         fontWeight: (currentPageIndex == 0)
                             ? FontWeight.w800
                             : FontWeight.w600,
@@ -89,8 +81,7 @@ class _HomeState extends State<Home> {
                     (currentPageIndex == 0) ? Spacer() : CMaker(),
                     (currentPageIndex == 0)
                         ? CMaker(
-                            width: ResponsiveWidth(context, 60,
-                                designScreenWidth: 412),
+                            width:60,
                             border: Border(
                                 bottom:
                                     BorderSide(color: UsedColors.background)),
@@ -104,8 +95,7 @@ class _HomeState extends State<Home> {
                     Spacer(),
                     TMaker(
                         text: "Members",
-                        fontSize: ResponsiveFontSizeByWidth(context, 18,
-                            designScreenWidth: 412),
+                        fontSize:18,
                         fontWeight: (currentPageIndex == 1)
                             ? FontWeight.w800
                             : FontWeight.w600,
@@ -113,8 +103,7 @@ class _HomeState extends State<Home> {
                     (currentPageIndex == 1) ? Spacer() : CMaker(),
                     (currentPageIndex == 1)
                         ? CMaker(
-                            width: ResponsiveWidth(context, 60,
-                                designScreenWidth: 412),
+                            width:60,
                             border: Border(
                                 bottom:
                                     BorderSide(color: UsedColors.background)),
@@ -128,8 +117,7 @@ class _HomeState extends State<Home> {
                     Spacer(),
                     TMaker(
                         text: "Projects",
-                        fontSize: ResponsiveFontSizeByWidth(context, 18,
-                            designScreenWidth: 412),
+                        fontSize: 18,
                         fontWeight: (currentPageIndex == 2)
                             ? FontWeight.w800
                             : FontWeight.w600,
@@ -137,8 +125,7 @@ class _HomeState extends State<Home> {
                     (currentPageIndex == 2) ? Spacer() : CMaker(),
                     (currentPageIndex == 2)
                         ? CMaker(
-                            width: ResponsiveWidth(context, 60,
-                                designScreenWidth: 412),
+                            width: 60,
                             border: Border(
                                 bottom:
                                     BorderSide(color: UsedColors.background)),
@@ -148,24 +135,20 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ],
-              height: ResponsiveHeight(context, 60, designScreenHeight: 915),
-              width: ResponsiveWidth(context, 320, designScreenWidth: 412)),
+              height:60,
+              width:320),
           (currentPageIndex == 0)
               ? Positioned(
-                  top: ResponsiveHeight(context, 142, designScreenHeight: 915),
+                  left: 87,
+                  top: 130,
                   child: CMaker(
-                    height:
-                        ResponsiveHeight(context, 100, designScreenHeight: 915),
+                    height: 100,
+                    width: 500,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ResponsivePMaker(
-                          horizontal: 77,
-                        ),
                         TMaker(
                             text: "CODEVE",
-                            fontSize: ResponsiveFontSizeByWidth(context, 40,
-                                designScreenWidth: 412),
+                            fontSize: 40,
                             fontWeight: FontWeight.w700,
                             color: UsedColors.background),
                         ShaderMask(
@@ -197,15 +180,13 @@ class _HomeState extends State<Home> {
                           blendMode: BlendMode.srcIn,
                           child: TMaker(
                               text: "L",
-                              fontSize: ResponsiveFontSizeByWidth(context, 40,
-                                  designScreenWidth: 412),
+                              fontSize: 40,
                               fontWeight: FontWeight.w700,
                               color: UsedColors.yellow),
                         ),
                         TMaker(
                             text: "OPER",
-                            fontSize: ResponsiveFontSizeByWidth(context, 40,
-                                designScreenWidth: 412),
+                            fontSize: 40,
                             fontWeight: FontWeight.w700,
                             color: UsedColors.yellow),
                       ],
