@@ -13,7 +13,7 @@ class MobilePageOne extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          ResponsivePMaker(vertical: 150,),
+          Padding(padding:EdgeInsets.only(bottom: 150)),
           Container(
             margin: EdgeInsets.only(left: 160 , top:200,),
             height:ResponsiveHeight(context, 50, designScreenHeight: 915),
@@ -51,7 +51,7 @@ class MobilePageOne extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left : 5 , top:10, ),
+            margin: EdgeInsets.only(left : 10 , top:10, ),
             height:ResponsiveHeight(context, 50, designScreenHeight: 915) ,
             width:ResponsiveWidth(context,300 , designScreenWidth: 412) ,
             child: Text(
@@ -62,7 +62,7 @@ class MobilePageOne extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          ResponsivePMaker(vertical: 100,),
+          Spacer(),
           Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -101,7 +101,8 @@ class MobilePageOne extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          Spacer(),
         ],
       ),
     );
