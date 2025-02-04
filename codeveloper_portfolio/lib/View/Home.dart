@@ -59,7 +59,11 @@ class _HomeState extends State<Home> {
               unSelectionContainerWidth:90,
               selectedContainerColor: Colors.transparent,
               pages: [
-                MobilePageOne(),
+                MobilePageOne(Refresh: () {
+                  setState(() {
+                    
+                  });
+                },),
                 MobileMembersPage(),
                 MobileProjectsPage()
               ],
