@@ -162,7 +162,8 @@ class MobileProjectIsOpened extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           (ProjectClass.getProjectsData()[ProjectIndex][5]["app"] !=
-                                  null)
+                                  null&&ProjectClass.getProjectsData()[ProjectIndex][5]["app"] !=
+                                  "")
                               ? InkWell(
                                   onTap: () {
                                     LaunchURL(
@@ -202,7 +203,9 @@ class MobileProjectIsOpened extends StatelessWidget {
                               : CMaker(),
                           (ProjectClass.getProjectsData()[ProjectIndex][5]
                                       ["website"] !=
-                                  null)
+                                  null&&ProjectClass.getProjectsData()[ProjectIndex][5]
+                                      ["website"] !=
+                                  "null")
                               ? InkWell(
                                   onTap: () {
                                     LaunchURL(
@@ -239,7 +242,9 @@ class MobileProjectIsOpened extends StatelessWidget {
                               : CMaker(),
                           (ProjectClass.getProjectsData()[ProjectIndex][5]
                                       ["github"] !=
-                                  null)
+                                  null&&ProjectClass.getProjectsData()[ProjectIndex][5]
+                                      ["github"] !=
+                                  "")
                               ? InkWell(
                                   onTap: () {
                                     LaunchURL(
