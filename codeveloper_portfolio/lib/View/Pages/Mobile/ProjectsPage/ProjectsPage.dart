@@ -1,6 +1,5 @@
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
-import 'package:codeveloper_portfolio/Data/membersData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
 import 'package:codeveloper_portfolio/View/Pages/Mobile/ProjectsPage/ProjectIsOpened.dart';
@@ -28,7 +27,7 @@ class MobileProjectsPage extends StatelessWidget {
               width: double.infinity,
               child: ListView.builder(
                 shrinkWrap: false,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: ProjectClass.getProjectsData().length,
                 itemBuilder: (context, index) {
                   return InkWell(
@@ -124,10 +123,10 @@ class MobileProjectsPage extends StatelessWidget {
                                                 ProjectClass.getProjectsData()[
                                                     index][1],
                                                 textAlign: TextAlign.start,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 25,
                                                     fontWeight: FontWeight.w500,
-                                                    color: const Color.fromARGB(
+                                                    color: Color.fromARGB(
                                                         255, 255, 250, 250)),
                                               ),
                                             ),
@@ -154,10 +153,10 @@ class MobileProjectsPage extends StatelessWidget {
                                                             .substring(0, 40) +
                                                         "...",
                                                 textAlign: TextAlign.start,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.w400,
-                                                    color: const Color.fromARGB(
+                                                    color: Color.fromARGB(
                                                         255, 255, 250, 250)),
                                               ),
                                             ),

@@ -1,7 +1,5 @@
-import 'dart:js_interop';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:codeveloper_portfolio/Data/membersData.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 // Create a new user with a first and last name

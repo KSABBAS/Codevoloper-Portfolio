@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/Data/ContactsData.dart';
@@ -15,14 +14,14 @@ class MembersPage extends StatefulWidget {
 }
 
 bool isHovered = false;
-int? selectedToHover = null;
+int? selectedToHover;
 
 class _MembersPageState extends State<MembersPage> {
   @override
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.height);
     print(MediaQuery.of(context).size.width);
-    return Container(
+    return SizedBox(
       height: double.infinity,
       width: double.infinity,
       child: Row(
@@ -80,13 +79,13 @@ class _MembersPageState extends State<MembersPage> {
                                                         .getContactLink(
                                                             "whatsApp"));
                                               },
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: ResponsiveWidth(context,250),
                   //alignment: Alignment.center,
                   child: Row(
                     children: [
-                      Spacer(),
-                      Container(
+                      const Spacer(),
+                      SizedBox(
                           //margin: EdgeInsets.symmetric(horizontal: 200),
                           height: ResponsiveHeight(
                             context,
@@ -112,7 +111,7 @@ class _MembersPageState extends State<MembersPage> {
                           letterSpacing: 2,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ))
@@ -124,7 +123,7 @@ class _MembersPageState extends State<MembersPage> {
             width: ResponsiveWidth(context, 1098),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: ResponsiveHeight(
                     context,
                     200,
@@ -234,7 +233,7 @@ class _MembersPageState extends State<MembersPage> {
                                       AnimatedOpacity(
                                         opacity:
                                             (index == selectedToHover) ? 1 : 0,
-                                        duration: Duration(milliseconds: 400),
+                                        duration: const Duration(milliseconds: 400),
                                         child: CMaker(
                                           padding: EdgeInsets.symmetric(
                                               vertical:
@@ -294,7 +293,7 @@ class _MembersPageState extends State<MembersPage> {
                           ),
                           child: Row(
                             children: [
-                              Spacer(),
+                              const Spacer(),
                               CMaker(
                                 width: ResponsiveWidth(context, 300),
                                 child: Column(
@@ -332,7 +331,7 @@ class _MembersPageState extends State<MembersPage> {
                                                         .getContactLink(
                                                             "whatsApp"));
                                               },
-                                              child: Container(
+                                              child: SizedBox(
                                                   height: ResponsiveHeight(
                                                     context,
                                                     60,
@@ -350,7 +349,7 @@ class _MembersPageState extends State<MembersPage> {
                                                         .getContactLink(
                                                             "linkedin"));
                                               },
-                                              child: Container(
+                                              child: SizedBox(
                                               height: ResponsiveHeight(
                                                   context, 60,
                                                   designScreenHeight: 1536),
@@ -365,7 +364,7 @@ class _MembersPageState extends State<MembersPage> {
                                   ],
                                 ),
                               ),
-                              Spacer(
+                              const Spacer(
                                 flex: 4,
                               ),
                               CMaker(
@@ -405,7 +404,7 @@ class _MembersPageState extends State<MembersPage> {
                                                         .getContactLink(
                                                             "facebook"));
                                               },
-                                              child: Container(
+                                              child: SizedBox(
                                                   height: ResponsiveHeight(
                                                     context,
                                                     60,
@@ -423,7 +422,7 @@ class _MembersPageState extends State<MembersPage> {
                                                         .getContactLink(
                                                             "instagram"));
                                               },
-                                              child: Container(
+                                              child: SizedBox(
                                                   height: ResponsiveHeight(
                                                       context, 60,
                                                       designScreenHeight: 1536),
@@ -439,7 +438,7 @@ class _MembersPageState extends State<MembersPage> {
                                                         .getContactLink(
                                                             "tiktok"));
                                               },
-                                              child: Container(
+                                              child: SizedBox(
                                                   height: ResponsiveHeight(
                                                       context, 60,
                                                       designScreenHeight: 1536),
@@ -454,7 +453,7 @@ class _MembersPageState extends State<MembersPage> {
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                             ],
                           ),
                         ),

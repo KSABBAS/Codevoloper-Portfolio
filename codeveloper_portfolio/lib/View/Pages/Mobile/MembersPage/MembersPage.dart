@@ -31,7 +31,7 @@ class _MobileMembersPageState extends State<MobileMembersPage> {
               width: double.infinity,
               child: ListView.builder(
                 shrinkWrap: false,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: MemberClass.getMemberList().length,
                 itemBuilder: (context, index) {
                   return Container(
@@ -117,10 +117,10 @@ class _MobileMembersPageState extends State<MobileMembersPage> {
                                             MemberClass.getMemberList()[index]
                                                 [1],
                                             textAlign: TextAlign.start,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 25,
                                                 fontWeight: FontWeight.w500,
-                                                color: const Color.fromARGB(
+                                                color: Color.fromARGB(
                                                     255, 255, 250, 250)),
                                           ),
                                         ),
@@ -136,10 +136,10 @@ class _MobileMembersPageState extends State<MobileMembersPage> {
                                             MemberClass.getMemberList()[index]
                                                 [2],
                                             textAlign: TextAlign.start,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w400,
-                                                color: const Color.fromARGB(
+                                                color: Color.fromARGB(
                                                     255, 255, 250, 250)),
                                           ),
                                         ),

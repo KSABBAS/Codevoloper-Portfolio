@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
               NavBarPositionTop:
                   ResponsiveHeight(context, 15, designScreenHeight: 915),
               barColor: Colors.transparent,
-              vanishDuration: Duration(milliseconds: 300),
+              vanishDuration: const Duration(milliseconds: 300),
               pageBackgroundColor: Colors.transparent,
               SelectionContainerCircularRadius: 0,
               SelectionContainerWidth:90,
@@ -64,8 +64,8 @@ class _HomeState extends State<Home> {
                     
                   });
                 },),
-                MobileMembersPage(),
-                MobileProjectsPage()
+                const MobileMembersPage(),
+                const MobileProjectsPage()
               ],
               onPageChange: (index) {
                 currentPageIndex = index;
@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
               iconsList: [
                 Column(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     TMaker(
                         text: "Home",
                         fontSize:18,
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                             ? FontWeight.w800
                             : FontWeight.w600,
                         color: UsedColors.background),
-                    (currentPageIndex == 0) ? Spacer() : CMaker(),
+                    (currentPageIndex == 0) ? const Spacer() : CMaker(),
                     (currentPageIndex == 0)
                         ? CMaker(
                             width:60,
@@ -91,12 +91,12 @@ class _HomeState extends State<Home> {
                                     BorderSide(color: UsedColors.background)),
                           )
                         : CMaker(),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
                 Column(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     TMaker(
                         text: "Members",
                         fontSize:18,
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                             ? FontWeight.w800
                             : FontWeight.w600,
                         color: UsedColors.background),
-                    (currentPageIndex == 1) ? Spacer() : CMaker(),
+                    (currentPageIndex == 1) ? const Spacer() : CMaker(),
                     (currentPageIndex == 1)
                         ? CMaker(
                             width:60,
@@ -113,12 +113,12 @@ class _HomeState extends State<Home> {
                                     BorderSide(color: UsedColors.background)),
                           )
                         : CMaker(),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
                 Column(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     TMaker(
                         text: "Projects",
                         fontSize: 18,
@@ -126,7 +126,7 @@ class _HomeState extends State<Home> {
                             ? FontWeight.w800
                             : FontWeight.w600,
                         color: UsedColors.background),
-                    (currentPageIndex == 2) ? Spacer() : CMaker(),
+                    (currentPageIndex == 2) ? const Spacer() : CMaker(),
                     (currentPageIndex == 2)
                         ? CMaker(
                             width: 60,
@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                                     BorderSide(color: UsedColors.background)),
                           )
                         : CMaker(),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
               ],
@@ -207,7 +207,7 @@ class _HomeState extends State<Home> {
       return Stack(
         children: [
           AnimatedContainer(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             height: double.infinity,
             width: double.infinity,
             alignment: (currentPageIndex == 0)
@@ -224,13 +224,13 @@ class _HomeState extends State<Home> {
               NavBarPositionTop: ResponsiveHeight(context, 20),
               NavBarPositionRight: ResponsiveWidth(context, 84),
               BarCircularRadius: 30,
-              vanishDuration: Duration(milliseconds: 200),
+              vanishDuration: const Duration(milliseconds: 200),
               SelectionContainerHeight: ResponsiveHeight(context, 30),
               SelectionContainerWidth: ResponsiveWidth(context, 30),
               selectedContainerColor: Colors.transparent,
               SelectedContainerBorder: Border.all(color: Colors.white),
               SelectionContainerCircularRadius: 50,
-              pages: [PageOne(), MembersPage(), ProjectsPage()],
+              pages: const [PageOne(), MembersPage(), ProjectsPage()],
               onPageChange: (index) {
                 currentPageIndex = index;
                 setState(() {});

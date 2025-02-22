@@ -14,15 +14,15 @@ class MobilePageOne extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          Padding(padding: EdgeInsets.only(bottom: 150)),
+          const Padding(padding: EdgeInsets.only(bottom: 150)),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 160,
               top: 200,
             ),
             height: ResponsiveHeight(context, 50, designScreenHeight: 915),
             width: ResponsiveWidth(context, 300, designScreenWidth: 412),
-            child: Text(
+            child: const Text(
               "Mobile Applications",
               style: TextStyle(
                   color: Colors.white,
@@ -31,13 +31,13 @@ class MobilePageOne extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 125,
               top: 10,
             ),
             height: ResponsiveHeight(context, 50, designScreenHeight: 915),
             width: ResponsiveWidth(context, 300, designScreenWidth: 412),
-            child: Text(
+            child: const Text(
               "Desktop Applications",
               style: TextStyle(
                   color: Colors.white,
@@ -46,13 +46,13 @@ class MobilePageOne extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 65,
               top: 10,
             ),
             height: ResponsiveHeight(context, 50, designScreenHeight: 915),
             width: ResponsiveWidth(context, 300, designScreenWidth: 412),
-            child: Text(
+            child: const Text(
               "Websites Development",
               style: TextStyle(
                   color: Colors.white,
@@ -61,13 +61,13 @@ class MobilePageOne extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 10,
               top: 10,
             ),
             height: ResponsiveHeight(context, 50, designScreenHeight: 915),
             width: ResponsiveWidth(context, 300, designScreenWidth: 412),
-            child: Text(
+            child: const Text(
               "Database Maintenance",
               style: TextStyle(
                   color: Colors.white,
@@ -75,7 +75,7 @@ class MobilePageOne extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           InkWell(
               onTap: () {
                 currentPageIndex = 1;
@@ -85,7 +85,7 @@ class MobilePageOne extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: UsedColors.yellow,
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                    borderRadius: const BorderRadius.all(Radius.circular(15))),
                 height: ResponsiveHeight(context, 70, designScreenHeight: 915),
                 width: ResponsiveWidth(context, 190, designScreenWidth: 412),
                 child: Text(
@@ -100,12 +100,12 @@ class MobilePageOne extends StatelessWidget {
           ResponsivePMaker(
             vertical: 20,
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Manage your project",
                   style: TextStyle(
                       color: Colors.white,
@@ -125,7 +125,7 @@ class MobilePageOne extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

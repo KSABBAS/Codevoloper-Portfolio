@@ -56,21 +56,21 @@ class MobileProjectIsOpened extends StatelessWidget {
                              child: Text(
                                 ProjectClass.getProjectsData()[
                                         ProjectIndex][1],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 255, 250, 250)),
                               ),
                            ),
-                          Spacer(),
+                          const Spacer(),
                           CMaker(
                             circularRadius: 500,
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             child: IconButton(
                               onPressed: () {
                                 Get.back();
                               },
-                              icon: Icon(Icons.arrow_forward_rounded),
+                              icon: const Icon(Icons.arrow_forward_rounded),
                               iconSize: 40,
                             ),
                             
@@ -90,10 +90,10 @@ class MobileProjectIsOpened extends StatelessWidget {
                           ProjectClass.getProjectsData()[
                                       ProjectIndex][2],
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.normal,
-                              color: const Color.fromARGB(255, 255, 255, 255)),
+                              color: Color.fromARGB(255, 255, 255, 255)),
                         ),
                       ),
                     ),
@@ -133,7 +133,7 @@ class MobileProjectIsOpened extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)),
                           child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               scrollDirection: Axis.horizontal,
                               itemCount:
                                   ProjectClass.getProjectsData()[ProjectIndex][4]
@@ -142,21 +142,21 @@ class MobileProjectIsOpened extends StatelessWidget {
                                 return CMaker(
                                   circularRadius: 20,
                                   alignment: Alignment.center,
+                                  margin: EdgeInsets.symmetric(vertical: ResponsiveHeight(context,20, designScreenHeight: 915),horizontal: ResponsiveWidth(context, 10, designScreenWidth: 412)),
+                                  height: 300,
+                                  width: 375,
                                   child: ViewImage(
                                     ImageLink:
                                         ProjectClass.getProjectsData()[ProjectIndex]
                                             [4][i],
                                   ),
-                                  margin: EdgeInsets.symmetric(vertical: ResponsiveHeight(context,20, designScreenHeight: 915),horizontal: ResponsiveWidth(context, 10, designScreenWidth: 412)),
-                                  height: 300,
-                                  width: 375,
                                 );
                               }),
                         ),
                       ]),
                     ),
                     ResponsivePMaker(vertical: 40,),
-                    Container(
+                    SizedBox(
                       width: ResponsiveWidth(context, PageWidth(context), designScreenWidth: 412),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -217,7 +217,7 @@ class MobileProjectIsOpened extends StatelessWidget {
                                               designScreenWidth: 412)),
                                       circularRadius: 15,
                                       child: Column(children: [
-                                        Container(
+                                        SizedBox(
                                             height: ResponsiveHeight(context, 30,
                                                 designScreenHeight: 915),
                                             width: ResponsiveWidth(context, 30,
@@ -254,7 +254,7 @@ class MobileProjectIsOpened extends StatelessWidget {
                                               designScreenWidth: 412)),
                                       circularRadius: 15,
                                       child: Column(children: [
-                                        Container(
+                                        SizedBox(
                                             height: ResponsiveHeight(context, 30,
                                                 designScreenHeight: 915),
                                             width: ResponsiveWidth(context, 30,

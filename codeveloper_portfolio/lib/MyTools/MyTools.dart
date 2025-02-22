@@ -3,7 +3,6 @@
 // import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:flutter/material.dart';
@@ -1851,7 +1850,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
               child: Stack(
                 children: [
                   (widget.BackgroundImage != null)
-                      ? Container(
+                      ? SizedBox(
                           height: double.infinity,
                           width: double.infinity,
                           child: widget.BackgroundImage!)
@@ -1859,7 +1858,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                   AnimatedOpacity(
                     opacity: (VanishIsOn) ? 0 : 1,
                     duration:
-                        widget.vanishDuration ?? Duration(milliseconds: 200),
+                        widget.vanishDuration ?? const Duration(milliseconds: 200),
                     child: widget.pages[PageIndex],
                   ),
                 ],
@@ -1878,7 +1877,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
               color: widget.barColor ?? Colors.white,
               height: widget.height,
               width: widget.width,
-              child: Container(
+              child: SizedBox(
                 width: widget.SelectionContainerWidth,
                 child: Column(
                   children: [
@@ -1898,7 +1897,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                               (widget.iconsList.length + 1),
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: false,
                         itemCount: widget.iconsList.length,
                         itemBuilder: (context, index) {
@@ -1931,15 +1930,13 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                                               .SelectionContainerCircularRadius ??
                                           15,
                                       border: (PageIndex == index)
-                                          ? widget.SelectedContainerBorder ??
-                                              null
-                                          : widget.unSelectedContainerBorder ??
-                                              null,
+                                          ? widget.SelectedContainerBorder
+                                          : widget.unSelectedContainerBorder,
                                       gradient:
                                           widget.SelectionContainerGradient,
                                       color: (PageIndex == index)
                                           ? widget.selectedContainerColor ??
-                                              Color.fromARGB(255, 0, 0, 0)
+                                              const Color.fromARGB(255, 0, 0, 0)
                                           : widget.unselectedContainerColor ??
                                               Colors.transparent,
                                       child: widget.iconsList[index])),
@@ -1972,7 +1969,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
               child: Stack(
                 children: [
                   (widget.BackgroundImage != null)
-                      ? Container(
+                      ? SizedBox(
                           height: double.infinity,
                           width: double.infinity,
                           child: widget.BackgroundImage!)
@@ -1980,7 +1977,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                   AnimatedOpacity(
                     opacity: (VanishIsOn) ? 0 : 1,
                     duration:
-                        widget.vanishDuration ?? Duration(milliseconds: 200),
+                        widget.vanishDuration ?? const Duration(milliseconds: 200),
                     child: widget.pages[PageIndex],
                   ),
                 ],
@@ -1999,7 +1996,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                 color: widget.barColor ?? Colors.white,
                 height: widget.height,
                 width: widget.width,
-                child: Container(
+                child: SizedBox(
                   height: widget.SelectionContainerHeight,
                   child: Row(
                     children: [
@@ -2018,7 +2015,7 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                                 (widget.iconsList.length + 1),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: false,
                           itemCount: widget.iconsList.length,
                           itemBuilder: (context, index) {
@@ -2054,15 +2051,13 @@ class _PopAndVanishNavBarState extends State<PopAndVanishNavBar> {
                                               widget.SelectionContainerCircularRadius ??
                                                   15,
                                           border: (PageIndex == index)
-                                              ? widget.SelectedContainerBorder ??
-                                                  null
-                                              : widget.unSelectedContainerBorder ??
-                                                  null,
+                                              ? widget.SelectedContainerBorder
+                                              : widget.unSelectedContainerBorder,
                                           gradient:
                                               widget.SelectionContainerGradient,
                                           color: (PageIndex == index)
                                               ? widget.selectedContainerColor ??
-                                                  Color.fromARGB(255, 0, 0, 0)
+                                                  const Color.fromARGB(255, 0, 0, 0)
                                               : widget.unselectedContainerColor ??
                                                   Colors.transparent,
                                           child: widget.iconsList[index])),
@@ -2181,7 +2176,7 @@ class _PopAndVanishLAyerBetweenNavBarState
               child: Stack(
                 children: [
                   (widget.BackgroundImage != null)
-                      ? Container(
+                      ? SizedBox(
                           height: double.infinity,
                           width: double.infinity,
                           child: widget.BackgroundImage!)
@@ -2189,7 +2184,7 @@ class _PopAndVanishLAyerBetweenNavBarState
                   AnimatedOpacity(
                     opacity: (VanishIsOn) ? 0 : 1,
                     duration:
-                        widget.vanishDuration ?? Duration(milliseconds: 200),
+                        widget.vanishDuration ?? const Duration(milliseconds: 200),
                     child: widget.pages[PageIndex],
                   ),
                 ],
@@ -2209,7 +2204,7 @@ class _PopAndVanishLAyerBetweenNavBarState
               color: widget.barColor ?? Colors.white,
               height: widget.height,
               width: widget.width,
-              child: Container(
+              child: SizedBox(
                 width: widget.SelectionContainerWidth,
                 child: Column(
                   children: [
@@ -2229,7 +2224,7 @@ class _PopAndVanishLAyerBetweenNavBarState
                               (widget.iconsList.length + 1),
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: false,
                         itemCount: widget.iconsList.length,
                         itemBuilder: (context, index) {
@@ -2262,15 +2257,13 @@ class _PopAndVanishLAyerBetweenNavBarState
                                               .SelectionContainerCircularRadius ??
                                           15,
                                       border: (PageIndex == index)
-                                          ? widget.SelectedContainerBorder ??
-                                              null
-                                          : widget.unSelectedContainerBorder ??
-                                              null,
+                                          ? widget.SelectedContainerBorder
+                                          : widget.unSelectedContainerBorder,
                                       gradient:
                                           widget.SelectionContainerGradient,
                                       color: (PageIndex == index)
                                           ? widget.selectedContainerColor ??
-                                              Color.fromARGB(255, 0, 0, 0)
+                                              const Color.fromARGB(255, 0, 0, 0)
                                           : widget.unselectedContainerColor ??
                                               Colors.transparent,
                                       child: widget.iconsList[index])),
@@ -2303,7 +2296,7 @@ class _PopAndVanishLAyerBetweenNavBarState
               child: Stack(
                 children: [
                   (widget.BackgroundImage != null)
-                      ? Container(
+                      ? SizedBox(
                           height: double.infinity,
                           width: double.infinity,
                           child: widget.BackgroundImage!)
@@ -2311,7 +2304,7 @@ class _PopAndVanishLAyerBetweenNavBarState
                   AnimatedOpacity(
                     opacity: (VanishIsOn) ? 0 : 1,
                     duration:
-                        widget.vanishDuration ?? Duration(milliseconds: 200),
+                        widget.vanishDuration ?? const Duration(milliseconds: 200),
                     child: widget.pages[PageIndex],
                   ),
                 ],
@@ -2331,7 +2324,7 @@ class _PopAndVanishLAyerBetweenNavBarState
                 color: widget.barColor ?? Colors.white,
                 height: widget.height,
                 width: widget.width,
-                child: Container(
+                child: SizedBox(
                   height: widget.SelectionContainerHeight,
                   child: Row(
                     children: [
@@ -2350,7 +2343,7 @@ class _PopAndVanishLAyerBetweenNavBarState
                                 (widget.iconsList.length + 1),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: false,
                           itemCount: widget.iconsList.length,
                           itemBuilder: (context, index) {
@@ -2386,15 +2379,13 @@ class _PopAndVanishLAyerBetweenNavBarState
                                               widget.SelectionContainerCircularRadius ??
                                                   15,
                                           border: (PageIndex == index)
-                                              ? widget.SelectedContainerBorder ??
-                                                  null
-                                              : widget.unSelectedContainerBorder ??
-                                                  null,
+                                              ? widget.SelectedContainerBorder
+                                              : widget.unSelectedContainerBorder,
                                           gradient:
                                               widget.SelectionContainerGradient,
                                           color: (PageIndex == index)
                                               ? widget.selectedContainerColor ??
-                                                  Color.fromARGB(255, 0, 0, 0)
+                                                  const Color.fromARGB(255, 0, 0, 0)
                                               : widget.unselectedContainerColor ??
                                                   Colors.transparent,
                                           child: widget.iconsList[index])),
@@ -2869,7 +2860,7 @@ class ResponsivePMaker extends StatelessWidget {
 // package : video_player: ^2.9.2;
 // add : flutter pub add video_player
 class MyVideoPlayer extends StatefulWidget {
-  MyVideoPlayer({
+  const MyVideoPlayer({
     super.key,
     this.url,
     this.height,
@@ -2954,7 +2945,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return ACMaker(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       height: widget.height ?? 200,
       width: widget.width ?? MediaQuery.of(context).size.width,
       color: Colors.black,
@@ -3051,15 +3042,15 @@ class __ControlsState extends State<_Controls> {
     bool isFullScreen = MediaQuery.of(context).orientation == Orientation.landscape;
 
     return (!widget.controller.value.isInitialized)
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(
             color: Colors.white,
           ))
         : AnimatedOpacity(
             opacity: widget.controller.value.isPlaying ? 0 : 1,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: CMaker(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               color: const Color.fromARGB(100, 52, 52, 52),
               height: 200,
               width: MediaQuery.of(context).size.width,
@@ -3069,16 +3060,16 @@ class __ControlsState extends State<_Controls> {
                   if (isFullScreen && widget.allowSettings)
                     Expanded(
                       child: CMaker(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
-                            Spacer(),
+                            const Spacer(),
                             CMaker(
                               width: 40,
                               height: 40,
                               child: IconButton(
                                   onPressed: () {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.settings,
                                     color: Colors.white,
                                     size: 20,
@@ -3122,11 +3113,11 @@ class __ControlsState extends State<_Controls> {
                             fontSize: 12,
                             color: Colors.white,
                           ),
-                          SizedBox(height: 2),
+                          const SizedBox(height: 2),
                           VideoProgressIndicator(
                             widget.controller,
                             allowScrubbing: true,
-                            colors: VideoProgressColors(
+                            colors: const VideoProgressColors(
                               playedColor: Colors.red,
                               bufferedColor: Colors.grey,
                               backgroundColor: Colors.black,
@@ -3202,7 +3193,7 @@ class __ControlsState extends State<_Controls> {
 
 class _VideoPlayer extends StatelessWidget {
   final VideoPlayerController controller;
-  _VideoPlayer({required this.controller});
+  const _VideoPlayer({required this.controller});
 
   @override
   Widget build(BuildContext context) {

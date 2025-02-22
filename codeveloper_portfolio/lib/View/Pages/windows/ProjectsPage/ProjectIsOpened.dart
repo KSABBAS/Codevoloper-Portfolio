@@ -60,7 +60,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
   }
 
   Widget _buildHeader(BuildContext context, List<dynamic> projectData) {
-    return Container(
+    return SizedBox(
       width: PageWidth(context),
       height: ResponsiveHeight(context, 120),
       child: Row(
@@ -68,7 +68,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
           _buildProjectImage(context, projectData[0]),
           ResponsivePMaker(horizontal: 20),
           _buildProjectTitle(context, projectData[1]),
-          Spacer(),
+          const Spacer(),
           _buildBackButton(),
         ],
       ),
@@ -199,7 +199,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
       width: ResponsiveWidth(context, 415.0 * imageUrls.length),
       child: ListView.builder(
         shrinkWrap: false,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: imageUrls.length,
         itemBuilder: (context, index) {
@@ -250,7 +250,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
         height: ResponsiveHeight(context, 145),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: ResponsiveHeight(context, 60),
               width: ResponsiveWidth(context, 60),
               child: Image.asset(iconPath),

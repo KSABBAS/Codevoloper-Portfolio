@@ -17,7 +17,7 @@ class _PageOneState extends State<PageOne> {
     return CMaker(
       height: double.infinity,
       width: double.infinity,
-      child: Stack(
+      child: const Stack(
         children: [
           YellowHalfBorderContainerLayer(),
           WhiteBorderContainerLayer(),
