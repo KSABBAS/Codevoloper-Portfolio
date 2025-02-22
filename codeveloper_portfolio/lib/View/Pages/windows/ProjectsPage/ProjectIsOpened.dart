@@ -225,11 +225,11 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (links["app"] != null) _buildLinkButton(context, "App Link", "images/download.png", links["app"]),
+          if (links["app"] != null&&links["app"] != "") _buildLinkButton(context, "App Link", "images/download.png", links["app"]),
           ResponsivePMaker(horizontal: 20),
-          if (links["website"] != null) _buildLinkButton(context, "Website Link", "images/website.png", links["website"]),
+          if (links["website"] != null&&links["app"] != "") _buildLinkButton(context, "Website Link", "images/website.png", links["website"]),
           ResponsivePMaker(horizontal: 20),
-          if (links["github"] != null) _buildLinkButton(context, "Github Link", "images/github.png", links["github"]),
+          if (links["github"] != null&&links["github"] != "") _buildLinkButton(context, "Github Link", "images/github.png", links["github"]),
         ],
       ),
     );
