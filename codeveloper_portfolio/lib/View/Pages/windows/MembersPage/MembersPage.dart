@@ -249,14 +249,19 @@ class _MembersPageState extends State<MembersPage> {
                                             children: [
                                               const Spacer(),
                                               const Spacer(),
-                                              TMaker(
-                                                text: MemberClass
+                                              Text(
+                                                MemberClass
                                                     .getMemberList()[index][1],
+                                                    style: TextStyle(
+
                                                 fontSize:
                                                     ResponsiveFontSizeByWidth(
                                                         context, 30),
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.white,
+                                                    ),
+                                                    maxLines: 2,
+                                                    textAlign: TextAlign.center,
                                               ),
                                               const Spacer(),
                                               TMaker(

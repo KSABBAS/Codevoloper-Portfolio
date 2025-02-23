@@ -246,7 +246,7 @@ class _HomeState extends State<Home> {
                   size: ResponsiveHeight(context, 25),
                 ),
                 Icon(
-                  Icons.person,
+                    Icons.work,
                   size: ResponsiveHeight(context, 25),
                 ),
               ],
