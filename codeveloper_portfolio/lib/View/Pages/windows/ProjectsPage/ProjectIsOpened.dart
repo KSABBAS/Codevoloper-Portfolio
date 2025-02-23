@@ -1,9 +1,11 @@
+import 'dart:math';
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ProjectIsOpened extends StatefulWidget {
   const ProjectIsOpened({super.key, required this.ProjectIndex});
@@ -14,141 +16,125 @@ class ProjectIsOpened extends StatefulWidget {
 }
 
 class _ProjectIsOpenedState extends State<ProjectIsOpened> {
+  // Two main colors: dark primary and golden accent.
+  final Color primaryColor = const Color.fromARGB(255, 29, 29, 32);
+  final Color accentColor = const Color.fromARGB(255, 210, 191, 35);
+
   @override
   Widget build(BuildContext context) {
     final projectData = ProjectClass.getProjectsData()[widget.ProjectIndex];
 
     return Scaffold(
+      backgroundColor: primaryColor,
       body: Stack(
         children: [
-          _buildBackground(),
-          _buildContent(context, projectData),
+          // Animated creative background with dynamic, glowing curvy lines.
+          AnimatedCreativeBackground(
+            primaryColor: primaryColor,
+            accentColor: accentColor,
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildHeader(context, projectData),
+                SizedBox(height: ResponsiveHeight(context, 20)),
+                _buildGlassDescription(context, projectData),
+                SizedBox(height: ResponsiveHeight(context, 20)),
+                _buildGlassMediaSection(context, projectData),
+                SizedBox(height: ResponsiveHeight(context, 20)),
+                _buildGlassLinksSection(context, projectData),
+                SizedBox(height: ResponsiveHeight(context, 30)),
+              ],
+            ),
+          ),
+          // Back button positioned at the top-left.
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 10,
+            left: 10,
+            child: _buildBackButton(),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildBackground() {
-    return CMaker(
-      height: double.infinity,
-      width: double.infinity,
-      child: Image.asset("images/background.jpg", fit: BoxFit.cover),
-    );
-  }
-
-  Widget _buildContent(BuildContext context, List<dynamic> projectData) {
-    return CMaker(
-      height: PageHeight(context),
-      width: PageWidth(context),
-      padding: EdgeInsets.symmetric(
-        vertical: ResponsiveHeight(context, 40),
-        horizontal: ResponsiveWidth(context, 40),
-      ),
-      child: ListView(
-        children: [
-          _buildHeader(context, projectData),
-          ResponsivePMaker(vertical: 20),
-          _buildDescription(context, projectData),
-          ResponsivePMaker(vertical: 20),
-          _buildMediaSection(context, projectData),
-          ResponsivePMaker(vertical: 20),
-          _buildLinksSection(context, projectData),
-          ResponsivePMaker(vertical: 30),
-        ],
-      ),
-    );
-  }
-
+  // Header with the project image and title, clipped to a wave shape.
   Widget _buildHeader(BuildContext context, List<dynamic> projectData) {
-    return SizedBox(
-      width: PageWidth(context),
-      height: ResponsiveHeight(context, 120),
-      child: Row(
-        children: [
-          _buildProjectImage(context, projectData[0]),
-          ResponsivePMaker(horizontal: 20),
-          _buildProjectTitle(context, projectData[1]),
-          const Spacer(),
-          _buildBackButton(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProjectImage(BuildContext context, String imageUrl) {
-    return Container(
-      width: ResponsiveWidth(context, 120),
-      height: ResponsiveHeight(context, 120),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: Image.network(imageUrl),
-      ),
-    );
-  }
-
-  Widget _buildProjectTitle(BuildContext context, String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: ResponsiveFontSizeByHeight(context, 40),
-        fontWeight: FontWeight.w200,
-      ),
-    );
-  }
-
-  Widget _buildBackButton() {
-    return InkWell(
-      onTap: () {
-        Get.back();
-      },
-      child: CMaker(
-        color: UsedColors.Gray,
-        alignment: Alignment.center,
-        circularRadius: 20,
-        height: ResponsiveHeight(context, 40),
-        width: ResponsiveWidth(context, 100),
-        child: Icon(
-          Icons.arrow_forward,
-          size: ResponsiveFontSizeByHeight(context, 30),
+    return ClipPath(
+      clipper: HeaderClipper(),
+      child: Container(
+        height: ResponsiveHeight(context, 300),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(projectData[0]),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Container(
+          color: primaryColor.withOpacity(0.6),
+          child: Center(
+            child: Text(
+              projectData[1],
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: accentColor,
+                fontSize: ResponsiveFontSizeByHeight(context, 36),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildDescription(BuildContext context, List<dynamic> projectData) {
-    return CMaker(
-      width: double.infinity,
-      alignment: Alignment.centerLeft,
-      child: CMaker(
-        width: ResponsiveWidth(context, 1200),
-        alignment: Alignment.topLeft,
+  // Back button styled as a golden circular icon.
+  Widget _buildBackButton() {
+    return InkWell(
+      onTap: () {
+        Get.back();
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: accentColor,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          Icons.arrow_back,
+          color: primaryColor,
+          size: ResponsiveFontSizeByHeight(context, 24),
+        ),
+      ),
+    );
+  }
+
+  // Glassmorphism container for the description section.
+  Widget _buildGlassDescription(BuildContext context, List<dynamic> projectData) {
+    return GlassContainer(
+      primaryColor: primaryColor,
+      accentColor: accentColor,
+      child: Padding(
         padding: EdgeInsets.all(ResponsiveWidth(context, 20)),
-        
-          color: UsedColors.Gray.withOpacity(0.1),
-          circularRadius:10,
-        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Project Description",
               style: TextStyle(
-                color: Colors.white,
-                fontSize: ResponsiveFontSizeByHeight(context, 20),
+                color: accentColor,
+                fontSize: ResponsiveFontSizeByHeight(context, 22),
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: ResponsiveHeight(context, 10)),
-            TMaker(
-              textAlign: TextAlign.start,
-              text: projectData[2],
-              fontSize: ResponsiveFontSizeByHeight(context, 15),
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
+            Text(
+              projectData[2],
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: ResponsiveFontSizeByHeight(context, 16),
+              ),
             ),
           ],
         ),
@@ -156,116 +142,341 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
     );
   }
 
-  Widget _buildMediaSection(BuildContext context, List<dynamic> projectData) {
-    return CMaker(
-      height: ResponsiveHeight(context, 530),
-      width: ResponsiveWidth(context, PageWidth(context)),
-      child: CMaker(
-        color: UsedColors.Gray,
-        alignment: Alignment.center,
-        height: ResponsiveHeight(context, 500),
-        width: ResponsiveWidth(context, 1536),
-        padding: EdgeInsets.symmetric(
-          vertical: ResponsiveFontSizeByHeight(context, 15),
-        ),
-        circularRadius: 15,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
+  // Glassmorphism container for the media section.
+  Widget _buildGlassMediaSection(BuildContext context, List<dynamic> projectData) {
+    return GlassContainer(
+      primaryColor: primaryColor,
+      accentColor: accentColor,
+      child: Padding(
+        padding: EdgeInsets.all(ResponsiveWidth(context, 20)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ResponsivePMaker(horizontal: 15),
-            _buildVideoPlayer(context, projectData[3]),
-            ResponsivePMaker(horizontal: 15),
-            _buildImageGallery(context, projectData[4]),
+            Text(
+              "Media",
+              style: TextStyle(
+                color: accentColor,
+                fontSize: ResponsiveFontSizeByHeight(context, 22),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: ResponsiveHeight(context, 10)),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _buildVideoPlayer(context, projectData[3]),
+                  SizedBox(width: ResponsiveWidth(context, 20)),
+                  _buildImageGallery(context, List<String>.from(projectData[4])),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
+  // Glassmorphism container for the links section.
+  Widget _buildGlassLinksSection(BuildContext context, List<dynamic> projectData) {
+    final links = projectData[5];
+    return GlassContainer(
+      primaryColor: primaryColor,
+      accentColor: accentColor,
+      child: Padding(
+        padding: EdgeInsets.all(ResponsiveWidth(context, 20)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (links["app"] != null && links["app"] != "")
+              _buildLinkButton(context, "App Link", "images/download.png", links["app"]),
+            if (links["website"] != null && links["website"] != "")
+              _buildLinkButton(context, "Website Link", "images/website.png", links["website"]),
+            if (links["github"] != null && links["github"] != "")
+              _buildLinkButton(context, "Github Link", "images/github.png", links["github"]),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Video player container with a glass-like border.
   Widget _buildVideoPlayer(BuildContext context, String videoUrl) {
-    return CMaker(
-      circularRadius: 15,
-      height: ResponsiveHeight(context, 500),
-      width: ResponsiveWidth(context, 400),
-      color: UsedColors.background,
-      alignment: Alignment.center,
+    return Container(
+      height: ResponsiveHeight(context, 250),
+      width: ResponsiveWidth(context, 350),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: accentColor.withOpacity(0.5), width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: accentColor.withOpacity(0.4),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: MyVideoPlayer(url: videoUrl, allowFullScreen: true),
     );
   }
 
+  // Image gallery with a horizontal list of styled image cards.
   Widget _buildImageGallery(BuildContext context, List<String> imageUrls) {
-    return CMaker(
-      height: ResponsiveHeight(context, 500),
-      width: ResponsiveWidth(context, 415.0 * imageUrls.length),
-      child: ListView.builder(
-        shrinkWrap: false,
-        physics: const NeverScrollableScrollPhysics(),
+    return Container(
+      height: ResponsiveHeight(context, 250),
+      width: ResponsiveWidth(
+        context, 
+        350 * imageUrls.length + 20 * (imageUrls.length - 1)
+      ),
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: imageUrls.length,
+        separatorBuilder: (context, index) =>
+            SizedBox(width: ResponsiveWidth(context, 20)),
         itemBuilder: (context, index) {
-          return CMaker(
-            margin: EdgeInsets.only(right: ResponsiveWidth(context, 15)),
-            circularRadius: 15,
-            color: UsedColors.background,
-            height: ResponsiveHeight(context, 500),
-            width: ResponsiveWidth(context, 400),
-            child: Image.network(imageUrls[index]),
+          return Container(
+            width: ResponsiveWidth(context, 350),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.4),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+              image: DecorationImage(
+                image: NetworkImage(imageUrls[index]),
+                fit: BoxFit.cover,
+              ),
+            ),
           );
         },
       ),
     );
   }
 
-  Widget _buildLinksSection(BuildContext context, List<dynamic> projectData) {
-    final links = projectData[5];
-    return CMaker(
-      width: PageWidth(context),
-      height: ResponsiveHeight(context, 145),
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (links["app"] != null&&links["app"] != "") _buildLinkButton(context, "App Link", "images/download.png", links["app"]),
-          ResponsivePMaker(horizontal: 20),
-          if (links["website"] != null&&links["app"] != "") _buildLinkButton(context, "Website Link", "images/website.png", links["website"]),
-          ResponsivePMaker(horizontal: 20),
-          if (links["github"] != null&&links["github"] != "") _buildLinkButton(context, "Github Link", "images/github.png", links["github"]),
-        ],
-      ),
-    );
-  }
-
+  // Individual link button with an icon and label.
   Widget _buildLinkButton(BuildContext context, String label, String iconPath, String url) {
     return InkWell(
       onTap: () {
         LaunchURL(url: url);
       },
-      child: CMaker(
-        color: UsedColors.Gray,
-        padding: EdgeInsets.symmetric(
-          vertical: ResponsiveHeight(context, 20),
-          horizontal: ResponsiveWidth(context, 20),
-        ),
-        circularRadius: 15,
-        height: ResponsiveHeight(context, 145),
-        child: Column(
-          children: [
-            SizedBox(
-              height: ResponsiveHeight(context, 60),
-              width: ResponsiveWidth(context, 60),
-              child: Image.asset(iconPath),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(ResponsiveWidth(context, 10)),
+            decoration: BoxDecoration(
+              color: accentColor,
+              shape: BoxShape.circle,
             ),
-            ResponsivePMaker(vertical: 20),
-            TMaker(
-              textAlign: TextAlign.start,
-              text: label,
-              fontSize: ResponsiveFontSizeByHeight(context, 15),
-              fontWeight: FontWeight.w500,
+            child: Image.asset(
+              iconPath,
+              height: ResponsiveHeight(context, 40),
+              width: ResponsiveWidth(context, 40),
+              color: primaryColor,
+            ),
+          ),
+          SizedBox(height: ResponsiveHeight(context, 10)),
+          Text(
+            label,
+            style: TextStyle(
               color: Colors.white,
+              fontSize: ResponsiveFontSizeByHeight(context, 16),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// GlassContainer widget with increased transparency for a subtle glassmorphism effect.
+class GlassContainer extends StatelessWidget {
+  final Widget child;
+  final Color primaryColor;
+  final Color accentColor;
+
+  const GlassContainer({
+    Key? key,
+    required this.child,
+    required this.primaryColor,
+    required this.accentColor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: primaryColor.withOpacity(0.08),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: accentColor.withOpacity(0.3), width: 1),
+          ),
+          child: child,
         ),
       ),
     );
+  }
+}
+
+// Custom clipper for the header to create a wave effect at the bottom.
+class HeaderClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(0, size.height - 50);
+    final firstControlPoint = Offset(size.width / 4, size.height);
+    final firstEndPoint = Offset(size.width / 2, size.height - 30);
+    path.quadraticBezierTo(
+      firstControlPoint.dx, firstControlPoint.dy,
+      firstEndPoint.dx, firstEndPoint.dy,
+    );
+    final secondControlPoint = Offset(3 * size.width / 4, size.height - 80);
+    final secondEndPoint = Offset(size.width, size.height - 40);
+    path.quadraticBezierTo(
+      secondControlPoint.dx, secondControlPoint.dy,
+      secondEndPoint.dx, secondEndPoint.dy,
+    );
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+  
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+// Animated creative background widget that uses an AnimationController to animate the glowing lines.
+class AnimatedCreativeBackground extends StatefulWidget {
+  final Color primaryColor;
+  final Color accentColor;
+  
+  const AnimatedCreativeBackground({
+    Key? key,
+    required this.primaryColor,
+    required this.accentColor,
+  }) : super(key: key);
+  
+  @override
+  _AnimatedCreativeBackgroundState createState() => _AnimatedCreativeBackgroundState();
+}
+
+class _AnimatedCreativeBackgroundState extends State<AnimatedCreativeBackground> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 8),
+    )..repeat();
+  }
+  
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return CustomPaint(
+          size: Size.infinite,
+          painter: AnimatedGlowingBackgroundPainter(
+            accentColor: widget.accentColor,
+            animationValue: _controller.value,
+          ),
+        );
+      },
+    );
+  }
+}
+
+// CustomPainter that draws multiple, thick, glowing curvy lines with animation.
+class AnimatedGlowingBackgroundPainter extends CustomPainter {
+  final Color accentColor;
+  final double animationValue;
+  
+  AnimatedGlowingBackgroundPainter({required this.accentColor, required this.animationValue});
+  
+  @override
+  void paint(Canvas canvas, Size size) {
+    final double pi2 = 2 * pi;
+    // Increase movement amplitude.
+    double offset1 = sin(animationValue * pi2) * 40; // increased from 20 to 40
+    double offset2 = cos(animationValue * pi2) * 50; // increased from 30 to 50
+    
+    // First glowing line.
+    final paint1 = Paint()
+      ..color = accentColor.withOpacity(0.35)
+      ..strokeWidth = 8 // thicker
+      ..style = PaintingStyle.stroke
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 12); // increased blur
+    final path1 = Path();
+    path1.moveTo(0, size.height * 0.2 + offset1);
+    path1.quadraticBezierTo(
+      size.width * 0.3, size.height * 0.15 + offset2,
+      size.width * 0.6, size.height * 0.25 + offset1,
+    );
+    path1.quadraticBezierTo(
+      size.width * 0.8, size.height * 0.35 + offset2,
+      size.width, size.height * 0.3 + offset1,
+    );
+    canvas.drawPath(path1, paint1);
+    
+    // Second glowing line.
+    final paint2 = Paint()
+      ..color = accentColor.withOpacity(0.3)
+      ..strokeWidth = 10 // thicker
+      ..style = PaintingStyle.stroke
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 14); // increased blur
+    final path2 = Path();
+    path2.moveTo(0, size.height * 0.5 + offset2);
+    path2.cubicTo(
+      size.width * 0.25, size.height * 0.55 + offset1,
+      size.width * 0.75, size.height * 0.45 + offset2,
+      size.width, size.height * 0.5 + offset1,
+    );
+    canvas.drawPath(path2, paint2);
+    
+    // Third glowing diagonal line.
+    final paint3 = Paint()
+      ..color = accentColor.withOpacity(0.25)
+      ..strokeWidth = 6
+      ..style = PaintingStyle.stroke
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 8);
+    final path3 = Path();
+    path3.moveTo(size.width * 0.1, size.height - offset1);
+    path3.lineTo(size.width * 0.9, 0 + offset2);
+    canvas.drawPath(path3, paint3);
+    
+    // Fourth glowing curvy line near the bottom.
+    final paint4 = Paint()
+      ..color = accentColor.withOpacity(0.35)
+      ..strokeWidth = 9 // thicker
+      ..style = PaintingStyle.stroke
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 12);
+    final path4 = Path();
+    path4.moveTo(0, size.height * 0.8 + offset2);
+    path4.quadraticBezierTo(
+      size.width * 0.5, size.height * 0.9 + offset1,
+      size.width, size.height * 0.75 + offset2,
+    );
+    canvas.drawPath(path4, paint4);
+  }
+  
+  @override
+  bool shouldRepaint(covariant AnimatedGlowingBackgroundPainter oldDelegate) {
+    return oldDelegate.animationValue != animationValue;
   }
 }
