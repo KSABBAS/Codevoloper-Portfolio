@@ -1240,6 +1240,7 @@ class ViewImage extends StatelessWidget {
           child: InstaImageViewer(
             child: Image(
               image: Image.asset(ImagePath!).image,
+              fit:  BoxFit.contain
             ),
           ),
         ),
@@ -1253,6 +1254,7 @@ class ViewImage extends StatelessWidget {
             child: InstaImageViewer(
               child: Image(
                 image: Image.file(file!).image,
+              fit:  BoxFit.contain
               ),
             ),
           ));
@@ -1265,6 +1267,7 @@ class ViewImage extends StatelessWidget {
             child: InstaImageViewer(
               child: Image(
                 image: Image.memory(bytes!).image,
+                fit:  BoxFit.contain
               ),
             ),
           ));
@@ -1279,6 +1282,7 @@ class ViewImage extends StatelessWidget {
                 image: Image.network(
                         ImageLink ?? "https://picsum.photos/id/507/1000")
                     .image,
+                    fit:  BoxFit.contain
               ),
             ),
           ));

@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:codeveloper_portfolio/Constants/UsedColors.dart';
 import 'package:codeveloper_portfolio/Data/ProjectsData.dart';
 import 'package:codeveloper_portfolio/MyTools/MyFunctionTools.dart';
 import 'package:codeveloper_portfolio/MyTools/MyTools.dart';
@@ -15,20 +14,42 @@ class ProjectIsOpened extends StatefulWidget {
   State<ProjectIsOpened> createState() => _ProjectIsOpenedState();
 }
 
-class _ProjectIsOpenedState extends State<ProjectIsOpened> {
+class _ProjectIsOpenedState extends State<ProjectIsOpened>
+    with SingleTickerProviderStateMixin {
   // Two main colors: dark primary and golden accent.
   final Color primaryColor = const Color.fromARGB(255, 29, 29, 32);
   final Color accentColor = const Color.fromARGB(255, 210, 191, 35);
+  late AnimationController _controller;
+  String? fullScreenImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  // Check if the video link is valid.
+  bool _isValidVideoLink(String? url) {
+    return url != null && url.trim().isNotEmpty && url.startsWith("http");
+  }
 
   @override
   Widget build(BuildContext context) {
     final projectData = ProjectClass.getProjectsData()[widget.ProjectIndex];
-
     return Scaffold(
       backgroundColor: primaryColor,
       body: Stack(
         children: [
-          // Animated creative background with dynamic, glowing curvy lines.
+          // Animated creative background with glowing, moving lines.
           AnimatedCreativeBackground(
             primaryColor: primaryColor,
             accentColor: accentColor,
@@ -40,9 +61,19 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
                 SizedBox(height: ResponsiveHeight(context, 20)),
                 _buildGlassDescription(context, projectData),
                 SizedBox(height: ResponsiveHeight(context, 20)),
-                _buildGlassMediaSection(context, projectData),
+                if (_isValidVideoLink(projectData[3]))
+                  _buildGlassVideoSection(context, projectData),
+                if (_isValidVideoLink(projectData[3]))
+                  SizedBox(height: ResponsiveHeight(context, 20)),
+                _buildGlassImagesSection(context, projectData),
                 SizedBox(height: ResponsiveHeight(context, 20)),
-                _buildGlassLinksSection(context, projectData),
+                if (projectData[5]["app"] != null &&
+                    projectData[5]["app"].trim().isNotEmpty &&
+                    projectData[5]["website"] != null &&
+                    projectData[5]["website"].trim().isNotEmpty &&
+                    projectData[5]["github"] != null &&
+                    projectData[5]["github"].trim().isNotEmpty)
+                  _buildGlassLinksSection(context, projectData),
                 SizedBox(height: ResponsiveHeight(context, 30)),
               ],
             ),
@@ -53,6 +84,28 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
             left: 10,
             child: _buildBackButton(),
           ),
+          // Full-screen image overlay.
+          if (fullScreenImageUrl != null)
+            Positioned.fill(
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    fullScreenImageUrl = null;
+                  });
+                },
+                child: Container(
+                  color: Colors.black.withOpacity(0.9),
+                  child: Center(
+                    child: InteractiveViewer(
+                      child: Image.network(
+                        fullScreenImageUrl!,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -111,7 +164,8 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
   }
 
   // Glassmorphism container for the description section.
-  Widget _buildGlassDescription(BuildContext context, List<dynamic> projectData) {
+  Widget _buildGlassDescription(
+      BuildContext context, List<dynamic> projectData) {
     return GlassContainer(
       primaryColor: primaryColor,
       accentColor: accentColor,
@@ -142,33 +196,62 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
     );
   }
 
-  // Glassmorphism container for the media section.
-  Widget _buildGlassMediaSection(BuildContext context, List<dynamic> projectData) {
+  // Glassmorphism container for the media section with separate video and images blocks.
+  Widget _buildGlassImagesSection(
+      BuildContext context, List<dynamic> projectData) {
     return GlassContainer(
       primaryColor: primaryColor,
       accentColor: accentColor,
       child: Padding(
         padding: EdgeInsets.all(ResponsiveWidth(context, 20)),
-        child: Column(
+        child:
+            // Images Block
+            Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Media",
+              "Images",
               style: TextStyle(
                 color: accentColor,
-                fontSize: ResponsiveFontSizeByHeight(context, 22),
-                fontWeight: FontWeight.bold,
+                fontSize: ResponsiveFontSizeByHeight(context, 18),
+                fontWeight: FontWeight.w600,
               ),
             ),
             SizedBox(height: ResponsiveHeight(context, 10)),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _buildVideoPlayer(context, projectData[3]),
-                  SizedBox(width: ResponsiveWidth(context, 20)),
-                  _buildImageGallery(context, List<String>.from(projectData[4])),
-                ],
+            // Fixed height of 300 for images block.
+            SizedBox(
+              height: 300,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: List<String>.from(projectData[4]).length,
+                separatorBuilder: (context, index) =>
+                    SizedBox(width: ResponsiveWidth(context, 8)),
+                itemBuilder: (context, index) {
+                  final imageUrl = List<String>.from(projectData[4])[index];
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (fullScreenImageUrl == imageUrl) {
+                          fullScreenImageUrl = null;
+                        } else {
+                          fullScreenImageUrl = imageUrl;
+                        }
+                      });
+                    },
+                    child: Container(
+                      margin:
+                          EdgeInsets.only(right: ResponsiveWidth(context, 8)),
+                      constraints: BoxConstraints(
+                        maxWidth: 300,
+                      ),
+                      child: Image.network(
+                        imageUrl,
+                        height: 300,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -177,8 +260,39 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
     );
   }
 
+  Widget _buildGlassVideoSection(
+      BuildContext context, List<dynamic> projectData) {
+    return GlassContainer(
+      primaryColor: primaryColor,
+      accentColor: accentColor,
+      child: Padding(
+        padding: EdgeInsets.all(ResponsiveWidth(context, 20)),
+        child:
+            // Images Block
+
+            Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Video",
+              style: TextStyle(
+                color: accentColor,
+                fontSize: ResponsiveFontSizeByHeight(context, 18),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: ResponsiveHeight(context, 10)),
+            _buildVideoPlayer(context, projectData[3]),
+            SizedBox(height: ResponsiveHeight(context, 20)),
+          ],
+        ),
+      ),
+    );
+  }
+
   // Glassmorphism container for the links section.
-  Widget _buildGlassLinksSection(BuildContext context, List<dynamic> projectData) {
+  Widget _buildGlassLinksSection(
+      BuildContext context, List<dynamic> projectData) {
     final links = projectData[5];
     return GlassContainer(
       primaryColor: primaryColor,
@@ -188,12 +302,15 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            if (links["app"] != null && links["app"] != "")
-              _buildLinkButton(context, "App Link", "images/download.png", links["app"]),
-            if (links["website"] != null && links["website"] != "")
-              _buildLinkButton(context, "Website Link", "images/website.png", links["website"]),
-            if (links["github"] != null && links["github"] != "")
-              _buildLinkButton(context, "Github Link", "images/github.png", links["github"]),
+            if (links["app"] != null && links["app"].trim().isNotEmpty)
+              _buildLinkButton(
+                  context, "App Link", "images/download.png", links["app"]),
+            if (links["website"] != null && links["website"].trim().isNotEmpty)
+              _buildLinkButton(context, "Website Link", "images/website.png",
+                  links["website"]),
+            if (links["github"] != null && links["github"].trim().isNotEmpty)
+              _buildLinkButton(
+                  context, "Github Link", "images/github.png", links["github"]),
           ],
         ),
       ),
@@ -221,44 +338,9 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
     );
   }
 
-  // Image gallery with a horizontal list of styled image cards.
-  Widget _buildImageGallery(BuildContext context, List<String> imageUrls) {
-    return Container(
-      height: ResponsiveHeight(context, 250),
-      width: ResponsiveWidth(
-        context, 
-        350 * imageUrls.length + 20 * (imageUrls.length - 1)
-      ),
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: imageUrls.length,
-        separatorBuilder: (context, index) =>
-            SizedBox(width: ResponsiveWidth(context, 20)),
-        itemBuilder: (context, index) {
-          return Container(
-            width: ResponsiveWidth(context, 350),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: accentColor.withOpacity(0.4),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-              image: DecorationImage(
-                image: NetworkImage(imageUrls[index]),
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   // Individual link button with an icon and label.
-  Widget _buildLinkButton(BuildContext context, String label, String iconPath, String url) {
+  Widget _buildLinkButton(
+      BuildContext context, String label, String iconPath, String url) {
     return InkWell(
       onTap: () {
         LaunchURL(url: url);
@@ -292,7 +374,7 @@ class _ProjectIsOpenedState extends State<ProjectIsOpened> {
   }
 }
 
-// GlassContainer widget with increased transparency for a subtle glassmorphism effect.
+// GlassContainer widget for glassmorphism effect.
 class GlassContainer extends StatelessWidget {
   final Widget child;
   final Color primaryColor;
@@ -334,20 +416,24 @@ class HeaderClipper extends CustomClipper<Path> {
     final firstControlPoint = Offset(size.width / 4, size.height);
     final firstEndPoint = Offset(size.width / 2, size.height - 30);
     path.quadraticBezierTo(
-      firstControlPoint.dx, firstControlPoint.dy,
-      firstEndPoint.dx, firstEndPoint.dy,
+      firstControlPoint.dx,
+      firstControlPoint.dy,
+      firstEndPoint.dx,
+      firstEndPoint.dy,
     );
     final secondControlPoint = Offset(3 * size.width / 4, size.height - 80);
     final secondEndPoint = Offset(size.width, size.height - 40);
     path.quadraticBezierTo(
-      secondControlPoint.dx, secondControlPoint.dy,
-      secondEndPoint.dx, secondEndPoint.dy,
+      secondControlPoint.dx,
+      secondControlPoint.dy,
+      secondEndPoint.dx,
+      secondEndPoint.dy,
     );
     path.lineTo(size.width, 0);
     path.close();
     return path;
   }
-  
+
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
@@ -356,20 +442,22 @@ class HeaderClipper extends CustomClipper<Path> {
 class AnimatedCreativeBackground extends StatefulWidget {
   final Color primaryColor;
   final Color accentColor;
-  
+
   const AnimatedCreativeBackground({
     Key? key,
     required this.primaryColor,
     required this.accentColor,
   }) : super(key: key);
-  
+
   @override
-  _AnimatedCreativeBackgroundState createState() => _AnimatedCreativeBackgroundState();
+  _AnimatedCreativeBackgroundState createState() =>
+      _AnimatedCreativeBackgroundState();
 }
 
-class _AnimatedCreativeBackgroundState extends State<AnimatedCreativeBackground> with SingleTickerProviderStateMixin {
+class _AnimatedCreativeBackgroundState extends State<AnimatedCreativeBackground>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  
+
   @override
   void initState() {
     super.initState();
@@ -378,13 +466,13 @@ class _AnimatedCreativeBackgroundState extends State<AnimatedCreativeBackground>
       duration: const Duration(seconds: 8),
     )..repeat();
   }
-  
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -406,49 +494,56 @@ class _AnimatedCreativeBackgroundState extends State<AnimatedCreativeBackground>
 class AnimatedGlowingBackgroundPainter extends CustomPainter {
   final Color accentColor;
   final double animationValue;
-  
-  AnimatedGlowingBackgroundPainter({required this.accentColor, required this.animationValue});
-  
+
+  AnimatedGlowingBackgroundPainter(
+      {required this.accentColor, required this.animationValue});
+
   @override
   void paint(Canvas canvas, Size size) {
     final double pi2 = 2 * pi;
-    // Increase movement amplitude.
-    double offset1 = sin(animationValue * pi2) * 40; // increased from 20 to 40
-    double offset2 = cos(animationValue * pi2) * 50; // increased from 30 to 50
-    
+    double offset1 = sin(animationValue * pi2) * 40;
+    double offset2 = cos(animationValue * pi2) * 50;
+
     // First glowing line.
     final paint1 = Paint()
       ..color = accentColor.withOpacity(0.35)
-      ..strokeWidth = 8 // thicker
+      ..strokeWidth = 8
       ..style = PaintingStyle.stroke
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 12); // increased blur
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 12);
     final path1 = Path();
     path1.moveTo(0, size.height * 0.2 + offset1);
     path1.quadraticBezierTo(
-      size.width * 0.3, size.height * 0.15 + offset2,
-      size.width * 0.6, size.height * 0.25 + offset1,
+      size.width * 0.3,
+      size.height * 0.15 + offset2,
+      size.width * 0.6,
+      size.height * 0.25 + offset1,
     );
     path1.quadraticBezierTo(
-      size.width * 0.8, size.height * 0.35 + offset2,
-      size.width, size.height * 0.3 + offset1,
+      size.width * 0.8,
+      size.height * 0.35 + offset2,
+      size.width,
+      size.height * 0.3 + offset1,
     );
     canvas.drawPath(path1, paint1);
-    
+
     // Second glowing line.
     final paint2 = Paint()
       ..color = accentColor.withOpacity(0.3)
-      ..strokeWidth = 10 // thicker
+      ..strokeWidth = 10
       ..style = PaintingStyle.stroke
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 14); // increased blur
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 14);
     final path2 = Path();
     path2.moveTo(0, size.height * 0.5 + offset2);
     path2.cubicTo(
-      size.width * 0.25, size.height * 0.55 + offset1,
-      size.width * 0.75, size.height * 0.45 + offset2,
-      size.width, size.height * 0.5 + offset1,
+      size.width * 0.25,
+      size.height * 0.55 + offset1,
+      size.width * 0.75,
+      size.height * 0.45 + offset2,
+      size.width,
+      size.height * 0.5 + offset1,
     );
     canvas.drawPath(path2, paint2);
-    
+
     // Third glowing diagonal line.
     final paint3 = Paint()
       ..color = accentColor.withOpacity(0.25)
@@ -459,22 +554,24 @@ class AnimatedGlowingBackgroundPainter extends CustomPainter {
     path3.moveTo(size.width * 0.1, size.height - offset1);
     path3.lineTo(size.width * 0.9, 0 + offset2);
     canvas.drawPath(path3, paint3);
-    
+
     // Fourth glowing curvy line near the bottom.
     final paint4 = Paint()
       ..color = accentColor.withOpacity(0.35)
-      ..strokeWidth = 9 // thicker
+      ..strokeWidth = 9
       ..style = PaintingStyle.stroke
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, 12);
     final path4 = Path();
     path4.moveTo(0, size.height * 0.8 + offset2);
     path4.quadraticBezierTo(
-      size.width * 0.5, size.height * 0.9 + offset1,
-      size.width, size.height * 0.75 + offset2,
+      size.width * 0.5,
+      size.height * 0.9 + offset1,
+      size.width,
+      size.height * 0.75 + offset2,
     );
     canvas.drawPath(path4, paint4);
   }
-  
+
   @override
   bool shouldRepaint(covariant AnimatedGlowingBackgroundPainter oldDelegate) {
     return oldDelegate.animationValue != animationValue;
